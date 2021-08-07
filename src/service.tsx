@@ -45,17 +45,21 @@ function rawObjectPost<T>(
         });
 }
 
-class AccessData {
-    // accessToken: string;
+export class AccessData {
+    accessToken: string;
+
+    constructor() {
+        this.accessToken = "";
+    }
 }
 
-const loginUrl = 'login';
+const loginUrl = 'http://localhost:8080/login';
 export const postLogin = (
-    username: string,
+    email: string,
     password: string,
     resolve: (data: AccessData) => void,
     reject?: (data: Error) => void,
 ): Promise<AccessData> => {
-    return rawObjectPost(loginUrl, { username: username, password: password }, resolve, {}, reject);
+    return rawObjectPost(loginUrl, { email: email, password: password }, resolve, {}, reject);
 };
 

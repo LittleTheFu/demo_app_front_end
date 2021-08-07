@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useHistory, Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
+import { AccessData, postLogin } from './service';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -36,13 +37,16 @@ export const Login: React.FC = () => {
     const history = useHistory();
     const classes = useStyles({});
 
+    const resolveData = (data: AccessData): void => {
+        console.log(data.accessToken);
+    };
+
     function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
         event.preventDefault();
-        // You should see email and password in console.
-        // ..code to submit form to backend here...
+        postLogin(username, password, resolveData);
 
-        console.log(username);
-        console.log(password);
+        // console.log(username);
+        // console.log(password);
     }
 
     return (
