@@ -46,14 +46,14 @@ function rawObjectPost<T>(
 }
 
 export class AccessData {
-    accessToken: string;
+    token: string;
 
     constructor() {
-        this.accessToken = "";
+        this.token = "";
     }
 }
 
-const loginUrl = 'http://localhost:8080/login';
+const loginUrl = 'http://localhost:8080/account/login';
 export const postLogin = (
     email: string,
     password: string,

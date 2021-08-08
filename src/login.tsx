@@ -38,7 +38,8 @@ export const Login: React.FC = () => {
     const classes = useStyles({});
 
     const resolveData = (data: AccessData): void => {
-        console.log(data.accessToken);
+        console.log(data);
+        console.log(data.token);
     };
 
     function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
