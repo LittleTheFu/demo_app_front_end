@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getTokenObject, getTokenString } from './common';
+import { getTokenString } from './common';
 
 function rawObjectGet<T>(
     url: string,
