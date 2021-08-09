@@ -4,7 +4,9 @@ import Button from '@material-ui/core/Button';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useHistory, Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
-import { AccessData, postLogin } from './service';
+import { AccessData, getGreeting, postLogin } from './service';
+import { ObjectHTMLAttributes } from 'react';
+import { setToken, setTokenHead } from './common';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -37,9 +39,12 @@ export const Login: React.FC = () => {
     const history = useHistory();
     const classes = useStyles({});
 
-    const resolveData = (data: AccessData): void => {
-        console.log(data);
-        console.log(data.token);
+    const resolveData = (accessData: AccessData): void => {
+        console.log(accessData);
+        console.log(accessData.data);
+
+        setTokenHead(accessData.data.tokenHead);
+        setToken(accessData.data.token);
     };
 
     function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
@@ -50,8 +55,13 @@ export const Login: React.FC = () => {
         // console.log(password);
     }
 
+    const grettings = (): void => {
+        getGreeting((data: object) => { console.log(data) });
+    };
+
     return (
         <Container maxWidth="sm" className={classes.main}>
+            <Button onClick={grettings} color="secondary">greeting</Button>
             <div className={classes.paper}>
                 <form onSubmit={handleSubmit} className={classes.root} noValidate autoComplete="off">
                     <TextField id="name" label="user" onChange={(e): void => setUser(e.target.value)} />
