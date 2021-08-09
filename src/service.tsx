@@ -185,3 +185,39 @@ export const getGreeting = (
     return rawObjectGet(greetingUrl, resolve, { 'Authorization': authHead }, reject);
 };
 
+export class Article {
+    title: string;
+    content: string;
+    author: string;
+    thumb: number;
+
+    constructor() {
+        this.title = 'title';
+        this.content = 'content';
+        this.author = 'author';
+        this.thumb = 0;
+    }
+}
+
+export class AllArticleData {
+    code: number;
+    token: string;
+    data: Article[];
+
+    constructor() {
+        this.code = 0;
+        this.token = "";
+
+        this.data = [];
+    }
+}
+
+const allArticleUrl = 'http://localhost:8080/article/all';
+export const getAllArticles = (
+    resolve: (data: AllArticleData) => void,
+    reject?: (data: Error) => void,
+): Promise<AllArticleData> => {
+    return rawObjectGet(allArticleUrl, resolve, {}, reject);
+};
+
+
