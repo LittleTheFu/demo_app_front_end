@@ -186,12 +186,14 @@ export const getGreeting = (
 };
 
 export class Article {
+    id: number;
     title: string;
     content: string;
     author: string;
     thumb: number;
 
     constructor() {
+        this.id = 0;
         this.title = 'title';
         this.content = 'content';
         this.author = 'author';

@@ -14,32 +14,34 @@ const useStyles = makeStyles({
 });
 
 interface ArticleCardProps {
+    id: number;
     title: string;
     content: string;
     author: string;
     thumb: number;
+    textClick?: () => void;
 }
 
-export const ArticleCard: React.FC<ArticleCardProps> = (props: ArticleCardProps) => {
+export const ArticleCard: React.FC<ArticleCardProps> = (props?: ArticleCardProps) => {
 
 
     const classes = useStyles();
 
     return (
         <Card className={classes.root}>
-            <CardActionArea>
+            <CardActionArea onClick={props?.textClick}>
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
-                        {props.title + '  ' + 'by' + '  ' + props.author}
+                        {props?.title + '  ' + 'by' + '  ' + props?.author}
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
-                        {props.content}
+                        {props?.content}
                     </Typography>
                 </CardContent>
             </CardActionArea>
             <CardActions>
                 <Button size="small" color="primary">
-                    {'thumb:' + props.thumb}
+                    {'thumb:' + props?.thumb}
                 </Button>
             </CardActions>
         </Card>

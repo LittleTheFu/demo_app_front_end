@@ -1,6 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { ArticleCard } from "./ArticleCard";
 import { Article, getAllArticles } from "./service";
 
@@ -10,11 +11,15 @@ const useStyles = makeStyles({
     },
 });
 
-
 export const AllArticle: React.FC = () => {
     const [allArticles, setAllArticles] = useState<Article[]>([]);
     const classes = useStyles();
+    const history = useHistory();
 
+    const CardClick = (id: number): void => {
+        history.push("/main/article/" + id);
+        console.log("card clicked : " + id)
+    };
 
     useEffect(() => {
         getAllArticles(articles => {
@@ -29,8 +34,14 @@ export const AllArticle: React.FC = () => {
         <div>
             {
                 allArticles.map((article: Article, index: number) => {
-                    return <ArticleCard key={index} title={article.title} content={article.content}
-                        thumb={article.thumb} author={article.author}></ArticleCard>
+                    return <ArticleCard 
+                        textClick={()=>{CardClick(article.id)}}
+                        key={index}
+                        id={article.id}
+                        title={article.title}
+                        content={article.content}
+                        thumb={article.thumb}
+                        author={article.author} />
                 })
             }
 
