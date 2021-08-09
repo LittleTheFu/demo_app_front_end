@@ -32,7 +32,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = (props?: ArticleCardProps
             <CardActionArea onClick={props?.textClick}>
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
-                        {props?.title + '  ' + 'by' + '  ' + props?.author}
+                        {props?.title + '  by  ' + props?.author}
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
                         {props?.content}

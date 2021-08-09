@@ -222,4 +222,25 @@ export const getAllArticles = (
     return rawObjectGet(allArticleUrl, resolve, {}, reject);
 };
 
+export class ArticleData {
+    code: number;
+    token: string;
+    data: Article;
+
+    constructor() {
+        this.code = 0;
+        this.token = "";
+
+        this.data = new Article();
+    }
+}
+const getArticleUrl = 'http://localhost:8080/article/';
+export const getArticleById = (
+    id: string,
+    resolve: (data: ArticleData) => void,
+    reject?: (data: Error) => void,
+): Promise<ArticleData> => {
+    return rawObjectGet(getArticleUrl + id, resolve, {}, reject);
+};
+
 
