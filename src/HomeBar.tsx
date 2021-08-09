@@ -1,7 +1,7 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import HomeIcon from '@material-ui/icons/Home';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -30,6 +30,11 @@ export default function HomeBar() {
         console.log("login clicked")
     };
 
+    const homeClick = (): void => {
+        history.push("/main/articles");
+        console.log("home clicked")
+    };
+
     return (
         <div className={classes.root}>
             <AppBar position="static">
@@ -37,9 +42,9 @@ export default function HomeBar() {
                     <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" className={classes.title}>
-                        News
-                    </Typography>
+                    <IconButton edge="start" onClick={homeClick} className={classes.menuButton} color="inherit" aria-label="menu">
+                        <HomeIcon />
+                    </IconButton>
                     <Button color="inherit" onClick={loginClick}>Login</Button>
                 </Toolbar>
             </AppBar>

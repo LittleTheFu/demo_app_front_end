@@ -1,17 +1,18 @@
 import { Login } from './login';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import HomeBar from './HomeBar';
+import { AllArticle } from './allArticle';
+import { MainFrame } from './MainFrame';
 
 export default function App() {
 
   return (
     <Router>
       <Switch>
-      <Route path="/login">
+        <Route path="/login">
           <Login />
         </Route>
-        <Route path="/">
-          <HomeBar />
+        <Route path="/main">
+          <MainFrame />
         </Route>
       </Switch>
     </Router>
