@@ -19,7 +19,9 @@ interface ArticleCardProps {
     content: string;
     author: string;
     thumb: number;
+    thumbed: boolean;
     textClick?: () => void;
+    thumbClick?: () => void;
 }
 
 export const ArticleCard: React.FC<ArticleCardProps> = (props?: ArticleCardProps) => {
@@ -40,8 +42,8 @@ export const ArticleCard: React.FC<ArticleCardProps> = (props?: ArticleCardProps
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button size="small" color="primary">
-                    {'thumb:' + props?.thumb}
+                <Button size="small" color="primary" onClick={props?.thumbClick}>
+                    { ( props?.thumbed ? 'unThumb : ' : 'Thumb : ' ) + props?.thumb}
                 </Button>
             </CardActions>
         </Card>

@@ -25,7 +25,7 @@ export const AllArticle: React.FC = () => {
         getAllArticles(articles => {
             setAllArticles(articles.data);
             // console.log('all articles:');
-            // console.log(articles);
+             console.log(articles);
             // console.log(allArticles);
         });
     }, []);
@@ -41,6 +41,7 @@ export const AllArticle: React.FC = () => {
                         title={article.title}
                         content={article.content}
                         thumb={article.thumb}
+                        thumbed={article.thumbState}
                         author={article.author} />
                 })
             }

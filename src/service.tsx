@@ -191,6 +191,7 @@ export class Article {
     content: string;
     author: string;
     thumb: number;
+    thumbState: boolean;
 
     constructor() {
         this.id = 0;
@@ -198,6 +199,7 @@ export class Article {
         this.content = 'content';
         this.author = 'author';
         this.thumb = 0;
+        this.thumbState = false;
     }
 }
 
@@ -219,7 +221,8 @@ export const getAllArticles = (
     resolve: (data: AllArticleData) => void,
     reject?: (data: Error) => void,
 ): Promise<AllArticleData> => {
-    return rawObjectGet(allArticleUrl, resolve, {}, reject);
+    const authHead = getTokenString();
+    return rawObjectGet(allArticleUrl, resolve, { 'Authorization': authHead }, reject);
 };
 
 export class ArticleData {
@@ -240,7 +243,17 @@ export const getArticleById = (
     resolve: (data: ArticleData) => void,
     reject?: (data: Error) => void,
 ): Promise<ArticleData> => {
-    return rawObjectGet(getArticleUrl + id, resolve, {}, reject);
+    const authHead = getTokenString();
+    return rawObjectGet(getArticleUrl + id, resolve, { 'Authorization': authHead }, reject);
 };
 
 
+const thumbArticleUrl = 'http://localhost:8080/article/thumb/'
+export const thumbArticle = (
+    id: number,
+    resolve: (data: AccessData) => void,
+    reject?: (data: Error) => void,
+): Promise<AccessData> => {
+    const authHead = getTokenString();
+    return rawObjectPut(thumbArticleUrl + id, {}, resolve, { 'Authorization': authHead }, reject);
+};

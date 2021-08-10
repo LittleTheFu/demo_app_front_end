@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Article, getArticleById } from "./service";
+import { Article, getArticleById, thumbArticle } from "./service";
 import { useParams } from 'react-router-dom';
 import { ArticleCard } from './ArticleCard';
 
@@ -13,12 +13,14 @@ const useStyles = makeStyles({
 export const ArticleDetail: React.FC = () => {
     const [article, setArticle] = useState<Article>(new Article);
     const classes = useStyles();
-    // const { sumParams } = useParams() as {
-    //     sumParams: string;
-    // };
+
     const { id } = useParams<{ id: string }>();
 
-    // const intId = parseInt(sumParams);
+    const ThumbClick = (id: number): void => {
+        thumbArticle(id, (data) => { console.log(data) });
+        console.log("thumb clicked : " + id)
+    };
+
 
     useEffect(() => {
         getArticleById(id, article => {
@@ -29,6 +31,12 @@ export const ArticleDetail: React.FC = () => {
     }, [id]);
 
 
-    return (<ArticleCard id={article.id} title={article.title} content={article.content}
-        author={article.author} thumb={article.thumb}></ArticleCard>);
+    return (<ArticleCard
+        thumbClick={() => { ThumbClick(article.id) }}
+        id={article.id}
+        title={article.title}
+        content={article.content}
+        author={article.author}
+        thumb={article.thumb}
+        thumbed={article.thumbState}></ArticleCard>);
 };
