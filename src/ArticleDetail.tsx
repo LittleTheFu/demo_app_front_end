@@ -11,7 +11,7 @@ const useStyles = makeStyles({
 });
 
 export const ArticleDetail: React.FC = () => {
-    const [article, setArticle] = useState<Article>(new Article);
+    const [article, setArticle] = useState<Article>(new Article());
     const classes = useStyles();
 
     const { id } = useParams<{ id: string }>();
@@ -28,7 +28,11 @@ export const ArticleDetail: React.FC = () => {
             // console.log(article);
             setArticle(article.data);
         });
+    }, []);
+
+    useEffect(() => {
     }, [id]);
+
 
 
     return (<ArticleCard
