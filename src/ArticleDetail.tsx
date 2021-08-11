@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Article, getArticleById, thumbArticle, unthumbArticle } from "./service";
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { ArticleCard } from './ArticleCard';
 
 const useStyles = makeStyles({
@@ -13,6 +13,7 @@ const useStyles = makeStyles({
 export const ArticleDetail: React.FC = () => {
     const [article, setArticle] = useState<Article>(new Article());
     const classes = useStyles();
+    const history = useHistory();
 
     const { id } = useParams<{ id: string }>();
 
@@ -31,6 +32,11 @@ export const ArticleDetail: React.FC = () => {
         console.log("thumb/unthumb clicked : " + id)
     };
 
+    const AuthorClick = (authorId: number): void => {
+        history.push("/main/user/" + authorId);
+        console.log("author clicked : " + authorId);
+    }
+
 
     useEffect(() => {
         getArticleById(id, article => {
@@ -47,6 +53,7 @@ export const ArticleDetail: React.FC = () => {
 
     return (<ArticleCard
         thumbClick={() => { ThumbClick(article.id) }}
+        authorClick={() => {AuthorClick(article.authorId)}}
         id={article.id}
         title={article.title}
         content={article.content}

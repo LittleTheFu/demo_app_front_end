@@ -22,6 +22,7 @@ interface ArticleCardProps {
     thumbed: boolean;
     textClick?: () => void;
     thumbClick?: () => void;
+    authorClick?: () => void;
 }
 
 export const ArticleCard: React.FC<ArticleCardProps> = (props?: ArticleCardProps) => {
@@ -34,7 +35,10 @@ export const ArticleCard: React.FC<ArticleCardProps> = (props?: ArticleCardProps
             <CardActionArea onClick={props?.textClick}>
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
-                        {props?.title + '  by  ' + props?.author}
+                        {props?.title}
+                    </Typography>
+                    <Typography onClick={props?.authorClick} gutterBottom variant="h5" component="h2">
+                        {props?.author}
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
                         {props?.content}

@@ -190,6 +190,7 @@ export class Article {
     title: string;
     content: string;
     author: string;
+    authorId: number;
     thumb: number;
     thumbState: boolean;
 
@@ -198,6 +199,7 @@ export class Article {
         this.title = 'title';
         this.content = 'content';
         this.author = 'author';
+        this.authorId = 0;
         this.thumb = 0;
         this.thumbState = false;
     }
@@ -258,7 +260,7 @@ export const thumbArticle = (
     return rawObjectPut(thumbArticleUrl + id, {}, resolve, { 'Authorization': authHead }, reject);
 };
 
-const unthumbArticleUrl = 'http://localhost:8080/article/unthumb/'
+const unthumbArticleUrl = 'http://localhost:8080/article/unthumb/';
 export const unthumbArticle = (
     id: number,
     resolve: (data: ArticleData) => void,
@@ -266,4 +268,37 @@ export const unthumbArticle = (
 ): Promise<ArticleData> => {
     const authHead = getTokenString();
     return rawObjectPut(unthumbArticleUrl + id, {}, resolve, { 'Authorization': authHead }, reject);
+};
+
+export class UserDetail {
+    id: number;
+    name: string;
+
+    constructor() {
+        this.id = 0;
+        this.name = 'name';
+    }
+}
+
+export class UserData {
+    code: number;
+    token: string;
+    data: UserDetail;
+
+    constructor() {
+        this.code = 0;
+        this.token = "";
+
+        this.data = new UserDetail();
+    }
+}
+
+const getUserDetailUrl = 'http://localhost:8080/user/';
+export const getUserById = (
+    id: string,
+    resolve: (data: UserData) => void,
+    reject?: (data: Error) => void,
+): Promise<UserData> => {
+    const authHead = getTokenString();
+    return rawObjectGet(getUserDetailUrl + id, resolve, { 'Authorization': authHead }, reject);
 };
