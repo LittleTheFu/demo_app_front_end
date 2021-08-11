@@ -273,10 +273,12 @@ export const unthumbArticle = (
 export class UserDetail {
     id: number;
     name: string;
+    followed: boolean;
 
     constructor() {
         this.id = 0;
         this.name = 'name';
+        this.followed = false;
     }
 }
 
