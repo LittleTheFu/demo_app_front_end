@@ -251,9 +251,19 @@ export const getArticleById = (
 const thumbArticleUrl = 'http://localhost:8080/article/thumb/'
 export const thumbArticle = (
     id: number,
-    resolve: (data: AccessData) => void,
+    resolve: (data: ArticleData) => void,
     reject?: (data: Error) => void,
-): Promise<AccessData> => {
+): Promise<ArticleData> => {
     const authHead = getTokenString();
     return rawObjectPut(thumbArticleUrl + id, {}, resolve, { 'Authorization': authHead }, reject);
+};
+
+const unthumbArticleUrl = 'http://localhost:8080/article/unthumb/'
+export const unthumbArticle = (
+    id: number,
+    resolve: (data: ArticleData) => void,
+    reject?: (data: Error) => void,
+): Promise<ArticleData> => {
+    const authHead = getTokenString();
+    return rawObjectPut(unthumbArticleUrl + id, {}, resolve, { 'Authorization': authHead }, reject);
 };
