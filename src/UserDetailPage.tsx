@@ -1,7 +1,7 @@
 import { Button } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getUserById, UserDetail } from "./service";
+import { followUser, getUserById, unfollowUser, UserDetail } from "./service";
 
 export const UserDetailPage: React.FC = () => {
     const [userDetail, setUserDetail] = useState<UserDetail>(new UserDetail());
@@ -16,7 +16,22 @@ export const UserDetailPage: React.FC = () => {
     }, []);
 
     const FollowClick = (id: number): void => {
-        console.log("follow clicked : " + id);
+        if(userDetail.followed) {
+            unfollowUser(id, (data) => {
+                setUserDetail({...userDetail, ...data.data});
+                console.log("unfollow clicked : " + id);
+                console.log(data);
+            })
+        }
+        else{
+            followUser(id, (data) => {
+                setUserDetail({...userDetail, ...data.data});
+                console.log("follow clicked : " + id);
+                console.log(data);
+            })
+
+        }
+        
     }
 
 

@@ -305,12 +305,34 @@ export const getUserById = (
     return rawObjectGet(getUserDetailUrl + id, resolve, { 'Authorization': authHead }, reject);
 };
 
+export class FollowResponse {
+    followed: boolean;
+
+    constructor() {
+        this.followed = false;
+    }
+}
+
+export class FollowResponseData {
+    code: number;
+    token: string;
+    data: FollowResponse;
+
+    constructor() {
+        this.code = 0;
+        this.token = "";
+
+        this.data = new FollowResponse();
+    }
+}
+
+
 const followUserUrl = 'http://localhost:8080/user/follow/';
 export const followUser = (
     id: number,
-    resolve: (data: ArticleData) => void,
+    resolve: (data: FollowResponseData) => void,
     reject?: (data: Error) => void,
-): Promise<ArticleData> => {
+): Promise<FollowResponseData> => {
     const authHead = getTokenString();
     return rawObjectPut(followUserUrl + id, {}, resolve, { 'Authorization': authHead }, reject);
 };
@@ -319,9 +341,9 @@ export const followUser = (
 const unfollowUserUrl = 'http://localhost:8080/user/unfollow/';
 export const unfollowUser = (
     id: number,
-    resolve: (data: ArticleData) => void,
+    resolve: (data: FollowResponseData) => void,
     reject?: (data: Error) => void,
-): Promise<ArticleData> => {
+): Promise<FollowResponseData> => {
     const authHead = getTokenString();
     return rawObjectPut(unfollowUserUrl + id, {}, resolve, { 'Authorization': authHead }, reject);
 };
