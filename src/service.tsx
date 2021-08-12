@@ -347,3 +347,53 @@ export const unfollowUser = (
     const authHead = getTokenString();
     return rawObjectPut(unfollowUserUrl + id, {}, resolve, { 'Authorization': authHead }, reject);
 };
+
+const createCommentUrl = 'http://localhost:8080/article/create_comment/';
+export const createComment = (
+    id: string,
+    content: string,
+    resolve: (data: CommentData) => void,
+    reject?: (data: Error) => void,
+): Promise<CommentData> => {
+    const authHead = getTokenString();
+    return rawObjectPut(createCommentUrl + id, { content: content }, resolve, { 'Authorization': authHead }, reject);
+};
+
+export class ArticleComment {
+    id: number;
+    articleCommentArticleId: number;
+    articleCommentUserId: number;
+    articleCommentUserName: string;
+    articleCommentContent: string;
+
+    constructor() {
+        this.id = 0;
+        this.articleCommentArticleId = 0;
+        this.articleCommentUserId = 0;
+        this.articleCommentUserName = 'name';
+        this.articleCommentContent = 'content';
+    }
+}
+
+export class CommentData {
+    code: number;
+    token: string;
+    data: ArticleComment[];
+
+    constructor() {
+        this.code = 0;
+        this.token = "";
+
+        this.data = [];
+    }
+}
+
+const getArticleCommentsUrl = 'http://localhost:8080/article/article_comments/';
+export const getArticleComments = (
+    id: string,
+    resolve: (data: CommentData) => void,
+    reject?: (data: Error) => void,
+): Promise<CommentData> => {
+    const authHead = getTokenString();
+    return rawObjectGet(getArticleCommentsUrl + id, resolve, { 'Authorization': authHead }, reject);
+};
