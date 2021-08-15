@@ -141,6 +141,16 @@ function rawObjectPost<T>(
         });
 }
 
+export class BaseData {
+    code: number;
+    token: string;
+
+    constructor() {
+        this.code = 0;
+        this.token = '';
+    }
+}
+
 export class TokenData {
     token: string;
     tokenHead: string;
@@ -151,14 +161,11 @@ export class TokenData {
     }
 }
 
-export class AccessData {
-    code: number;
-    token: string;
+export class AccessData extends BaseData {
     data: TokenData;
 
     constructor() {
-        this.code = 0;
-        this.token = "";
+        super();
 
         this.data = new TokenData();
     }
@@ -205,15 +212,11 @@ export class Article {
     }
 }
 
-export class AllArticleData {
-    code: number;
-    token: string;
+export class AllArticleData extends BaseData{
     data: Article[];
 
     constructor() {
-        this.code = 0;
-        this.token = "";
-
+        super();
         this.data = [];
     }
 }
@@ -227,18 +230,15 @@ export const getAllArticles = (
     return rawObjectGet(allArticleUrl, resolve, { 'Authorization': authHead }, reject);
 };
 
-export class ArticleData {
-    code: number;
-    token: string;
+export class ArticleData extends BaseData{
     data: Article;
 
     constructor() {
-        this.code = 0;
-        this.token = "";
-
+        super();
         this.data = new Article();
     }
 }
+
 const getArticleUrl = 'http://localhost:8080/article/';
 export const getArticleById = (
     id: string,
@@ -282,15 +282,11 @@ export class UserDetail {
     }
 }
 
-export class UserData {
-    code: number;
-    token: string;
+export class UserData extends BaseData {
     data: UserDetail;
 
     constructor() {
-        this.code = 0;
-        this.token = "";
-
+        super();
         this.data = new UserDetail();
     }
 }
@@ -313,15 +309,11 @@ export class FollowResponse {
     }
 }
 
-export class FollowResponseData {
-    code: number;
-    token: string;
+export class FollowResponseData extends BaseData {
     data: FollowResponse;
 
     constructor() {
-        this.code = 0;
-        this.token = "";
-
+        super();
         this.data = new FollowResponse();
     }
 }
@@ -375,15 +367,11 @@ export class ArticleComment {
     }
 }
 
-export class CommentData {
-    code: number;
-    token: string;
+export class CommentData extends BaseData {
     data: ArticleComment[];
 
     constructor() {
-        this.code = 0;
-        this.token = "";
-
+        super();
         this.data = [];
     }
 }
