@@ -2,6 +2,7 @@ import { Button } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { followUser, getUserById, unfollowUser, UserDetail } from "./service";
+import { UserHead } from "./userHead";
 
 export const UserDetailPage: React.FC = () => {
     const [userDetail, setUserDetail] = useState<UserDetail>(new UserDetail());
@@ -16,27 +17,27 @@ export const UserDetailPage: React.FC = () => {
     }, []);
 
     const FollowClick = (id: number): void => {
-        if(userDetail.followed) {
+        if (userDetail.followed) {
             unfollowUser(id, (data) => {
-                setUserDetail({...userDetail, ...data.data});
+                setUserDetail({ ...userDetail, ...data.data });
                 console.log("unfollow clicked : " + id);
                 console.log(data);
             })
         }
-        else{
+        else {
             followUser(id, (data) => {
-                setUserDetail({...userDetail, ...data.data});
+                setUserDetail({ ...userDetail, ...data.data });
                 console.log("follow clicked : " + id);
                 console.log(data);
             })
 
         }
-        
-    }
 
+    }
 
     return (
         <div>
+            <UserHead userName={userDetail.name} avatar={userDetail.icon}></UserHead>
             <h1>{userDetail.name}</h1>
             <h1>{userDetail.id}</h1>
             <Button type="submit" variant="contained" color="secondary"

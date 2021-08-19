@@ -274,11 +274,13 @@ export class UserDetail {
     id: number;
     name: string;
     followed: boolean;
+    icon: string;
 
     constructor() {
         this.id = 0;
         this.name = 'name';
         this.followed = false;
+        this.icon = '';
     }
 }
 
