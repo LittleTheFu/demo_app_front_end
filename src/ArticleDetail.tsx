@@ -61,8 +61,8 @@ export const ArticleDetail: React.FC = () => {
         event.preventDefault();
         console.log(content);
 
-        createComment(id, content, (comments) => {
-            setComments(comments.data);
+        createComment(id, content, (oneCommentData) => {
+            setComments([...comments, oneCommentData.data]);
         })
     }
 
@@ -77,9 +77,9 @@ export const ArticleDetail: React.FC = () => {
                 author={article.author}
                 thumb={article.thumb}
                 thumbed={article.thumbState}></ArticleCard>
-                {comments.map((comment:ArticleComment,index: number) => {
-                    return <h1>{comment.articleCommentContent}</h1>
-                })}
+            {comments.map((comment: ArticleComment, index: number) => {
+                return <h1>{comment.articleCommentContent}</h1>
+            })}
             <form onSubmit={handleSubmit} noValidate autoComplete="off">
                 <TextField
                     // inputRef={textInput}

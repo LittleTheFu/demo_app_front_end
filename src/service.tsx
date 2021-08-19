@@ -340,13 +340,22 @@ export const unfollowUser = (
     return rawObjectPut(unfollowUserUrl + id, {}, resolve, { 'Authorization': authHead }, reject);
 };
 
+export class OneCommentData extends BaseData {
+    data: ArticleComment;
+
+    constructor() {
+        super();
+        this.data = new ArticleComment();
+    }
+}
+
 const createCommentUrl = 'http://localhost:8080/article/create_comment/';
 export const createComment = (
     id: string,
     content: string,
-    resolve: (data: CommentData) => void,
+    resolve: (data: OneCommentData) => void,
     reject?: (data: Error) => void,
-): Promise<CommentData> => {
+): Promise<OneCommentData> => {
     const authHead = getTokenString();
     return rawObjectPut(createCommentUrl + id, { content: content }, resolve, { 'Authorization': authHead }, reject);
 };
@@ -367,7 +376,7 @@ export class ArticleComment {
     }
 }
 
-export class CommentData extends BaseData {
+export class CommentsData extends BaseData {
     data: ArticleComment[];
 
     constructor() {
@@ -379,9 +388,9 @@ export class CommentData extends BaseData {
 const getArticleCommentsUrl = 'http://localhost:8080/article/article_comments/';
 export const getArticleComments = (
     id: string,
-    resolve: (data: CommentData) => void,
+    resolve: (data: CommentsData) => void,
     reject?: (data: Error) => void,
-): Promise<CommentData> => {
+): Promise<CommentsData> => {
     const authHead = getTokenString();
     return rawObjectGet(getArticleCommentsUrl + id, resolve, { 'Authorization': authHead }, reject);
 };
