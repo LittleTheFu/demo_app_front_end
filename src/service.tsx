@@ -212,7 +212,7 @@ export class Article {
     }
 }
 
-export class AllArticleData extends BaseData{
+export class AllArticleData extends BaseData {
     data: Article[];
 
     constructor() {
@@ -230,7 +230,7 @@ export const getAllArticles = (
     return rawObjectGet(allArticleUrl, resolve, { 'Authorization': authHead }, reject);
 };
 
-export class ArticleData extends BaseData{
+export class ArticleData extends BaseData {
     data: Article;
 
     constructor() {
@@ -404,3 +404,53 @@ export const getArticleComments = (
     const authHead = getTokenString();
     return rawObjectGet(getArticleCommentsUrl + id, resolve, { 'Authorization': authHead }, reject);
 };
+
+class ChangeIconResponse {
+    name: string;
+    url: string;
+
+    constructor() {
+        this.name = '';
+        this.url = '';
+    }
+}
+
+class ChangeIconResponseData extends BaseData {
+    data: ChangeIconResponse;
+
+    constructor() {
+        super();
+        this.data = new ChangeIconResponse();
+    }
+}
+
+const uploadIconUrl = 'http://localhost:8080/user/change_icon';
+export const uploadIcon = (data: FormData, resolve: (data: ChangeIconResponse) => void): Promise<ChangeIconResponse> => {
+    const authHead = getTokenString();
+
+    return fileObjectPost(uploadIconUrl, data, resolve, {
+        Authorization: authHead,
+    });
+};
+
+function fileObjectPost<T>(
+    url: string,
+    data: FormData,
+    resolve: (data: T) => void,
+    headerContent: object = {},
+): Promise<T> {
+    return axios
+        .post(url, data, {
+            headers: {
+                ...headerContent,
+            },
+        })
+        .then(response => {
+            const { data } = response;
+            resolve(data);
+            return data;
+        })
+        .catch(err => {
+            return err;
+        });
+}
