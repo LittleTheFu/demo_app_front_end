@@ -13,6 +13,7 @@ export const UserDetailPage: React.FC = () => {
             // console.log('article');
             // console.log(article);
             setUserDetail(userData.data);
+            console.log(userData);
         });
     }, []);
 
