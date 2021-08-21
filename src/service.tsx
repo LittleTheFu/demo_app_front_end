@@ -303,6 +303,14 @@ export const getUserById = (
     return rawObjectGet(getUserDetailUrl + id, resolve, { 'Authorization': authHead }, reject);
 };
 
+export const getCurrentUser = (
+    resolve: (data: UserData) => void,
+    reject?: (data: Error) => void,
+): Promise<UserData> => {
+    const authHead = getTokenString();
+    return rawObjectGet(getUserDetailUrl, resolve, { 'Authorization': authHead }, reject);
+};
+
 export class FollowResponse {
     followed: boolean;
 
