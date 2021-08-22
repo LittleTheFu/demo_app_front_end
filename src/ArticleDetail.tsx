@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useRef, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Article, ArticleComment, createComment, getArticleById, getArticleComments, thumbArticle, unthumbArticle } from "./service";
+import { Article, ArticleComment, createComment, deleteArticle, getArticleById, getArticleComments, thumbArticle, unthumbArticle } from "./service";
 import { useHistory, useParams } from 'react-router-dom';
 import { ArticleCard } from './ArticleCard';
 import { Button, TextField } from '@material-ui/core';
@@ -42,6 +42,13 @@ export const ArticleDetail: React.FC = () => {
         console.log("author clicked : " + authorId);
     }
 
+    const DeleteClick = (id: number): void => {
+        deleteArticle(id, (data) => {
+            console.log(data);
+            history.push("/main/articles");
+        })
+    }
+
     useEffect(() => {
 
         getArticleById(id, article => {
@@ -71,12 +78,14 @@ export const ArticleDetail: React.FC = () => {
             <ArticleCard
                 thumbClick={() => { ThumbClick(article.id) }}
                 authorClick={() => { AuthorClick(article.authorId) }}
+                deleteClick={() => { DeleteClick(article.id) }}
                 id={article.id}
                 title={article.title}
                 content={article.content}
                 author={article.author}
                 thumb={article.thumb}
-                thumbed={article.thumbState}></ArticleCard>
+                thumbed={article.thumbState}
+                deletable={article.deletable} />
             {comments.map((comment: ArticleComment, index: number) => {
                 return <h1 key={index}>{comment.articleCommentContent}</h1>
             })}

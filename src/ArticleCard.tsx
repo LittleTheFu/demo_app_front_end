@@ -6,6 +6,8 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { Delete } from '@material-ui/icons';
+import { IconButton } from '@material-ui/core';
 
 const useStyles = makeStyles({
     root: {
@@ -20,9 +22,12 @@ interface ArticleCardProps {
     author: string;
     thumb: number;
     thumbed: boolean;
+    deletable: boolean;
+
     textClick?: () => void;
     thumbClick?: () => void;
     authorClick?: () => void;
+    deleteClick?: () => void;
 }
 
 export const ArticleCard: React.FC<ArticleCardProps> = (props?: ArticleCardProps) => {
@@ -47,8 +52,16 @@ export const ArticleCard: React.FC<ArticleCardProps> = (props?: ArticleCardProps
             </CardActionArea>
             <CardActions>
                 <Button size="small" color="primary" onClick={props?.thumbClick}>
-                    { ( props?.thumbed ? 'unThumb : ' : 'Thumb : ' ) + props?.thumb}
+                    {(props?.thumbed ? 'unThumb : ' : 'Thumb : ') + props?.thumb}
                 </Button>
+                {
+                    props?.deletable ?
+                        (<IconButton onClick={props?.deleteClick}>
+                            <Delete />
+                        </IconButton>)
+                        :
+                        <div></div>
+                }
             </CardActions>
         </Card>
     );

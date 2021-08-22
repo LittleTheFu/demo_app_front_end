@@ -61,7 +61,7 @@ function rawObjectDelete<T>(
     reject?: (error: Error) => void,
 ): Promise<T> {
     return axios
-        .get(url, {
+        .delete(url, {
             headers: {
                 'Content-Type': 'application/json',
                 ...headerContent,
@@ -222,6 +222,7 @@ export class Article {
     authorId: number;
     thumb: number;
     thumbState: boolean;
+    deletable: boolean;
 
     constructor() {
         this.id = 0;
@@ -231,6 +232,7 @@ export class Article {
         this.authorId = 0;
         this.thumb = 0;
         this.thumbState = false;
+        this.deletable = false;
     }
 }
 
@@ -481,4 +483,14 @@ export const createArticle = (
 ): Promise<CreateArticleResponseData> => {
     const authHead = getTokenString();
     return rawObjectPut(createArticleUrl, { title: title, content: content }, resolve, { 'Authorization': authHead }, reject);
+};
+
+const deleteArticleUrl = 'http://localhost:8080/article/delete/';
+export const deleteArticle = (
+    id: number,
+    resolve: (data: BaseData) => void,
+    reject?: (data: Error) => void,
+): Promise<BaseData> => {
+    const authHead = getTokenString();
+    return rawObjectDelete(deleteArticleUrl + id, resolve, { 'Authorization': authHead }, reject);
 };
