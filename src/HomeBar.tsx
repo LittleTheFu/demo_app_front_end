@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useHistory } from 'react-router-dom';
-import { AccountBox } from '@material-ui/icons';
+import { AccountBox, AddBox } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -36,6 +36,11 @@ export default function HomeBar() {
         console.log("home clicked")
     };
 
+    const AddBoxClick = (): void => {
+        history.push("/main/new_article");
+        console.log("add box clicked")
+    };
+
     const headClick = (): void => {
         history.push("/main/profile");
         console.log("profile clicked")
@@ -50,6 +55,9 @@ export default function HomeBar() {
                     </IconButton>
                     <IconButton edge="start" onClick={homeClick} className={classes.menuButton} color="inherit" aria-label="menu">
                         <HomeIcon />
+                    </IconButton>
+                    <IconButton edge="start" onClick={AddBoxClick} className={classes.menuButton} color="inherit" aria-label="menu">
+                        <AddBox />
                     </IconButton>
                     <IconButton edge="start" onClick={headClick} className={classes.menuButton} color="inherit" aria-label="menu">
                         <AccountBox />

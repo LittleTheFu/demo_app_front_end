@@ -1,6 +1,28 @@
 import axios from 'axios';
 import { getTokenString } from './common';
 
+function fileObjectPost<T>(
+    url: string,
+    data: FormData,
+    resolve: (data: T) => void,
+    headerContent: object = {},
+): Promise<T> {
+    return axios
+        .post(url, data, {
+            headers: {
+                ...headerContent,
+            },
+        })
+        .then(response => {
+            const { data } = response;
+            resolve(data);
+            return data;
+        })
+        .catch(err => {
+            return err;
+        });
+}
+
 function rawObjectGet<T>(
     url: string,
     resolve: (data: T) => void,
@@ -433,24 +455,30 @@ export const uploadIcon = (data: FormData, resolve: (data: ChangeIconResponse) =
     });
 };
 
-function fileObjectPost<T>(
-    url: string,
-    data: FormData,
-    resolve: (data: T) => void,
-    headerContent: object = {},
-): Promise<T> {
-    return axios
-        .post(url, data, {
-            headers: {
-                ...headerContent,
-            },
-        })
-        .then(response => {
-            const { data } = response;
-            resolve(data);
-            return data;
-        })
-        .catch(err => {
-            return err;
-        });
+class CreateArticleResponse {
+    id: number;
+
+    constructor() {
+        this.id = 0;
+    }
 }
+
+class CreateArticleResponseData extends BaseData {
+    data: CreateArticleResponse;
+
+    constructor() {
+        super();
+        this.data = new CreateArticleResponse();
+    }
+}
+
+const createArticleUrl = 'http://localhost:8080/article/create_article';
+export const createArticle = (
+    title: string,
+    content: string,
+    resolve: (data: CommentsData) => void,
+    reject?: (data: Error) => void,
+): Promise<CommentsData> => {
+    const authHead = getTokenString();
+    return rawObjectPut(createArticleUrl, { title: title, content: content }, resolve, { 'Authorization': authHead }, reject);
+};

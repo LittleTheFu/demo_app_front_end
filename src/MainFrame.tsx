@@ -2,6 +2,7 @@ import { Route, Switch, useRouteMatch } from "react-router-dom";
 import { AllArticle } from "./AllArticlePage";
 import { ArticleDetail } from "./ArticleDetail";
 import HomeBar from "./HomeBar";
+import { NewArticlePage } from "./NewArticlePage";
 import { ProfilePage } from "./ProfilePage";
 import { UserDetailPage } from "./UserDetailPage";
 
@@ -17,6 +18,9 @@ export const MainFrame: React.FC = () => {
                 </Route>
                 <Route path={`${path}/article/:id`}>
                     <ArticleDetail></ArticleDetail>
+                </Route>
+                <Route path={`${path}/new_article/`}>
+                    <NewArticlePage></NewArticlePage>
                 </Route>
                 <Route path={`${path}/user/:id`}>
                     <UserDetailPage></UserDetailPage>
