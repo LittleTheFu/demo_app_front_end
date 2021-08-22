@@ -78,7 +78,7 @@ export const ArticleDetail: React.FC = () => {
                 thumb={article.thumb}
                 thumbed={article.thumbState}></ArticleCard>
             {comments.map((comment: ArticleComment, index: number) => {
-                return <h1>{comment.articleCommentContent}</h1>
+                return <h1 key={index}>{comment.articleCommentContent}</h1>
             })}
             <form onSubmit={handleSubmit} noValidate autoComplete="off">
                 <TextField
