@@ -463,7 +463,7 @@ class CreateArticleResponse {
     }
 }
 
-class CreateArticleResponseData extends BaseData {
+export class CreateArticleResponseData extends BaseData {
     data: CreateArticleResponse;
 
     constructor() {
@@ -476,9 +476,9 @@ const createArticleUrl = 'http://localhost:8080/article/create_article';
 export const createArticle = (
     title: string,
     content: string,
-    resolve: (data: CommentsData) => void,
+    resolve: (data: CreateArticleResponseData) => void,
     reject?: (data: Error) => void,
-): Promise<CommentsData> => {
+): Promise<CreateArticleResponseData> => {
     const authHead = getTokenString();
     return rawObjectPut(createArticleUrl, { title: title, content: content }, resolve, { 'Authorization': authHead }, reject);
 };

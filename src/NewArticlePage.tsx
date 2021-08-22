@@ -1,17 +1,21 @@
 import { Button, TextField } from "@material-ui/core";
 import { useState } from "react";
-import { createArticle } from "./service";
+import { useHistory } from "react-router-dom";
+import { createArticle, CreateArticleResponseData } from "./service";
 
 export const NewArticlePage: React.FC = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
 
+    const history = useHistory();
+
     function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
         event.preventDefault();
         console.log(content);
 
-        createArticle(title, content, (data) => {
+        createArticle(title, content, (data: CreateArticleResponseData) => {
             console.log(data);
+            history.push("/main/article/" + data.data.id);
         });
     }
 
