@@ -16,7 +16,7 @@ export const ArticleDetail: React.FC = () => {
     const [article, setArticle] = useState<Article>(new Article());
     const [content, setContent] = useState('');
     const [comments, setComments] = useState<ArticleComment[]>([]);
-    // const textInput = useRef(null);
+    const [editFlag, setEditFlag] = useState(false);
 
     const classes = useStyles();
     const history = useHistory();
@@ -51,6 +51,7 @@ export const ArticleDetail: React.FC = () => {
     }
 
     const EditClick = (): void => {
+        setEditFlag(true);
         console.log('edit click')
     }
 
@@ -80,27 +81,31 @@ export const ArticleDetail: React.FC = () => {
 
     return (
         <div>
-            <ArticleCard
-                thumbClick={() => { ThumbClick(article.id) }}
-                authorClick={() => { AuthorClick(article.authorId) }}
-                deleteClick={() => { DeleteClick(article.id) }}
-                editClick={EditClick}
-                id={article.id}
-                title={article.title}
-                content={article.content}
-                author={article.author}
-                authorIcon={article.authorIcon}
-                thumb={article.thumb}
-                thumbed={article.thumbState}
-                deletable={article.deletable} 
-                editable={article.editable} />
+            {editFlag ?
+                <div />
+                :
+                <ArticleCard
+                    thumbClick={() => { ThumbClick(article.id) }}
+                    authorClick={() => { AuthorClick(article.authorId) }}
+                    deleteClick={() => { DeleteClick(article.id) }}
+                    editClick={EditClick}
+                    id={article.id}
+                    title={article.title}
+                    content={article.content}
+                    author={article.author}
+                    authorIcon={article.authorIcon}
+                    thumb={article.thumb}
+                    thumbed={article.thumbState}
+                    deletable={article.deletable}
+                    editable={article.editable} />
+            }
             {comments.map((comment: ArticleComment, index: number) => {
                 return (
-                <CommentCard key={index}
-                    content={comment.articleCommentContent}
-                    author={comment.articleCommentUserName}
-                    authorIcon={comment.articleCommentUserIcon}
-                    authorClick={()=>{AuthorClick(comment.articleCommentUserId)}}></CommentCard>
+                    <CommentCard key={index}
+                        content={comment.articleCommentContent}
+                        author={comment.articleCommentUserName}
+                        authorIcon={comment.articleCommentUserIcon}
+                        authorClick={() => { AuthorClick(comment.articleCommentUserId) }}></CommentCard>
                 );
             })}
             <form onSubmit={handleSubmit} noValidate autoComplete="off">
