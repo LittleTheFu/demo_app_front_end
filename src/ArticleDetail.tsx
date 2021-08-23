@@ -4,6 +4,7 @@ import { Article, ArticleComment, createComment, deleteArticle, getArticleById, 
 import { useHistory, useParams } from 'react-router-dom';
 import { ArticleCard } from './ArticleCard';
 import { Button, TextField } from '@material-ui/core';
+import { CommentCard } from './CommentCard';
 
 const useStyles = makeStyles({
     root: {
@@ -88,7 +89,13 @@ export const ArticleDetail: React.FC = () => {
                 thumbed={article.thumbState}
                 deletable={article.deletable} />
             {comments.map((comment: ArticleComment, index: number) => {
-                return <h1 key={index}>{comment.articleCommentContent}</h1>
+                return (
+                <CommentCard key={index}
+                    content={comment.articleCommentContent}
+                    author={comment.articleCommentUserName}
+                    authorIcon={comment.articleCommentUserIcon}
+                    authorClick={()=>{AuthorClick(comment.articleCommentUserId)}}></CommentCard>
+                );
             })}
             <form onSubmit={handleSubmit} noValidate autoComplete="off">
                 <TextField

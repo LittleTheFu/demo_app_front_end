@@ -401,6 +401,7 @@ export class ArticleComment {
     articleCommentArticleId: number;
     articleCommentUserId: number;
     articleCommentUserName: string;
+    articleCommentUserIcon: string;
     articleCommentContent: string;
 
     constructor() {
@@ -408,6 +409,7 @@ export class ArticleComment {
         this.articleCommentArticleId = 0;
         this.articleCommentUserId = 0;
         this.articleCommentUserName = 'name';
+        this.articleCommentUserIcon = '';
         this.articleCommentContent = 'content';
     }
 }
