@@ -224,6 +224,7 @@ export class Article {
     thumb: number;
     thumbState: boolean;
     deletable: boolean;
+    editable: boolean;
 
     constructor() {
         this.id = 0;
@@ -235,6 +236,7 @@ export class Article {
         this.thumb = 0;
         this.thumbState = false;
         this.deletable = false;
+        this.editable = false;
     }
 }
 

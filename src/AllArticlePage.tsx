@@ -44,7 +44,8 @@ export const AllArticle: React.FC = () => {
                         thumbed={article.thumbState}
                         author={article.author} 
                         authorIcon={article.authorIcon}
-                        deletable={false} />
+                        deletable={false}
+                        editable={false} />
                 })
             }
 

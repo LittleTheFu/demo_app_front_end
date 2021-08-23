@@ -50,6 +50,10 @@ export const ArticleDetail: React.FC = () => {
         })
     }
 
+    const EditClick = (): void => {
+        console.log('edit click')
+    }
+
     useEffect(() => {
 
         getArticleById(id, article => {
@@ -80,6 +84,7 @@ export const ArticleDetail: React.FC = () => {
                 thumbClick={() => { ThumbClick(article.id) }}
                 authorClick={() => { AuthorClick(article.authorId) }}
                 deleteClick={() => { DeleteClick(article.id) }}
+                editClick={EditClick}
                 id={article.id}
                 title={article.title}
                 content={article.content}
@@ -87,7 +92,8 @@ export const ArticleDetail: React.FC = () => {
                 authorIcon={article.authorIcon}
                 thumb={article.thumb}
                 thumbed={article.thumbState}
-                deletable={article.deletable} />
+                deletable={article.deletable} 
+                editable={article.editable} />
             {comments.map((comment: ArticleComment, index: number) => {
                 return (
                 <CommentCard key={index}
