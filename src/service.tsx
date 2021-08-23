@@ -219,6 +219,7 @@ export class Article {
     title: string;
     content: string;
     author: string;
+    authorIcon: string;
     authorId: number;
     thumb: number;
     thumbState: boolean;
@@ -229,6 +230,7 @@ export class Article {
         this.title = 'title';
         this.content = 'content';
         this.author = 'author';
+        this.authorIcon = '';
         this.authorId = 0;
         this.thumb = 0;
         this.thumbState = false;

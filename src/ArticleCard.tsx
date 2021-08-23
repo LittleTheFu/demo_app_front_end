@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Delete } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
+import { UserHead } from './userHead';
 
 const useStyles = makeStyles({
     root: {
@@ -20,6 +21,7 @@ interface ArticleCardProps {
     title: string;
     content: string;
     author: string;
+    authorIcon: string;
     thumb: number;
     thumbed: boolean;
     deletable: boolean;
@@ -30,33 +32,32 @@ interface ArticleCardProps {
     deleteClick?: () => void;
 }
 
-export const ArticleCard: React.FC<ArticleCardProps> = (props?: ArticleCardProps) => {
+export const ArticleCard: React.FC<ArticleCardProps> = (props: ArticleCardProps) => {
 
 
     const classes = useStyles();
 
     return (
         <Card className={classes.root}>
-            <CardActionArea onClick={props?.textClick}>
+            <CardActionArea onClick={props.textClick}>
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="h2">
-                        {props?.title}
+                        {props.title}
                     </Typography>
-                    <Typography onClick={props?.authorClick} gutterBottom variant="h5" component="h2">
-                        {props?.author}
-                    </Typography>
+                    <UserHead userName={props.author} avatar={props.authorIcon}
+                        nameClick={props.authorClick} avatarClick={props.authorClick}></UserHead>
                     <Typography variant="body2" color="textSecondary" component="p">
-                        {props?.content}
+                        {props.content}
                     </Typography>
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button size="small" color="primary" onClick={props?.thumbClick}>
-                    {(props?.thumbed ? 'unThumb : ' : 'Thumb : ') + props?.thumb}
+                <Button size="small" color="primary" onClick={props.thumbClick}>
+                    {(props.thumbed ? 'unThumb : ' : 'Thumb : ') + props.thumb}
                 </Button>
                 {
-                    props?.deletable ?
-                        (<IconButton onClick={props?.deleteClick}>
+                    props.deletable ?
+                        (<IconButton onClick={props.deleteClick}>
                             <Delete />
                         </IconButton>)
                         :

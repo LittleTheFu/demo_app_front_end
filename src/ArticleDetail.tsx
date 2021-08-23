@@ -83,6 +83,7 @@ export const ArticleDetail: React.FC = () => {
                 title={article.title}
                 content={article.content}
                 author={article.author}
+                authorIcon={article.authorIcon}
                 thumb={article.thumb}
                 thumbed={article.thumbState}
                 deletable={article.deletable} />
