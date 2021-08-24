@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useHistory } from 'react-router-dom';
-import { AccountBox, AddBox } from '@material-ui/icons';
+import { AccountBox, AddBox, Mail, People } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -46,6 +46,16 @@ export default function HomeBar() {
         console.log("profile clicked")
     }
 
+    const mailClick = (): void => {
+        history.push("/main/mail");
+        console.log("mail clicked")
+    }
+
+    const friendClick = (): void => {
+        history.push("/main/friend");
+        console.log("friend clicked")
+    }
+
     return (
         <div className={classes.root}>
             <AppBar position="static">
@@ -61,6 +71,12 @@ export default function HomeBar() {
                     </IconButton>
                     <IconButton edge="start" onClick={headClick} className={classes.menuButton} color="inherit" aria-label="menu">
                         <AccountBox />
+                    </IconButton>
+                    <IconButton edge="start" onClick={mailClick} className={classes.menuButton} color="inherit" aria-label="menu">
+                        <Mail />
+                    </IconButton>
+                    <IconButton edge="start" onClick={friendClick} className={classes.menuButton} color="inherit" aria-label="menu">
+                        <People />
                     </IconButton>
                     <Button color="inherit" onClick={loginClick}>Login</Button>
                 </Toolbar>
