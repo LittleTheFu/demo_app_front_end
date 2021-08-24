@@ -500,3 +500,15 @@ export const deleteArticle = (
     const authHead = getTokenString();
     return rawObjectDelete(deleteArticleUrl + id, resolve, { 'Authorization': authHead }, reject);
 };
+
+const updateArticleUrl = 'http://localhost:8080/article/';
+export const updateArticle = (
+    id: number,
+    title: string,
+    content: string,
+    resolve: (data: BaseData) => void,
+    reject?: (data: Error) => void,
+): Promise<BaseData> => {
+    const authHead = getTokenString();
+    return rawObjectPut(updateArticleUrl + id, { id: id, title: title, content: content }, resolve, { 'Authorization': authHead }, reject);
+};

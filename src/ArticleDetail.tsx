@@ -1,10 +1,11 @@
 import React, { createContext, useEffect, useRef, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Article, ArticleComment, createComment, deleteArticle, getArticleById, getArticleComments, thumbArticle, unthumbArticle } from "./service";
+import { Article, ArticleComment, createComment, deleteArticle, getArticleById, getArticleComments, thumbArticle, unthumbArticle, updateArticle } from "./service";
 import { useHistory, useParams } from 'react-router-dom';
 import { ArticleCard } from './ArticleCard';
 import { Button, TextField } from '@material-ui/core';
 import { CommentCard } from './CommentCard';
+import { EditCard } from './EditCard';
 
 const useStyles = makeStyles({
     root: {
@@ -55,6 +56,20 @@ export const ArticleDetail: React.FC = () => {
         console.log('edit click')
     }
 
+    const AcceptClick = (title: string, content: string): void => {
+        setEditFlag(false);
+        updateArticle(article.id, title, content, (data) => {
+            console.log(data);
+            console.log('accpet click : ' + title + ' ' + content);
+            setArticle({ ...article, title: title, content: content })
+        });
+    }
+
+    const CancelClick = (): void => {
+        setEditFlag(false);
+        console.log('cancel click')
+    }
+
     useEffect(() => {
 
         getArticleById(id, article => {
@@ -82,7 +97,11 @@ export const ArticleDetail: React.FC = () => {
     return (
         <div>
             {editFlag ?
-                <div />
+                <EditCard
+                    title={article.title}
+                    content={article.content}
+                    acceptClick={AcceptClick}
+                    cancelClick={CancelClick} />
                 :
                 <ArticleCard
                     thumbClick={() => { ThumbClick(article.id) }}
