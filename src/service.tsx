@@ -512,3 +512,32 @@ export const updateArticle = (
     const authHead = getTokenString();
     return rawObjectPut(updateArticleUrl + id, { id: id, title: title, content: content }, resolve, { 'Authorization': authHead }, reject);
 };
+
+export class FollowersData extends BaseData {
+    data: UserDetail[];
+
+    constructor() {
+        super();
+        this.data = [];
+    }
+}
+
+const getFollowingsUrl = 'http://localhost:8080/user/followings/';
+export const getFollowings = (
+    id: string,
+    resolve: (data: FollowersData) => void,
+    reject?: (data: Error) => void,
+): Promise<FollowersData> => {
+    const authHead = getTokenString();
+    return rawObjectGet(getFollowingsUrl + id, resolve, { 'Authorization': authHead }, reject);
+};
+
+const getFollowersUrl = 'http://localhost:8080/user/followers/';
+export const getFollowers = (
+    id: string,
+    resolve: (data: FollowersData) => void,
+    reject?: (data: Error) => void,
+): Promise<FollowersData> => {
+    const authHead = getTokenString();
+    return rawObjectGet(getFollowersUrl + id, resolve, { 'Authorization': authHead }, reject);
+};
