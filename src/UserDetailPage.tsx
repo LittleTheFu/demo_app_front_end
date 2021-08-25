@@ -32,14 +32,38 @@ export const UserDetailPage: React.FC = () => {
         })
     }, [id]);
 
+    const UpdateFollowFlag =
+        (id: number,
+            followFlag: boolean,
+            src: UserDetail[],
+            func: (value: React.SetStateAction<UserDetail[]>) => void): void => {
+
+            const new_src = src.map((f) => {
+                if (f.id == id) {
+                    f.followed = followFlag;
+                }
+
+                return f;
+            });
+            func(new_src);
+        }
+
     const CardFollowClick = (id: number): void => {
         followUser(id, (data) => {
+
+            UpdateFollowFlag(id, true, followings, setFollowings);
+            UpdateFollowFlag(id, true, followers, setFollowers);
+
             console.log(data);
         });
     }
 
     const CardUnfollowClick = (id: number): void => {
         unfollowUser(id, (data) => {
+
+            UpdateFollowFlag(id, false, followings, setFollowings);
+            UpdateFollowFlag(id, false, followers, setFollowers);
+
             console.log(data);
         });
     }
