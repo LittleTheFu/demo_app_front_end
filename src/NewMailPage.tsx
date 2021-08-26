@@ -1,10 +1,11 @@
 import { Button, TextField } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { createMail } from "./service";
 import { UserHead } from "./userHead";
 
 interface stateType {
-    id: string,
+    id: number,
     icon: string,
     name: string,
 }
@@ -21,7 +22,9 @@ export const NewMailPage: React.FC = () => {
     }, [location]);
 
     const SendClick = (): void => {
-        console.log(content);
+        createMail(state.id, content, (data) => {
+            console.log(data);
+        })
     }
 
     return (

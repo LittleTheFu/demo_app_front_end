@@ -541,3 +541,14 @@ export const getFollowers = (
     const authHead = getTokenString();
     return rawObjectGet(getFollowersUrl + id, resolve, { 'Authorization': authHead }, reject);
 };
+
+const createMailUrl = 'http://localhost:8080/mail/create_mail';
+export const createMail = (
+    mailToId: number,
+    content: string,
+    resolve: (data: BaseData) => void,
+    reject?: (data: Error) => void,
+): Promise<BaseData> => {
+    const authHead = getTokenString();
+    return rawObjectPost(createMailUrl, { mailToId: mailToId, content: content }, resolve, { 'Authorization': authHead }, reject);
+};
