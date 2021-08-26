@@ -5,6 +5,7 @@ import { FriendPage } from "./friendPage";
 import HomeBar from "./HomeBar";
 import { MailPage } from "./mailPage";
 import { NewArticlePage } from "./NewArticlePage";
+import { NewMailPage } from "./NewMailPage";
 import { ProfilePage } from "./ProfilePage";
 import { UserDetailPage } from "./UserDetailPage";
 
@@ -32,6 +33,9 @@ export const MainFrame: React.FC = () => {
                 </Route>
                 <Route path={`${path}/mail`}>
                     <MailPage></MailPage>
+                </Route>
+                <Route path={`${path}/new_mail`}>
+                    <NewMailPage></NewMailPage>
                 </Route>
                 <Route path={`${path}/friend`}>
                     <FriendPage></FriendPage>

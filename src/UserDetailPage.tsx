@@ -1,4 +1,5 @@
-import { Button, Divider } from "@material-ui/core";
+import { Button, Divider, IconButton } from "@material-ui/core";
+import { Mail } from "@material-ui/icons";
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { FollowerCard } from "./followerCard";
@@ -90,6 +91,14 @@ export const UserDetailPage: React.FC = () => {
         }
     }
 
+    const MailClick = (id: number, icon: string, name: string): void => {
+        history.push({
+            pathname: "/main/new_mail/",
+            state: { id: id, icon: icon, name: name },
+        });
+        console.log("Mail Click : ");
+    }
+
     return (
         <div>
             <UserHead userName={userDetail.name} avatar={userDetail.icon}></UserHead>
@@ -99,6 +108,9 @@ export const UserDetailPage: React.FC = () => {
                 onClick={() => { FollowClick(userDetail.id) }}>
                 {userDetail.followed ? 'unfollow' : 'follow'}
             </Button>
+            <IconButton onClick={() => { MailClick(userDetail.id, userDetail.icon, userDetail.name) }}>
+                <Mail />
+            </IconButton>
             <Divider />
             <h1>关注了:</h1>
             {followings.map((f, index) => {
