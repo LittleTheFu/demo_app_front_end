@@ -552,3 +552,35 @@ export const createMail = (
     const authHead = getTokenString();
     return rawObjectPost(createMailUrl, { mailToId: mailToId, content: content }, resolve, { 'Authorization': authHead }, reject);
 };
+
+export class Mail {
+    id: number;
+    mailFromId: number;
+    mailToId: number;
+    content: string;
+
+    constructor() {
+        this.id = 0;
+        this.mailFromId = 0;
+        this.mailToId = 0;
+        this.content = 'content';
+    }
+}
+
+export class MailsResponseData extends BaseData {
+    data: Mail[];
+
+    constructor() {
+        super();
+        this.data = [];
+    }
+}
+
+const getMailsUrl = 'http://localhost:8080/mail/get_mails';
+export const getMails = (
+    resolve: (data: MailsResponseData) => void,
+    reject?: (data: Error) => void,
+): Promise<MailsResponseData> => {
+    const authHead = getTokenString();
+    return rawObjectGet(getMailsUrl, resolve, { 'Authorization': authHead }, reject);
+};
