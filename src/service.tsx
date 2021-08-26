@@ -558,12 +558,16 @@ export class Mail {
     mailFromId: number;
     mailToId: number;
     content: string;
+    authorName: string;
+    authorIcon: string;
 
     constructor() {
         this.id = 0;
         this.mailFromId = 0;
         this.mailToId = 0;
         this.content = 'content';
+        this.authorName = 'author';
+        this.authorIcon = 'icon';
     }
 }
 
