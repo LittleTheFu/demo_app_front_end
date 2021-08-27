@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { ContentCard } from "./ContentCard";
 import { getMails, Mail } from "./service";
 import { UserHead } from "./userHead";
 
@@ -16,10 +17,15 @@ export const MailPage: React.FC = () => {
 
     return <div>
         {mails.map((m, index) => {
-            return <h1 key={index}>
-                <UserHead userName={m.authorName} avatar={m.authorIcon} />
-                {m.content}
-            </h1>
+            return (
+                <ContentCard
+                    key={index}
+                    content={m.content}
+                    username={m.authorName}
+                    avatar={m.authorIcon}
+                    canBeDeleted={true}
+                    deleteClick={() => { }} />);
+
         })}
     </div>;
 };
