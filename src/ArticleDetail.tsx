@@ -121,7 +121,8 @@ export const ArticleDetail: React.FC = () => {
                     thumb={article.thumb}
                     thumbed={article.thumbState}
                     deletable={article.deletable}
-                    editable={article.editable} />
+                    editable={article.editable}
+                    shareable={true} />
             }
 
             {comments.map((comment: ArticleComment, index: number) => {

@@ -26,6 +26,7 @@ interface ArticleCardProps {
     thumbed: boolean;
     deletable: boolean;
     editable: boolean;
+    shareable: boolean;
 
     textClick?: () => void;
     thumbClick?: () => void;
@@ -33,11 +34,9 @@ interface ArticleCardProps {
     deleteClick?: () => void;
     editClick?: () => void;
     shareClick?: () => void;
-}
+} 
 
 export const ArticleCard: React.FC<ArticleCardProps> = (props: ArticleCardProps) => {
-
-
     const classes = useStyles();
 
     return (
@@ -58,9 +57,14 @@ export const ArticleCard: React.FC<ArticleCardProps> = (props: ArticleCardProps)
                 <Button size="small" color="primary" onClick={props.thumbClick}>
                     {(props.thumbed ? 'unThumb : ' : 'Thumb : ') + props.thumb}
                 </Button>
-                <IconButton onClick={props.shareClick}>
-                    <Share />
-                </IconButton>
+                {
+                    props.shareable ?
+                        <IconButton onClick={props.shareClick}>
+                            <Share />
+                        </IconButton>
+                        :
+                        <div></div>
+                }
                 {
                     props.deletable ?
                         (<IconButton onClick={props.deleteClick}>

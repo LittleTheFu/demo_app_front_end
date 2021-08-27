@@ -25,7 +25,7 @@ export const AllArticle: React.FC = () => {
         getAllArticles(articles => {
             setAllArticles(articles.data);
             // console.log('all articles:');
-             console.log(articles);
+            console.log(articles);
             // console.log(allArticles);
         });
     }, []);
@@ -34,15 +34,16 @@ export const AllArticle: React.FC = () => {
         <div>
             {
                 allArticles.map((article: Article, index: number) => {
-                    return <ArticleCard 
-                        textClick={()=>{CardClick(article.id)}}
+                    return <ArticleCard
+                        shareable={false}
+                        textClick={() => { CardClick(article.id) }}
                         key={index}
                         id={article.id}
                         title={article.title}
                         content={article.content}
                         thumb={article.thumb}
                         thumbed={article.thumbState}
-                        author={article.author} 
+                        author={article.author}
                         authorIcon={article.authorIcon}
                         deletable={false}
                         editable={false} />
