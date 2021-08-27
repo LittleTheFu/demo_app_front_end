@@ -21,6 +21,15 @@ export const MailPage: React.FC = () => {
         console.log("author clicked : " + authorId);
     }
 
+    const MailClick = (authorId: number,
+        authorName: string,
+        authorIcon: string): void => {
+        history.push({
+            pathname: "/main/new_mail/",
+            state: { id: authorId, icon: authorIcon, name: authorName },
+        });
+    }
+
     return <div>
         {mails.map((m, index) => {
             return (
@@ -29,8 +38,9 @@ export const MailPage: React.FC = () => {
                     content={m.content}
                     username={m.authorName}
                     avatar={m.authorIcon}
-                    authorClick={()=>{AuthorClick(m.id)}}
+                    authorClick={() => { AuthorClick(m.id) }}
                     canBeDeleted={true}
+                    mailClick={() => { MailClick(m.id, m.authorName, m.authorIcon) }}
                     deleteClick={() => { }} />);
 
         })}

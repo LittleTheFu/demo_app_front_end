@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import { DeleteButton } from './DeleteButton';
 import { UserHead } from './userHead';
+import { MailButton } from './MailButton';
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -44,18 +45,18 @@ interface ContentCardProps {
 
     authorClick?: () => void;
     deleteClick: () => void;
-    cardClick?: () => void;
+    mailClick: () => void;
 }
 
 export const ContentCard: React.FC<ContentCardProps> = (props: ContentCardProps) => {
     const classes = useStyles({});
 
-    const { authorClick, deleteClick, cardClick } = props;
+    const { authorClick, deleteClick, mailClick } = props;
     const { avatar, username, content, canBeDeleted, boldText } = props;
 
 
     return (
-        <Card className={classes.card} onClick={cardClick}>
+        <Card className={classes.card}>
             <Grid container>
                 <Grid item xs={3} md={2} lg={1}>
                     <UserHead
@@ -68,6 +69,9 @@ export const ContentCard: React.FC<ContentCardProps> = (props: ContentCardProps)
                 </Grid>
                 <Grid container item xs={9} md={10} lg={11}>
                     <div className={boldText ? classes.contentBold : classes.contentNormal}>{content}</div>
+                    <Grid item xs={12} className={classes.date}>
+                        <MailButton clickMail={mailClick} />
+                    </Grid>
                     <Grid item xs={12} className={classes.date}>
                         {canBeDeleted ? <DeleteButton clickDelete={deleteClick}></DeleteButton> : <div></div>}
                     </Grid>
