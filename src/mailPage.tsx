@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { getUserDetailPageUrl } from "./common/UrlHelper";
+import { getUserDetailPageUrl, getWriteNewMailUrl } from "./common/UrlHelper";
 import { ContentCard } from "./ContentCard";
 import { getMails, Mail } from "./service";
 
@@ -25,7 +25,7 @@ export const MailPage: React.FC = () => {
         authorName: string,
         authorIcon: string): void => {
         history.push({
-            pathname: "/main/new_mail/",
+            pathname: getWriteNewMailUrl(),
             state: { id: authorId, icon: authorIcon, name: authorName },
         });
     }

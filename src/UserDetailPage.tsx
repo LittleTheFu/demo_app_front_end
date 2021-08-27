@@ -2,7 +2,7 @@ import { Button, Divider, IconButton } from "@material-ui/core";
 import { Mail } from "@material-ui/icons";
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { getUserDetailPageUrl } from "./common/UrlHelper";
+import { getUserDetailPageUrl, getWriteNewMailUrl } from "./common/UrlHelper";
 import { FollowerCard } from "./followerCard";
 import { followUser, getFollowers, getFollowings, getUserById, unfollowUser, UserDetail } from "./service";
 import { UserHead } from "./userHead";
@@ -94,7 +94,7 @@ export const UserDetailPage: React.FC = () => {
 
     const MailClick = (id: number, icon: string, name: string): void => {
         history.push({
-            pathname: "/main/new_mail/",
+            pathname: getWriteNewMailUrl(),
             state: { id: id, icon: icon, name: name },
         });
         console.log("Mail Click : ");
