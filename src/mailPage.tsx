@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { ContentCard } from "./ContentCard";
 import { getMails, Mail } from "./service";
 import { UserHead } from "./userHead";
@@ -7,6 +7,7 @@ import { UserHead } from "./userHead";
 export const MailPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [mails, setMails] = useState<Mail[]>([]);
+    const history = useHistory();
 
     useEffect(() => {
         getMails((data => {
@@ -14,6 +15,11 @@ export const MailPage: React.FC = () => {
             console.log(data);
         }));
     }, [id]);
+
+    const AuthorClick = (authorId: number): void => {
+        history.push("/main/user/" + authorId);
+        console.log("author clicked : " + authorId);
+    }
 
     return <div>
         {mails.map((m, index) => {
@@ -23,6 +29,7 @@ export const MailPage: React.FC = () => {
                     content={m.content}
                     username={m.authorName}
                     avatar={m.authorIcon}
+                    authorClick={()=>{AuthorClick(m.id)}}
                     canBeDeleted={true}
                     deleteClick={() => { }} />);
 

@@ -42,7 +42,7 @@ interface ContentCardProps {
     canBeDeleted: boolean;
     boldText?: boolean;
 
-    detailClick?: () => void;
+    authorClick?: () => void;
     deleteClick: () => void;
     cardClick?: () => void;
 }
@@ -50,7 +50,7 @@ interface ContentCardProps {
 export const ContentCard: React.FC<ContentCardProps> = (props: ContentCardProps) => {
     const classes = useStyles({});
 
-    const { detailClick, deleteClick, cardClick } = props;
+    const { authorClick, deleteClick, cardClick } = props;
     const { avatar, username, content, canBeDeleted, boldText } = props;
 
 
@@ -62,8 +62,8 @@ export const ContentCard: React.FC<ContentCardProps> = (props: ContentCardProps)
                         size={80}
                         avatar={avatar}
                         userName={username}
-                        nameClick={detailClick}
-                        avatarClick={detailClick}
+                        nameClick={authorClick}
+                        avatarClick={authorClick}
                     ></UserHead>
                 </Grid>
                 <Grid container item xs={9} md={10} lg={11}>
