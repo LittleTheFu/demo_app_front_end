@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
+import { getUserDetailPageUrl } from "./common/UrlHelper";
 import { ContentCard } from "./ContentCard";
 import { getMails, Mail } from "./service";
 
@@ -16,7 +17,7 @@ export const MailPage: React.FC = () => {
     }, [id]);
 
     const AuthorClick = (authorId: number): void => {
-        history.push("/main/user/" + authorId);
+        history.push(getUserDetailPageUrl(authorId));
         console.log("author clicked : " + authorId);
     }
 

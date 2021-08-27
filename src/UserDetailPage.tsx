@@ -2,6 +2,7 @@ import { Button, Divider, IconButton } from "@material-ui/core";
 import { Mail } from "@material-ui/icons";
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
+import { getUserDetailPageUrl } from "./common/UrlHelper";
 import { FollowerCard } from "./followerCard";
 import { followUser, getFollowers, getFollowings, getUserById, unfollowUser, UserDetail } from "./service";
 import { UserHead } from "./userHead";
@@ -70,7 +71,7 @@ export const UserDetailPage: React.FC = () => {
     }
 
     const AvatarClick = (id: number): void => {
-        history.push("/main/user/" + id);
+        history.push(getUserDetailPageUrl(id));
         console.log("Avatar click " + id);
     }
 
