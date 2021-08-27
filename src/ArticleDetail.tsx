@@ -44,6 +44,10 @@ export const ArticleDetail: React.FC = () => {
         console.log("author clicked : " + authorId);
     }
 
+    const ShareClick = (id: number): void => {
+        console.log('share : ' + id);
+    }
+
     const DeleteClick = (id: number): void => {
         deleteArticle(id, (data) => {
             console.log(data);
@@ -107,6 +111,7 @@ export const ArticleDetail: React.FC = () => {
                     thumbClick={() => { ThumbClick(article.id) }}
                     authorClick={() => { AuthorClick(article.authorId) }}
                     deleteClick={() => { DeleteClick(article.id) }}
+                    shareClick={() => { ShareClick(article.id) }}
                     editClick={EditClick}
                     id={article.id}
                     title={article.title}
@@ -118,6 +123,7 @@ export const ArticleDetail: React.FC = () => {
                     deletable={article.deletable}
                     editable={article.editable} />
             }
+
             {comments.map((comment: ArticleComment, index: number) => {
                 return (
                     <CommentCard key={index}

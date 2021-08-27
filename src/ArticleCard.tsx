@@ -6,7 +6,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Delete, Edit } from '@material-ui/icons';
+import { Delete, Edit, Share } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
 import { UserHead } from './userHead';
 
@@ -32,6 +32,7 @@ interface ArticleCardProps {
     authorClick?: () => void;
     deleteClick?: () => void;
     editClick?: () => void;
+    shareClick?: () => void;
 }
 
 export const ArticleCard: React.FC<ArticleCardProps> = (props: ArticleCardProps) => {
@@ -57,6 +58,9 @@ export const ArticleCard: React.FC<ArticleCardProps> = (props: ArticleCardProps)
                 <Button size="small" color="primary" onClick={props.thumbClick}>
                     {(props.thumbed ? 'unThumb : ' : 'Thumb : ') + props.thumb}
                 </Button>
+                <IconButton onClick={props.shareClick}>
+                    <Share />
+                </IconButton>
                 {
                     props.deletable ?
                         (<IconButton onClick={props.deleteClick}>
