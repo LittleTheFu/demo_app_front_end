@@ -40,7 +40,7 @@ export const MailPage: React.FC = () => {
                     avatar={m.authorIcon}
                     authorClick={() => { AuthorClick(m.id) }}
                     canBeDeleted={true}
-                    mailClick={() => { MailClick(m.id, m.authorName, m.authorIcon) }}
+                    mailClick={() => { MailClick(m.mailFromId, m.authorName, m.authorIcon) }}
                     deleteClick={() => { }} />);
 
         })}
