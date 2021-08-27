@@ -588,3 +588,13 @@ export const getMails = (
     const authHead = getTokenString();
     return rawObjectGet(getMailsUrl, resolve, { 'Authorization': authHead }, reject);
 };
+
+const deleteMailUrl = 'http://localhost:8080/mail/';
+export const deleteMail = (
+    id: number,
+    resolve: (data: BaseData) => void,
+    reject?: (data: Error) => void,
+): Promise<BaseData> => {
+    const authHead = getTokenString();
+    return rawObjectDelete(deleteMailUrl + id, resolve, { 'Authorization': authHead }, reject);
+};

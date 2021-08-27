@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { getUserDetailPageUrl, getWriteNewMailUrl } from "./common/UrlHelper";
 import { ContentCard } from "./ContentCard";
-import { getMails, Mail } from "./service";
+import { deleteMail, getMails, Mail } from "./service";
 
 export const MailPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -30,6 +30,17 @@ export const MailPage: React.FC = () => {
         });
     }
 
+    const DeleteClick = (id: number) => {
+        deleteMail(id, data=> {
+            const newMails = mails.filter((m) => {
+                return m.id != id;
+            });
+            setMails(newMails);
+            console.log(data);
+        });
+        console.log('mail delete : ' + id);
+    }
+
     return <div>
         {mails.map((m, index) => {
             return (
@@ -41,7 +52,7 @@ export const MailPage: React.FC = () => {
                     authorClick={() => { AuthorClick(m.id) }}
                     canBeDeleted={true}
                     mailClick={() => { MailClick(m.mailFromId, m.authorName, m.authorIcon) }}
-                    deleteClick={() => { }} />);
+                    deleteClick={() => { DeleteClick(m.id) }} />);
 
         })}
     </div>;
