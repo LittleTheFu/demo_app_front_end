@@ -1,14 +1,14 @@
 import { Route, Switch, useRouteMatch } from "react-router-dom";
-import { AllArticle } from "./AllArticlePage";
-import { ArticleDetail } from "./ArticleDetail";
-import { FriendPage } from "./friendPage";
-import { HistoryPage } from "./HistoryPage";
 import HomeBar from "./HomeBar";
-import { MailPage } from "./mailPage";
-import { NewArticlePage } from "./NewArticlePage";
-import { NewMailPage } from "./NewMailPage";
-import { ProfilePage } from "./ProfilePage";
-import { UserDetailPage } from "./UserDetailPage";
+import { AllArticle } from "./page/AllArticlePage";
+import { ArticleDetail } from "./page/ArticleDetailPage";
+import { FriendPage } from "./page/FriendPage";
+import { HistoryPage } from "./page/HistoryPage";
+import { MailPage } from "./page/MailPage";
+import { NewArticlePage } from "./page/NewArticlePage";
+import { NewMailPage } from "./page/NewMailPage";
+import { ProfilePage } from "./page/ProfilePage";
+import { UserDetailPage } from "./page/UserDetailPage";
 
 export const MainFrame: React.FC = () => {
     const { path } = useRouteMatch();

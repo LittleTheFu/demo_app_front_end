@@ -1,8 +1,7 @@
 import { Button, IconButton } from "@material-ui/core";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { followUser, getCurrentUser, getUserById, unfollowUser, uploadIcon, UserDetail } from "./service";
-import { UserHead } from "./userHead";
+import { getCurrentUser, uploadIcon, UserDetail } from "../service";
+import { UserHead } from "../userHead";
 import { ControlPoint } from "@material-ui/icons";
 
 export const ProfilePage: React.FC = () => {
@@ -72,19 +71,19 @@ export const ProfilePage: React.FC = () => {
         <div>
             <UserHead userName={userDetail.name} avatar={userDetail.icon}></UserHead>
 
-                <IconButton component="label">
-                    <input
-                        accept="image/*"
-                        type="file"
-                        onChange={onSelectFile}
-                        style={{ display: 'none' }}
-                    />
-                    <ControlPoint></ControlPoint>
-                </IconButton>
+            <IconButton component="label">
+                <input
+                    accept="image/*"
+                    type="file"
+                    onChange={onSelectFile}
+                    style={{ display: 'none' }}
+                />
+                <ControlPoint></ControlPoint>
+            </IconButton>
 
-                <Button variant="contained" color="primary" component="span" onClick={uploadFile}>
-                    OK
-                </Button>
+            <Button variant="contained" color="primary" component="span" onClick={uploadFile}>
+                OK
+            </Button>
 
         </div>
     );
