@@ -2,6 +2,7 @@ import { Route, Switch, useRouteMatch } from "react-router-dom";
 import { AllArticle } from "./AllArticlePage";
 import { ArticleDetail } from "./ArticleDetail";
 import { FriendPage } from "./friendPage";
+import { HistoryPage } from "./HistoryPage";
 import HomeBar from "./HomeBar";
 import { MailPage } from "./mailPage";
 import { NewArticlePage } from "./NewArticlePage";
@@ -39,6 +40,9 @@ export const MainFrame: React.FC = () => {
                 </Route>
                 <Route path={`${path}/friend`}>
                     <FriendPage></FriendPage>
+                </Route>
+                <Route path={`${path}/history`}>
+                    <HistoryPage></HistoryPage>
                 </Route>
             </Switch>
         </div>

@@ -5,3 +5,7 @@ export const getUserDetailPageUrl = (id: number): string => {
 export const getWriteNewMailUrl = (): string => {
     return '/main/new_mail/';
 }
+
+export const getHistoryUrl = (): string => {
+    return '/main/history';
+}
