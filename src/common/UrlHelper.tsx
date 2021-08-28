@@ -9,3 +9,7 @@ export const getWriteNewMailUrl = (): string => {
 export const getHistoryUrl = (): string => {
     return '/main/history';
 }
+
+export const getArticleDetailUrl = (id: number): string => {
+    return '/main/article/' + id;
+}

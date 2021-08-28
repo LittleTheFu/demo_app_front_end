@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { ArticleCard } from "../component/ArticleCard";
 import { Article, getAllArticles } from "../common/service";
+import { getArticleDetailUrl } from "../common/UrlHelper";
 
 const useStyles = makeStyles({
     root: {
@@ -17,7 +18,7 @@ export const AllArticle: React.FC = () => {
     const history = useHistory();
 
     const CardClick = (id: number): void => {
-        history.push("/main/article/" + id);
+        history.push(getArticleDetailUrl(id));
         console.log("card clicked : " + id)
     };
 
