@@ -1,6 +1,6 @@
 import { Button, IconButton } from "@material-ui/core";
 import { useEffect, useState } from "react";
-import { getCurrentUser, uploadIcon, UserDetail } from "../service";
+import { getCurrentUser, uploadIcon, UserDetail } from "../common/service";
 import { ControlPoint } from "@material-ui/icons";
 import { UserHead } from "../component/UserHead";
 

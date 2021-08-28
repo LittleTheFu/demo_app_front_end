@@ -1,7 +1,7 @@
 import { Button, TextField } from "@material-ui/core";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { createArticle, CreateArticleResponseData } from "../service";
+import { createArticle, CreateArticleResponseData } from "../common/service";
 
 export const NewArticlePage: React.FC = () => {
     const [title, setTitle] = useState('');

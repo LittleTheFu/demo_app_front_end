@@ -5,7 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { UserHead } from './UserHead';
-import { UserDetail } from '../service';
+import { UserDetail } from '../common/service';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

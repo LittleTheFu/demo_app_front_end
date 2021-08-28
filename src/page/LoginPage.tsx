@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useHistory, Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
-import { AccessData, getGreeting, postLogin } from '../service';
+import { AccessData, getGreeting, postLogin } from '../common/service';
 import { setToken, setTokenHead } from '../common/common';
 
 const useStyles = makeStyles((theme: Theme) =>

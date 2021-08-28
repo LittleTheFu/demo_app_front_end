@@ -1,4 +1,4 @@
-import { TokenData } from "../service";
+import { TokenData } from "./service";
 
 export const setToken = (token: string): void => {
     sessionStorage.setItem('token', token);

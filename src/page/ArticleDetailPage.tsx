@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useRef, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Article, ArticleComment, createComment, deleteArticle, getArticleById, getArticleComments, thumbArticle, unthumbArticle, updateArticle } from "../service";
+import { Article, ArticleComment, createComment, deleteArticle, getArticleById, getArticleComments, thumbArticle, unthumbArticle, updateArticle } from "../common/service";
 import { useHistory, useParams } from 'react-router-dom';
 import { Button, TextField } from '@material-ui/core';
 import { CommentCard } from '../component/CommentCard';

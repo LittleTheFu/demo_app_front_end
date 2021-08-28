@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getTokenString } from './common/common';
+import { getTokenString } from './common';
 
 function fileObjectPost<T>(
     url: string,

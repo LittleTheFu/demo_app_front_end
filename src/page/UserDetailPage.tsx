@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { getUserDetailPageUrl, getWriteNewMailUrl } from "../common/UrlHelper";
 import { FollowerCard } from "../component/FollowerCard";
-import { followUser, getFollowers, getFollowings, getUserById, unfollowUser, UserDetail } from "../service";
+import { followUser, getFollowers, getFollowings, getUserById, unfollowUser, UserDetail } from "../common/service";
 import { UserHead } from "../component/UserHead";
 
 export const UserDetailPage: React.FC = () => {

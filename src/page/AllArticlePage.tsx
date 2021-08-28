@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { ArticleCard } from "../component/ArticleCard";
-import { Article, getAllArticles } from "../service";
+import { Article, getAllArticles } from "../common/service";
 
 const useStyles = makeStyles({
     root: {
