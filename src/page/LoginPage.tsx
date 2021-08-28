@@ -5,7 +5,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useHistory, Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import { AccessData, getGreeting, postLogin } from '../service';
-import { setToken, setTokenHead } from '../common';
+import { setToken, setTokenHead } from '../common/common';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
