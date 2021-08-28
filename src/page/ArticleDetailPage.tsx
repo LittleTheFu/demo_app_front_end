@@ -3,9 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Article, ArticleComment, createComment, deleteArticle, getArticleById, getArticleComments, thumbArticle, unthumbArticle, updateArticle } from "../service";
 import { useHistory, useParams } from 'react-router-dom';
 import { Button, TextField } from '@material-ui/core';
-import { CommentCard } from '../CommentCard';
-import { EditCard } from '../EditCard';
-import { ArticleCard } from '../ArticleCard';
+import { CommentCard } from '../component/CommentCard';
+import { EditCard } from '../component/EditCard';
+import { ArticleCard } from '../component/ArticleCard';
 
 const useStyles = makeStyles({
     root: {

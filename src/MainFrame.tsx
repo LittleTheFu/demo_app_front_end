@@ -1,5 +1,5 @@
 import { Route, Switch, useRouteMatch } from "react-router-dom";
-import HomeBar from "./HomeBar";
+import HomeBar from "./component/HomeBar";
 import { AllArticle } from "./page/AllArticlePage";
 import { ArticleDetail } from "./page/ArticleDetailPage";
 import { FriendPage } from "./page/FriendPage";

@@ -1,7 +1,7 @@
 import { Button, IconButton } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { getCurrentUser, uploadIcon, UserDetail } from "../service";
-import { UserHead } from "../userHead";
+import { UserHead } from "../component/userHead";
 import { ControlPoint } from "@material-ui/icons";
 
 export const ProfilePage: React.FC = () => {

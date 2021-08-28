@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { getUserDetailPageUrl, getWriteNewMailUrl } from "../common/UrlHelper";
-import { ContentCard } from "../ContentCard";
+import { ContentCard } from "../component/ContentCard";
 import { deleteMail, getMails, Mail } from "../service";
 
 export const MailPage: React.FC = () => {

@@ -3,9 +3,9 @@ import { Mail } from "@material-ui/icons";
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { getUserDetailPageUrl, getWriteNewMailUrl } from "../common/UrlHelper";
-import { FollowerCard } from "../followerCard";
+import { FollowerCard } from "../component/followerCard";
 import { followUser, getFollowers, getFollowings, getUserById, unfollowUser, UserDetail } from "../service";
-import { UserHead } from "../userHead";
+import { UserHead } from "../component/userHead";
 
 export const UserDetailPage: React.FC = () => {
     const [userDetail, setUserDetail] = useState<UserDetail>(new UserDetail());

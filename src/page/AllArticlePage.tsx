@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { ArticleCard } from "../ArticleCard";
+import { ArticleCard } from "../component/ArticleCard";
 import { Article, getAllArticles } from "../service";
 
 const useStyles = makeStyles({
