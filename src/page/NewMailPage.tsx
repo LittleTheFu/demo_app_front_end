@@ -1,8 +1,8 @@
 import { Button, TextField } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { UserHead } from "../component/UserHead";
 import { createMail } from "../service";
-import { UserHead } from "../component/userHead";
 
 interface stateType {
     id: number,

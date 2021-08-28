@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Delete, Edit, Share } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
-import { UserHead } from './userHead';
+import { UserHead } from './UserHead';
 
 const useStyles = makeStyles({
     root: {
@@ -39,7 +39,7 @@ interface ArticleCardProps {
 export const ArticleCard: React.FC<ArticleCardProps> = (props: ArticleCardProps) => {
     const classes = useStyles();
 
-    return (
+    return ( 
         <Card className={classes.root}>
             <CardActionArea onClick={props.textClick}>
                 <CardContent>

@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Delete, Edit } from '@material-ui/icons';
 import { IconButton, TextField } from '@material-ui/core';
-import { UserHead } from './userHead';
+import { UserHead } from './UserHead';
 
 const useStyles = makeStyles({
     root: {

@@ -4,7 +4,7 @@ import Card from '@material-ui/core/Card';
 import IconButton from '@material-ui/core/IconButton';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import { UserHead } from './userHead';
+import { UserHead } from './UserHead';
 import { UserDetail } from '../service';
 
 const useStyles = makeStyles((theme: Theme) =>

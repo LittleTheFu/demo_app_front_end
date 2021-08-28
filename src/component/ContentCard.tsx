@@ -3,7 +3,7 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import { DeleteButton } from './DeleteButton';
-import { UserHead } from './userHead';
+import { UserHead } from './UserHead';
 import { MailButton } from './MailButton';
 
 const useStyles = makeStyles(() =>

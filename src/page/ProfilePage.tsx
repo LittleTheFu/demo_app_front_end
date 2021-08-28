@@ -1,8 +1,8 @@
 import { Button, IconButton } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { getCurrentUser, uploadIcon, UserDetail } from "../service";
-import { UserHead } from "../component/userHead";
 import { ControlPoint } from "@material-ui/icons";
+import { UserHead } from "../component/UserHead";
 
 export const ProfilePage: React.FC = () => {
     const [selectedFile, setSelectedFile] = useState(new Blob);
