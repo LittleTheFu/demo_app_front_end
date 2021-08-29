@@ -5,7 +5,7 @@ import { ControlPoint } from "@material-ui/icons";
 import { UserHead } from "../component/UserHead";
 
 export const ProfilePage: React.FC = () => {
-    const [selectedFile, setSelectedFile] = useState(new Blob);
+    const [selectedFile, setSelectedFile] = useState(new Blob());
     const [userDetail, setUserDetail] = useState<UserDetail>(new UserDetail());
     const [size, setSize] = useState(0);
 

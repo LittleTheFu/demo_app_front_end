@@ -32,7 +32,6 @@ export function systemReducer(state = initialState, action: SystemActionTypes): 
     console.log(action);
     switch (action.type) {
         case UPDATE_UNREAD_MAIL_COUNT:
-    
         case REFRESH_MAIL_PAGE: {
             return {
                 ...state,

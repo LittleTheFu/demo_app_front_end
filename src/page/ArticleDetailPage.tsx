@@ -95,11 +95,7 @@ export const ArticleDetail: React.FC = () => {
         getArticleComments(id, comments => {
             setComments(comments.data);
         })
-    }, []);
-
-    useEffect(() => {
     }, [id]);
-
 
     function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
         event.preventDefault();
