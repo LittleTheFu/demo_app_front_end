@@ -1,11 +1,12 @@
 import React, { createContext, useEffect, useRef, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Article, ArticleComment, createComment, deleteArticle, getArticleById, getArticleComments, thumbArticle, unthumbArticle, updateArticle } from "../common/service";
+import { Article, ArticleComment, createArticle, createComment, deleteArticle, getArticleById, getArticleComments, thumbArticle, unthumbArticle, updateArticle } from "../common/service";
 import { useHistory, useLocation, useParams } from 'react-router-dom';
-import { Button, TextField } from '@material-ui/core';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@material-ui/core';
 import { CommentCard } from '../component/CommentCard';
 import { EditCard } from '../component/EditCard';
 import { ArticleCard } from '../component/ArticleCard';
+import { getSharedUrl } from '../common/UrlHelper';
 
 const useStyles = makeStyles({
     root: {
@@ -18,6 +19,7 @@ export const ArticleDetail: React.FC = () => {
     const [content, setContent] = useState('');
     const [comments, setComments] = useState<ArticleComment[]>([]);
     const [editFlag, setEditFlag] = useState(false);
+    const [shareDialogOpen, setShareDialogOpen] = useState(false);
 
     const classes = useStyles();
     const history = useHistory();
@@ -46,6 +48,7 @@ export const ArticleDetail: React.FC = () => {
     }
 
     const ShareClick = (id: number): void => {
+        setShareDialogOpen(true);
         console.log('share : ' + location.pathname);
     }
 
@@ -73,6 +76,14 @@ export const ArticleDetail: React.FC = () => {
     const CancelClick = (): void => {
         setEditFlag(false);
         console.log('cancel click')
+    }
+
+    const CommitShare = (): void => {
+        createArticle('I shared this!', getSharedUrl(location.pathname), (data) => {
+            console.log(data);
+            setShareDialogOpen(false);
+        });
+        console.log('commit share');
     }
 
     useEffect(() => {
@@ -148,5 +159,26 @@ export const ArticleDetail: React.FC = () => {
                     post
                 </Button>
             </form>
+
+            <Dialog
+                open={shareDialogOpen}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">{"Share?"}</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                       {getSharedUrl(location.pathname)}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={()=>{setShareDialogOpen(false)}} color="primary">
+                        No
+                    </Button>
+                    <Button onClick={CommitShare} color="primary" autoFocus>
+                        Yes
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </div>);
 };

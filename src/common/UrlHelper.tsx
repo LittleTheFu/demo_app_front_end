@@ -17,3 +17,8 @@ export const getArticleDetailUrl = (id: number): string => {
 export const getNewArticleUrl = (): string => {
     return '/main/new_article';
 }
+
+export const getSharedUrl = (url: string): string => {
+    const LOCAL_HOST = 'http://localhost:3000';
+    return LOCAL_HOST + url;
+}
