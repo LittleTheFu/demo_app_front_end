@@ -1,5 +1,6 @@
 import { Route, Switch, useRouteMatch } from "react-router-dom";
 import HomeBar from "./component/HomeBar";
+import { TemporaryDrawer } from "./component/NavDrawer";
 import { AllArticle } from "./page/AllArticlePage";
 import { ArticleDetail } from "./page/ArticleDetailPage";
 import { FriendPage } from "./page/FriendPage";
@@ -15,6 +16,7 @@ export const MainFrame: React.FC = () => {
 
     return (
         <div>
+            <TemporaryDrawer />
             <HomeBar />
             <Switch>
                 <Route path={`${path}/articles`}>
