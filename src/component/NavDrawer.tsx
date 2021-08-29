@@ -20,10 +20,10 @@ import { selectDrawerState } from '../reducer/rootReducer';
 import { closeDrawer } from '../reducer/system/functions';
 import { SystemActionTypes } from '../reducer/system/types';
 import { useSelector, useDispatch } from 'react-redux';
-import { Dispatch } from 'redux'; 
+import { Dispatch } from 'redux';
 import HomeIcon from '@material-ui/icons/Home';
 import { AccountBox, AddBox, Mail, People, Restore } from '@material-ui/icons';
-import { getHistoryUrl, getNewArticleUrl } from '../common/UrlHelper';
+import { getAllArticleUrl, getFriendUrl, getHistoryUrl, getMailUrl, getNewArticleUrl, getProfileUrl } from '../common/UrlHelper';
 
 
 
@@ -40,7 +40,7 @@ export const TemporaryDrawer: React.FC = () => {
     };
 
     const friendClick = (): void => {
-        history.push("/main/friend");
+        history.push(getFriendUrl());
     };
 
     const historyClick = (): void => {
@@ -48,11 +48,11 @@ export const TemporaryDrawer: React.FC = () => {
     };
 
     const mailClick = (): void => {
-        history.push("/main/mail");
+        history.push(getMailUrl());
     };
 
     const meClick = (): void => {
-        history.push("/main/profile");
+        history.push(getProfileUrl());
     };
 
     const newArticleClick = (): void => {
@@ -60,7 +60,7 @@ export const TemporaryDrawer: React.FC = () => {
     };
 
     const allClick = (): void => {
-        history.push("/main/articles");
+        history.push(getAllArticleUrl());
     };
 
     const projectClick = (): void => {

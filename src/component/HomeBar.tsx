@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useHistory } from 'react-router-dom';
 import { AccountBox, AddBox, Mail, People, Restore } from '@material-ui/icons';
-import { getHistoryUrl, getNewArticleUrl } from '../common/UrlHelper';
+import { getAllArticleUrl, getFriendUrl, getHistoryUrl, getLoginUrl, getMailUrl, getNewArticleUrl, getProfileUrl } from '../common/UrlHelper';
 import { OPEN_DRAWER, SystemActionTypes } from '../reducer/system/types';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'react';
@@ -33,7 +33,7 @@ export default function HomeBar() {
     const history = useHistory();
 
     const loginClick = (): void => {
-        history.push("/login");
+        history.push(getLoginUrl());
         console.log("login clicked")
     };
 
@@ -45,7 +45,7 @@ export default function HomeBar() {
 
 
     const homeClick = (): void => {
-        history.push("/main/articles");
+        history.push(getAllArticleUrl());
         console.log("home clicked")
     };
 
@@ -55,17 +55,17 @@ export default function HomeBar() {
     };
 
     const headClick = (): void => {
-        history.push("/main/profile");
+        history.push(getProfileUrl());
         console.log("profile clicked")
     }
 
     const mailClick = (): void => {
-        history.push("/main/mail");
+        history.push(getMailUrl());
         console.log("mail clicked")
     }
 
     const friendClick = (): void => {
-        history.push("/main/friend");
+        history.push(getFriendUrl());
         console.log("friend clicked")
     }
 

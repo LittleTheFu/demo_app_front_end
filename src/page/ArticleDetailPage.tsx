@@ -6,7 +6,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 import { CommentCard } from '../component/CommentCard';
 import { EditCard } from '../component/EditCard';
 import { ArticleCard } from '../component/ArticleCard';
-import { getSharedUrl } from '../common/UrlHelper';
+import { getAllArticleUrl, getSharedUrl, getUserUrl } from '../common/UrlHelper';
 
 const useStyles = makeStyles({
     root: {
@@ -43,7 +43,7 @@ export const ArticleDetail: React.FC = () => {
     };
 
     const AuthorClick = (authorId: number): void => {
-        history.push("/main/user/" + authorId);
+        history.push(getUserUrl(authorId));
         console.log("author clicked : " + authorId);
     }
 
@@ -55,7 +55,7 @@ export const ArticleDetail: React.FC = () => {
     const DeleteClick = (id: number): void => {
         deleteArticle(id, (data) => {
             console.log(data);
-            history.push("/main/articles");
+            history.push(getAllArticleUrl());
         })
     }
 

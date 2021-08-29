@@ -2,6 +2,7 @@ import { Button, TextField } from "@material-ui/core";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { createArticle, CreateArticleResponseData } from "../common/service";
+import { getArticleUrl } from "../common/UrlHelper";
 
 export const NewArticlePage: React.FC = () => {
     const [title, setTitle] = useState('');
@@ -15,7 +16,7 @@ export const NewArticlePage: React.FC = () => {
 
         createArticle(title, content, (data: CreateArticleResponseData) => {
             console.log(data);
-            history.push("/main/article/" + data.data.id);
+            history.push(getArticleUrl(data.data.id));
         });
     }
 

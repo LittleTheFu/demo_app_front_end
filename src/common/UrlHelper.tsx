@@ -22,3 +22,31 @@ export const getSharedUrl = (url: string): string => {
     const LOCAL_HOST = 'http://localhost:3000';
     return LOCAL_HOST + url;
 }
+
+export const getFriendUrl = (): string => {
+    return '/main/friend';
+}
+
+export const getMailUrl = (): string => {
+    return '/main/mail';
+}
+
+export const getProfileUrl = (): string => {
+    return '/main/profile';
+}
+
+export const getAllArticleUrl = (): string => {
+    return '/main/articles';
+}
+
+export const getLoginUrl = (): string => {
+    return '/login';
+}
+
+export const getUserUrl = (id: number): string => {
+    return '/main/user/' + id;
+}
+
+export const getArticleUrl = (id: number): string => {
+    return '/main/article/' + id;
+}
