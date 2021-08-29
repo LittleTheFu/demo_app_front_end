@@ -8,6 +8,10 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { useHistory } from 'react-router-dom';
 import { AccountBox, AddBox, Mail, People, Restore } from '@material-ui/icons';
 import { getHistoryUrl, getNewArticleUrl } from '../common/UrlHelper';
+import { OPEN_DRAWER, SystemActionTypes } from '../reducer/system/types';
+import { useDispatch } from 'react-redux';
+import { Dispatch } from 'react';
+
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -24,6 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function HomeBar() {
+    const dispatch = useDispatch<Dispatch<SystemActionTypes>>();
     const classes = useStyles();
     const history = useHistory();
 
@@ -31,6 +36,13 @@ export default function HomeBar() {
         history.push("/login");
         console.log("login clicked")
     };
+
+    const menuClick = (): void => {
+        // openDrawer(dispatch);
+        dispatch({ type: OPEN_DRAWER });
+        console.log("menu clicked")
+    };
+
 
     const homeClick = (): void => {
         history.push("/main/articles");
@@ -66,7 +78,7 @@ export default function HomeBar() {
         <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+                    <IconButton edge="start" onClick={menuClick} className={classes.menuButton} color="inherit" aria-label="menu">
                         <MenuIcon />
                     </IconButton>
                     <IconButton edge="start" onClick={homeClick} className={classes.menuButton} color="inherit" aria-label="menu">

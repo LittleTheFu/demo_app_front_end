@@ -16,8 +16,16 @@ import Badge from '@material-ui/core/Badge';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import { UserHead } from './UserHead';
 import { NavListIconButton } from './NavListIconButton';
+import { selectDrawerState } from '../reducer/rootReducer';
+import { closeDrawer } from '../reducer/system/functions';
+import { SystemActionTypes } from '../reducer/system/types';
+import { useSelector, useDispatch } from 'react-redux';
+import { Dispatch } from 'redux'; 
+
 
 export const TemporaryDrawer: React.FC = () => {
+    const dispatch = useDispatch<Dispatch<SystemActionTypes>>();
+    const drawerState = useSelector(selectDrawerState);
     // const classes = useStyles({});
     const history = useHistory();
 
@@ -55,8 +63,9 @@ export const TemporaryDrawer: React.FC = () => {
         <div>
             <Drawer
                 anchor="left"
-                open={false}
+                open={drawerState}
                 onClose={(): void => {
+                    closeDrawer(dispatch);
                 }}
             >
                 <List>
