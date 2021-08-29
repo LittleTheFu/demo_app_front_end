@@ -13,3 +13,7 @@ export const getHistoryUrl = (): string => {
 export const getArticleDetailUrl = (id: number): string => {
     return '/main/article/' + id;
 }
+
+export const getNewArticleUrl = (): string => {
+    return '/main/new_article';
+}
