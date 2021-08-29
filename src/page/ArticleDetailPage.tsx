@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useRef, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Article, ArticleComment, createComment, deleteArticle, getArticleById, getArticleComments, thumbArticle, unthumbArticle, updateArticle } from "../common/service";
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { Button, TextField } from '@material-ui/core';
 import { CommentCard } from '../component/CommentCard';
 import { EditCard } from '../component/EditCard';
@@ -21,6 +21,7 @@ export const ArticleDetail: React.FC = () => {
 
     const classes = useStyles();
     const history = useHistory();
+    const location = useLocation();
 
     const { id } = useParams<{ id: string }>();
 
@@ -45,7 +46,7 @@ export const ArticleDetail: React.FC = () => {
     }
 
     const ShareClick = (id: number): void => {
-        console.log('share : ' + id);
+        console.log('share : ' + location.pathname);
     }
 
     const DeleteClick = (id: number): void => {
