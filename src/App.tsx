@@ -3,6 +3,7 @@ import { MainFrame } from './MainFrame';
 import { Login } from './page/LoginPage';
 import { Provider } from 'react-redux';
 import { store } from './reducer/rootReducer';
+import { RegisterPage } from './page/RegisterPage';
 
 export default function App() {
 
@@ -12,6 +13,9 @@ export default function App() {
       <Switch>
         <Route path="/login">
           <Login />
+        </Route>
+        <Route path='/register'>
+          <RegisterPage />
         </Route>
         <Route path="/main">
           <MainFrame />

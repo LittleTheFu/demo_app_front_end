@@ -193,6 +193,21 @@ export class AccessData extends BaseData {
     }
 }
 
+export class RetMsgObj {
+    msg: string | undefined;
+}
+
+const registerUrl = 'http://localhost:8080/account/register';
+export const postRegister = (
+    username: string,
+    password: string,
+    email: string,
+    resolve: (data: RetMsgObj) => void,
+    reject?: (data: Error) => void,
+): Promise<RetMsgObj> => {
+    return rawObjectPost(registerUrl, { username: username, password: password, email: email }, resolve, {}, reject);
+};
+
 const loginUrl = 'http://localhost:8080/account/login';
 export const postLogin = (
     email: string,
