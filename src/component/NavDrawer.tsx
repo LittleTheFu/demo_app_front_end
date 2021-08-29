@@ -16,7 +16,7 @@ import Badge from '@material-ui/core/Badge';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import { UserHead } from './UserHead';
 import { NavListIconButton } from './NavListIconButton';
-import { selectDrawerState } from '../reducer/rootReducer';
+import { selectNameState, selectDrawerState, selectIconState } from '../reducer/rootReducer';
 import { closeDrawer } from '../reducer/system/functions';
 import { SystemActionTypes } from '../reducer/system/types';
 import { useSelector, useDispatch } from 'react-redux';
@@ -29,7 +29,12 @@ import { getAllArticleUrl, getFriendUrl, getHistoryUrl, getMailUrl, getNewArticl
 
 export const TemporaryDrawer: React.FC = () => {
     const dispatch = useDispatch<Dispatch<SystemActionTypes>>();
+    
     const drawerState = useSelector(selectDrawerState);
+
+    const headIcon = useSelector(selectIconState);
+    const headName = useSelector(selectNameState);
+
     // const classes = useStyles({});
     const history = useHistory();
 
@@ -78,8 +83,8 @@ export const TemporaryDrawer: React.FC = () => {
                 <List>
                     <UserHead
                         padding={5}
-                        avatar={'http://101.132.41.44:9000/mall/20210821/213.jpg'}
-                        userName={'aaa'}
+                        avatar={headIcon}
+                        userName={headName}
                         size={80}
                     ></UserHead>
                     <Divider></Divider>

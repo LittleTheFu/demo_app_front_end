@@ -10,6 +10,14 @@ const rootReducer = combineReducers({
 
 export type RootState = ReturnType<typeof rootReducer>;
 
+export const selectNameState = (state: RootState): string => {
+    return state.system.name;
+}
+
+export const selectIconState = (state: RootState): string => {
+    return state.system.icon;
+}
+
 export const selectHintState = (state: RootState): boolean => {
     return state.system.hintOpen;
 };

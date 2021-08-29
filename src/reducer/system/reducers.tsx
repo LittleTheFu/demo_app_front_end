@@ -13,9 +13,13 @@ import {
     INCREASE_UNREAD_MAIL_COUNT,
     DECREASE_UNREAD_MAIL_COUNT,
     REFRESH_MAIL_PAGE,
+    SET_CURRENT_USEER,
 } from './types';
 
 const initialState: AllState = {
+    name: 'name',
+    icon: 'http://101.132.41.44:9000/mall/20210821/213.jpg',
+
     hintOpen: false,
     hintMsg: 'msg',
 
@@ -55,6 +59,12 @@ export function systemReducer(state = initialState, action: SystemActionTypes): 
                 ...state,
                 hintOpen: false,
             };
+        }
+        case SET_CURRENT_USEER: {
+            return {
+                ...state,
+                ...action.payload,
+            }
         }
         case OPEN_HINT: {
             return {

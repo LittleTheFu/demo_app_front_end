@@ -1,5 +1,6 @@
 import {
     SystemActionTypes,
+    SET_CURRENT_USEER,
     OPEN_HINT,
     OPEN_MASK,
     CLOSE_MASK,

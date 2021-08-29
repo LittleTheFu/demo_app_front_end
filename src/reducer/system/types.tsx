@@ -1,18 +1,8 @@
 // src/store/system/types.ts
 
-
-export class Music {
-    id!: number;
-    address!: string;
-    cover!: string;
-    name!: string;
-    artist!: string;
-    artistId!: number;
-    album!: string;
-    albumId!: number;
-    like!: number;
-    likedByCurrentUser!: boolean;
-
+export interface AvatarState {
+    name: string;
+    icon: string;
 }
 
 export interface HintState {
@@ -37,23 +27,27 @@ export interface MailState {
     unreadMailCnt: number;
 }
 
-export interface MusicState {
-    refreshMusicFlag: boolean;
-
-    currentMusicId: number;
-    musics: Music[];
-    musicIndex: number;
-}
-
 ///////////////////
 
-export interface AllState extends HintState, MaskState, DrawerState, PlayState, MailState {}
+export interface AllState extends
+    AvatarState,
+    HintState,
+    MaskState,
+    DrawerState,
+    PlayState,
+    MailState { }
 
 export const OPEN_HINT = 'OPEN_HINT';
 
 interface OpenHintAction {
     type: typeof OPEN_HINT;
     payload: { hintMsg: string };
+}
+
+export const SET_CURRENT_USEER = 'SET_AVATAR';
+interface SetAvatarAction {
+    type: typeof SET_CURRENT_USEER;
+    payload: { name: string, icon: string };
 }
 
 export const CLOSE_HINT = 'CLOSE_HINT';
@@ -111,6 +105,7 @@ interface RefreashMailPageAction {
 }
 
 export type SystemActionTypes =
+    | SetAvatarAction
     | OpenHintAction
     | CloseHintAction
     | OpenMaskAction

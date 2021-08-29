@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { Dispatch, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useHistory, Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
-import { AccessData, getGreeting, postLogin } from '../common/service';
+import { AccessData, getCurrentUser, getGreeting, postLogin } from '../common/service';
 import { setToken, setTokenHead } from '../common/common';
+import { useDispatch } from 'react-redux';
+import { SET_CURRENT_USEER, SystemActionTypes } from '../reducer/system/types';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -32,6 +34,8 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const Login: React.FC = () => {
+    const dispatch = useDispatch<Dispatch<SystemActionTypes>>();
+
     const [username, setUser] = useState('');
     const [password, setPassword] = useState('');
 
@@ -44,6 +48,17 @@ export const Login: React.FC = () => {
 
         setTokenHead(accessData.data.tokenHead);
         setToken(accessData.data.token);
+
+        getCurrentUser((data) => {
+            console.log('set avatar!!!!! ' + data.data.icon);
+            dispatch({
+                type: SET_CURRENT_USEER,
+                payload: {
+                    name: data.data.name,
+                    icon: data.data.icon
+                }
+            });
+        });
     };
 
     function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
