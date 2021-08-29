@@ -21,6 +21,10 @@ import { closeDrawer } from '../reducer/system/functions';
 import { SystemActionTypes } from '../reducer/system/types';
 import { useSelector, useDispatch } from 'react-redux';
 import { Dispatch } from 'redux'; 
+import HomeIcon from '@material-ui/icons/Home';
+import { AccountBox, AddBox, Mail, People, Restore } from '@material-ui/icons';
+import { getHistoryUrl, getNewArticleUrl } from '../common/UrlHelper';
+
 
 
 export const TemporaryDrawer: React.FC = () => {
@@ -35,25 +39,28 @@ export const TemporaryDrawer: React.FC = () => {
     const peopleClick = (): void => {
     };
 
-    const meClick = (): void => {
+    const friendClick = (): void => {
+        history.push("/main/friend");
     };
 
-    const editClick = (): void => {
-    };
-
-    const passwordClick = (): void => {
-    };
-
-    const searchClick = (): void => {
-    };
-
-    const collectionsClick = (): void => {
+    const historyClick = (): void => {
+        history.push(getHistoryUrl());
     };
 
     const mailClick = (): void => {
+        history.push("/main/mail");
     };
 
-    const musicClick = (): void => {
+    const meClick = (): void => {
+        history.push("/main/profile");
+    };
+
+    const newArticleClick = (): void => {
+        history.push(getNewArticleUrl());
+    };
+
+    const allClick = (): void => {
+        history.push("/main/articles");
     };
 
     const projectClick = (): void => {
@@ -76,42 +83,30 @@ export const TemporaryDrawer: React.FC = () => {
                         size={80}
                     ></UserHead>
                     <Divider></Divider>
-                    <NavListIconButton msg={'music'} iconClick={musicClick}>
-                        <MusicNoteIcon />
+                    <NavListIconButton msg={'all articles'} iconClick={allClick}>
+                        <HomeIcon />
                     </NavListIconButton>
 
-                    <NavListIconButton msg={'mail'} iconClick={mailClick}>
+                    <NavListIconButton msg={'new article'} iconClick={newArticleClick}>
                         <Badge color="secondary" badgeContent={3} invisible={false}>
-                            <MailIcon />
+                            <AddBox />
                         </Badge>
                     </NavListIconButton>
 
-                    <NavListIconButton msg={'collections'} iconClick={collectionsClick}>
-                        <AlbumIcon />
-                    </NavListIconButton>
-
-                    <NavListIconButton msg={'search'} iconClick={searchClick}>
-                        <SearchIcon />
-                    </NavListIconButton>
-
-                    <NavListIconButton msg={'edit'} iconClick={editClick}>
-                        <EditIcon />
-                    </NavListIconButton>
-
-                    <NavListIconButton msg={'change password'} iconClick={passwordClick}>
-                        <VpnKeyIcon />
-                    </NavListIconButton>
-
                     <NavListIconButton msg={'me'} iconClick={meClick}>
-                        <PersonIcon />
+                        <AccountBox />
                     </NavListIconButton>
 
-                    <NavListIconButton msg={'community'} iconClick={peopleClick}>
-                        <PeopleIcon />
+                    <NavListIconButton msg={'mail'} iconClick={mailClick}>
+                        <Mail />
                     </NavListIconButton>
 
-                    <NavListIconButton msg={'source code'} iconClick={projectClick}>
-                        <GitHubIcon />
+                    <NavListIconButton msg={'friend'} iconClick={friendClick}>
+                        <People />
+                    </NavListIconButton>
+
+                    <NavListIconButton msg={'history'} iconClick={historyClick}>
+                        <Restore />
                     </NavListIconButton>
 
                     <NavListIconButton msg={'logout'} iconClick={logoutClick}>
