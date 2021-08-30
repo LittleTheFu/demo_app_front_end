@@ -670,3 +670,13 @@ export const unBookmarkArticle = (
     const authHead = getTokenString();
     return rawObjectPut(unBookmarkArticleUrl + id, {}, resolve, { 'Authorization': authHead }, reject);
 };
+
+const allBookmarkArticleUrl = 'http://localhost:8080/article/get_bookmark_articles';
+export const getBookmarkArticles = (
+    resolve: (data: ArticleTitleResponseData) => void,
+    reject?: (data: Error) => void,
+): Promise<ArticleTitleResponseData> => {
+    const authHead = getTokenString();
+    console.log(authHead);
+    return rawObjectGet(allBookmarkArticleUrl, resolve, { 'Authorization': authHead }, reject);
+};
