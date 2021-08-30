@@ -6,7 +6,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Delete, Edit, Share } from '@material-ui/icons';
+import { Delete, Edit, Favorite, FavoriteBorder, Share } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
 import { UserHead } from './UserHead';
 
@@ -30,16 +30,18 @@ interface ArticleCardProps {
 
     textClick?: () => void;
     thumbClick?: () => void;
+    likeClick?: () => void;
+    unlikeClick?: () => void;
     authorClick?: () => void;
     deleteClick?: () => void;
     editClick?: () => void;
     shareClick?: () => void;
-} 
+}
 
 export const ArticleCard: React.FC<ArticleCardProps> = (props: ArticleCardProps) => {
     const classes = useStyles();
 
-    return ( 
+    return (
         <Card className={classes.root}>
             <CardActionArea onClick={props.textClick}>
                 <CardContent>
@@ -54,9 +56,18 @@ export const ArticleCard: React.FC<ArticleCardProps> = (props: ArticleCardProps)
                 </CardContent>
             </CardActionArea>
             <CardActions>
-                <Button size="small" color="primary" onClick={props.thumbClick}>
-                    {(props.thumbed ? 'unThumb : ' : 'Thumb : ') + props.thumb}
-                </Button>
+                {
+                    props.thumbed ?
+                        <IconButton onClick={props.unlikeClick}>
+                            <Favorite />
+                            {props.thumb}
+                        </IconButton>
+                        :
+                        <IconButton onClick={props.likeClick}>
+                            <FavoriteBorder />
+                            {props.thumb}
+                        </IconButton>
+                }
                 {
                     props.shareable ?
                         <IconButton onClick={props.shareClick}>

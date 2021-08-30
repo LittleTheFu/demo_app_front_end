@@ -27,20 +27,23 @@ export const ArticleDetail: React.FC = () => {
 
     const { id } = useParams<{ id: string }>();
 
-    const ThumbClick = (id: number): void => {
-        if (article.thumbState) {
-            unthumbArticle(id, (data) => {
-                console.log(data);
-                setArticle({ ...article, ...data.data });
-            });
-        } else {
+    const LikeClick = (id: number): void => {
+        if (!article.thumbState) {
             thumbArticle(id, (data) => {
                 console.log(data);
                 setArticle({ ...article, ...data.data });
             });
         }
-        console.log("thumb/unthumb clicked : " + id)
-    };
+    }
+
+    const UnlikeClick = (id: number): void => {
+        if (article.thumbState) {
+            unthumbArticle(id, (data) => {
+                console.log(data);
+                setArticle({ ...article, ...data.data });
+            });
+        }
+    }
 
     const AuthorClick = (authorId: number): void => {
         history.push(getUserUrl(authorId));
@@ -116,7 +119,8 @@ export const ArticleDetail: React.FC = () => {
                     cancelClick={CancelClick} />
                 :
                 <ArticleCard
-                    thumbClick={() => { ThumbClick(article.id) }}
+                    likeClick={() => { LikeClick(article.id) }}
+                    unlikeClick={() => { UnlikeClick(article.id) }}
                     authorClick={() => { AuthorClick(article.authorId) }}
                     deleteClick={() => { DeleteClick(article.id) }}
                     shareClick={() => { ShareClick(article.id) }}
@@ -164,11 +168,11 @@ export const ArticleDetail: React.FC = () => {
                 <DialogTitle id="alert-dialog-title">{"Share?"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                       {getSharedUrl(location.pathname)}
+                        {getSharedUrl(location.pathname)}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={()=>{setShareDialogOpen(false)}} color="primary">
+                    <Button onClick={() => { setShareDialogOpen(false) }} color="primary">
                         No
                     </Button>
                     <Button onClick={CommitShare} color="primary" autoFocus>
