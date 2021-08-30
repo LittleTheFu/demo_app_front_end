@@ -6,7 +6,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Delete, Edit, Favorite, FavoriteBorder, Share } from '@material-ui/icons';
+import { Bookmark, BookmarkBorder, Delete, Edit, Favorite, FavoriteBorder, Share } from '@material-ui/icons';
 import { IconButton } from '@material-ui/core';
 import { UserHead } from './UserHead';
 
@@ -27,6 +27,7 @@ interface ArticleCardProps {
     deletable: boolean;
     editable: boolean;
     shareable: boolean;
+    bookmarded: boolean;
 
     textClick?: () => void;
     thumbClick?: () => void;
@@ -36,6 +37,8 @@ interface ArticleCardProps {
     deleteClick?: () => void;
     editClick?: () => void;
     shareClick?: () => void;
+    bookmarkClick?: () => void;
+    unbookmarkClick?: () => void;
 }
 
 export const ArticleCard: React.FC<ArticleCardProps> = (props: ArticleCardProps) => {
@@ -91,6 +94,16 @@ export const ArticleCard: React.FC<ArticleCardProps> = (props: ArticleCardProps)
                         </IconButton>)
                         :
                         <div></div>
+                }
+                {
+                    props.bookmarded ?
+                        <IconButton onClick={props.unbookmarkClick}>
+                            <Bookmark />
+                        </IconButton>
+                        :
+                        <IconButton onClick={props.bookmarkClick}>
+                            <BookmarkBorder />
+                        </IconButton>
                 }
             </CardActions>
         </Card>

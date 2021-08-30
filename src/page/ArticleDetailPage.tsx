@@ -45,6 +45,14 @@ export const ArticleDetail: React.FC = () => {
         }
     }
 
+    const BookMarkClick = (id: number): void => {
+        console.log('Bookmark click : ' + id);
+    }
+
+    const UnBookMarkClick = (id: number): void => {
+        console.log('UnBookMark click : ' + id);
+    }
+
     const AuthorClick = (authorId: number): void => {
         history.push(getUserUrl(authorId));
         console.log("author clicked : " + authorId);
@@ -121,6 +129,8 @@ export const ArticleDetail: React.FC = () => {
                 <ArticleCard
                     likeClick={() => { LikeClick(article.id) }}
                     unlikeClick={() => { UnlikeClick(article.id) }}
+                    bookmarkClick={() => { BookMarkClick(article.id) }}
+                    unbookmarkClick={() => { UnBookMarkClick(article.id) }}
                     authorClick={() => { AuthorClick(article.authorId) }}
                     deleteClick={() => { DeleteClick(article.id) }}
                     shareClick={() => { ShareClick(article.id) }}
@@ -134,7 +144,8 @@ export const ArticleDetail: React.FC = () => {
                     thumbed={article.thumbState}
                     deletable={article.deletable}
                     editable={article.editable}
-                    shareable={true} />
+                    shareable={true}
+                    bookmarded={false} />
             }
 
             {comments.map((comment: ArticleComment, index: number) => {
