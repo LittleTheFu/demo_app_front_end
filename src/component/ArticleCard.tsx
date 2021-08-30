@@ -12,7 +12,7 @@ import { UserHead } from './UserHead';
 
 const useStyles = makeStyles({
     root: {
-        maxWidth: 345,
+        maxWidth: 800,
     },
 });
 
