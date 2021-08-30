@@ -240,6 +240,7 @@ export class Article {
     thumbState: boolean;
     deletable: boolean;
     editable: boolean;
+    bookmarked: boolean;
 
     constructor() {
         this.id = 0;
@@ -252,6 +253,7 @@ export class Article {
         this.thumbState = false;
         this.deletable = false;
         this.editable = false;
+        this.bookmarked = false;
     }
 }
 

@@ -145,7 +145,7 @@ export const ArticleDetail: React.FC = () => {
                     deletable={article.deletable}
                     editable={article.editable}
                     shareable={true}
-                    bookmarded={false} />
+                    bookmarded={article.bookmarked} />
             }
 
             {comments.map((comment: ArticleComment, index: number) => {
