@@ -616,7 +616,7 @@ export const deleteMail = (
     return rawObjectDelete(deleteMailUrl + id, resolve, { 'Authorization': authHead }, reject);
 };
 
-export class UserArticleHistory {
+export class ArticleTitle {
     id: number;
     title: string;
     authorName: string;
@@ -633,7 +633,7 @@ export class UserArticleHistory {
 }
 
 export class HistoryResponseData extends BaseData {
-    data: UserArticleHistory[];
+    data: ArticleTitle[];
 
     constructor() {
         super();

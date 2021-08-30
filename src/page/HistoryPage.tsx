@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { getHistory, HistoryResponseData, UserArticleHistory } from "../common/service";
+import { getHistory, HistoryResponseData, ArticleTitle } from "../common/service";
 import { getArticleDetailUrl } from "../common/UrlHelper";
 import { TitleCard } from "../component/TitleCard";
 
 export const HistoryPage: React.FC = () => {
     const history = useHistory();
-    const [VisitedArticles, setVisitedArticles] = useState<UserArticleHistory[]>([]);
+    const [VisitedArticles, setVisitedArticles] = useState<ArticleTitle[]>([]);
 
     const ArticleClick = (id: number): void => {
         history.push(getArticleDetailUrl(id));
