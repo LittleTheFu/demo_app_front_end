@@ -650,3 +650,23 @@ export const getHistory = (
     console.log(authHead);
     return rawObjectGet(historyUrl, resolve, { 'Authorization': authHead }, reject);
 };
+
+const bookmarkArticleUrl = 'http://localhost:8080/article/bookmark/'
+export const bookmarkArticle = (
+    id: number,
+    resolve: (data: BaseData) => void,
+    reject?: (data: Error) => void,
+): Promise<BaseData> => {
+    const authHead = getTokenString();
+    return rawObjectPut(bookmarkArticleUrl + id, {}, resolve, { 'Authorization': authHead }, reject);
+};
+
+const unBookmarkArticleUrl = 'http://localhost:8080/article/unbookmark/'
+export const unBookmarkArticle = (
+    id: number,
+    resolve: (data: BaseData) => void,
+    reject?: (data: Error) => void,
+): Promise<BaseData> => {
+    const authHead = getTokenString();
+    return rawObjectPut(unBookmarkArticleUrl + id, {}, resolve, { 'Authorization': authHead }, reject);
+};

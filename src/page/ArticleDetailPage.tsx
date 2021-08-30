@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useRef, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Article, ArticleComment, createArticle, createComment, deleteArticle, getArticleById, getArticleComments, thumbArticle, unthumbArticle, updateArticle } from "../common/service";
+import { Article, ArticleComment, bookmarkArticle, createArticle, createComment, deleteArticle, getArticleById, getArticleComments, thumbArticle, unBookmarkArticle, unthumbArticle, updateArticle } from "../common/service";
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@material-ui/core';
 import { CommentCard } from '../component/CommentCard';
@@ -46,10 +46,18 @@ export const ArticleDetail: React.FC = () => {
     }
 
     const BookMarkClick = (id: number): void => {
+        bookmarkArticle(id, (data) => {
+            setArticle({...article, bookmarked: true});
+            console.log(data);
+        });
         console.log('Bookmark click : ' + id);
     }
 
     const UnBookMarkClick = (id: number): void => {
+        unBookmarkArticle(id, (data) => {
+            setArticle({...article, bookmarked: false});
+            console.log(data);
+        });
         console.log('UnBookMark click : ' + id);
     }
 
