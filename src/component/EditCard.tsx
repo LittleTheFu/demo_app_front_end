@@ -33,13 +33,13 @@ export const EditCard: React.FC<EditCardProps> = (props: EditCardProps) => {
         <Card className={classes.root}>
             <CardActionArea>
                 <CardContent>
-                    <TextField id="name"
+                    <TextField id="title"
                         label="title"
                         defaultValue={props.title}
                         onChange={(e): void => {
                             setTitle(e.target.value);
                         }} />
-                    <TextField id="name"
+                    <TextField id="content"
                         label="content"
                         defaultValue={props.content}
                         onChange={(e): void => {
