@@ -13,8 +13,8 @@ import { SystemActionTypes } from '../reducer/system/types';
 import { useSelector, useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 import HomeIcon from '@material-ui/icons/Home';
-import { AccountBox, AddBox, Mail, People, Restore } from '@material-ui/icons';
-import { getAllArticleUrl, getFriendUrl, getHistoryUrl, getMailUrl, getNewArticleUrl, getProfileUrl } from '../common/UrlHelper';
+import { AccountBox, AddBox, Bookmark, Mail, People, Restore } from '@material-ui/icons';
+import { getAllArticleUrl, getFavoriteUrl, getFriendUrl, getHistoryUrl, getMailUrl, getNewArticleUrl, getProfileUrl } from '../common/UrlHelper';
 
 
 
@@ -42,6 +42,11 @@ export const TemporaryDrawer: React.FC = () => {
     const historyClick = (): void => {
         history.push(getHistoryUrl());
     };
+
+    const favoriteClick = (): void => {
+        history.push(getFavoriteUrl());
+        console.log('favorite click');
+    }
 
     const mailClick = (): void => {
         history.push(getMailUrl());
@@ -103,6 +108,10 @@ export const TemporaryDrawer: React.FC = () => {
 
                     <NavListIconButton msg={'history'} iconClick={historyClick}>
                         <Restore />
+                    </NavListIconButton>
+
+                    <NavListIconButton msg={'favorite'} iconClick={favoriteClick}>
+                        <Bookmark />
                     </NavListIconButton>
 
                     <NavListIconButton msg={'logout'} iconClick={logoutClick}>

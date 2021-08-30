@@ -50,3 +50,7 @@ export const getUserUrl = (id: number): string => {
 export const getArticleUrl = (id: number): string => {
     return '/main/article/' + id;
 }
+
+export const getFavoriteUrl = (): string => {
+    return '/main/favorite/';
+}

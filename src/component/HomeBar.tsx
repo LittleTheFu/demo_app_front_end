@@ -6,8 +6,8 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useHistory } from 'react-router-dom';
-import { AccountBox, AddBox, Mail, People, Restore } from '@material-ui/icons';
-import { getAllArticleUrl, getFriendUrl, getHistoryUrl, getLoginUrl, getMailUrl, getNewArticleUrl, getProfileUrl } from '../common/UrlHelper';
+import { AccountBox, AddBox, Bookmark, Mail, People, Restore } from '@material-ui/icons';
+import { getAllArticleUrl, getFavoriteUrl, getFriendUrl, getHistoryUrl, getLoginUrl, getMailUrl, getNewArticleUrl, getProfileUrl } from '../common/UrlHelper';
 import { OPEN_DRAWER, SystemActionTypes } from '../reducer/system/types';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'react';
@@ -74,6 +74,11 @@ export default function HomeBar() {
         console.log("history clicked")
     }
 
+    const favoriteClick = (): void => {
+        history.push(getFavoriteUrl());
+        console.log('favorite click');
+    }
+
     return (
         <div className={classes.root}>
             <AppBar position="static">
@@ -98,6 +103,9 @@ export default function HomeBar() {
                     </IconButton>
                     <IconButton edge="start" onClick={historyClick} className={classes.menuButton} color="inherit" aria-label="menu">
                         <Restore />
+                    </IconButton>
+                    <IconButton edge="start" onClick={favoriteClick} className={classes.menuButton} color="inherit" aria-label="menu">
+                        <Bookmark />
                     </IconButton>
                     <Button color="inherit" onClick={loginClick}>Login</Button>
                 </Toolbar>

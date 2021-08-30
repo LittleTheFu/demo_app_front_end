@@ -3,6 +3,7 @@ import HomeBar from "./component/HomeBar";
 import { TemporaryDrawer } from "./component/NavDrawer";
 import { AllArticle } from "./page/AllArticlePage";
 import { ArticleDetail } from "./page/ArticleDetailPage";
+import { FavoritePage } from "./page/FavoritePage";
 import { FriendPage } from "./page/FriendPage";
 import { HistoryPage } from "./page/HistoryPage";
 import { MailPage } from "./page/MailPage";
@@ -45,6 +46,9 @@ export const MainFrame: React.FC = () => {
                 </Route>
                 <Route path={`${path}/history`}>
                     <HistoryPage></HistoryPage>
+                </Route>
+                <Route path={`${path}/favorite`}>
+                    <FavoritePage></FavoritePage>
                 </Route>
             </Switch>
         </div>
