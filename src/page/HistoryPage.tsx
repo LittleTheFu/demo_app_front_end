@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { getHistory, HistoryResponseData, ArticleTitle } from "../common/service";
+import { getHistory, ArticleTitleResponseData, ArticleTitle } from "../common/service";
 import { getArticleDetailUrl } from "../common/UrlHelper";
 import { TitleCard } from "../component/TitleCard";
 
@@ -14,7 +14,7 @@ export const HistoryPage: React.FC = () => {
     };
 
     useEffect(() => {
-        getHistory((data: HistoryResponseData) => {
+        getHistory((data: ArticleTitleResponseData) => {
             setVisitedArticles(data.data);
             console.log(data);
         })

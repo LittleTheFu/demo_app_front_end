@@ -632,7 +632,7 @@ export class ArticleTitle {
     }
 }
 
-export class HistoryResponseData extends BaseData {
+export class ArticleTitleResponseData extends BaseData {
     data: ArticleTitle[];
 
     constructor() {
@@ -643,9 +643,9 @@ export class HistoryResponseData extends BaseData {
 
 const historyUrl = 'http://localhost:8080/history';
 export const getHistory = (
-    resolve: (data: HistoryResponseData) => void,
+    resolve: (data: ArticleTitleResponseData) => void,
     reject?: (data: Error) => void,
-): Promise<HistoryResponseData> => {
+): Promise<ArticleTitleResponseData> => {
     const authHead = getTokenString();
     console.log(authHead);
     return rawObjectGet(historyUrl, resolve, { 'Authorization': authHead }, reject);
