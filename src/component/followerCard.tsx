@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
         name: {
             textAlign: 'center',
         },
-        btnRoot: {
+        container: {
             display: 'inline-block',
             verticalAlign: 'middle',
         },
@@ -49,7 +49,7 @@ export const FollowerCard: React.FC<FollowerCardProps> = (props: FollowerCardPro
 
     return (
         <Card>
-            <div className={classes.btnRoot}>
+            <div className={classes.container}>
                 <UserHead
                     padding={5}
                     size={80}
@@ -60,7 +60,7 @@ export const FollowerCard: React.FC<FollowerCardProps> = (props: FollowerCardPro
                     center={false}
                 ></UserHead>
             </div>
-            <div className={classes.btnRoot}>
+            <div className={classes.container}>
                 {followed ? (
                     <IconButton onClick={unfollowClick}>
                         <RemoveCircleOutlineIcon />
