@@ -617,10 +617,16 @@ export const deleteMail = (
 export class UserArticleHistory {
     id: number;
     title: string;
+    authorName: string;
+    authorIcon: string;
+    authorId: number;
 
     constructor() {
         this.id = 0;
         this.title = 'title';
+        this.authorName = 'author_name';
+        this.authorIcon = 'icon';
+        this.authorId = 0;
     }
 }
 

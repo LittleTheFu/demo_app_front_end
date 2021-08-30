@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { getHistory, HistoryResponseData, UserArticleHistory } from "../common/service";
 import { getArticleDetailUrl } from "../common/UrlHelper";
+import { TitleCard } from "../component/TitleCard";
 
 export const HistoryPage: React.FC = () => {
     const history = useHistory();
@@ -23,7 +24,12 @@ export const HistoryPage: React.FC = () => {
         <div>
             {
                 VisitedArticles.map((a, index) => {
-                    return <h1 key={index} onClick={()=>{ArticleClick(a.id)}}>{a.title}</h1>
+                    return <TitleCard key={index}
+                        id = {a.id}
+                        title = {a.title}
+                        author = {a.authorName}
+                        authorIcon = {a.authorIcon}
+                        textClick={() => { ArticleClick(a.id) }} />
                 })
             }
         </div>
