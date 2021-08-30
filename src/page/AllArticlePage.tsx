@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import { ArticleCard } from "../component/ArticleCard";
 import { Article, getAllArticles } from "../common/service";
 import { getArticleDetailUrl } from "../common/UrlHelper";
+import { TitleCard } from "../component/TitleCard";
 
 const useStyles = makeStyles({
     root: {
@@ -35,19 +36,13 @@ export const AllArticle: React.FC = () => {
         <div>
             {
                 allArticles.map((article: Article, index: number) => {
-                    return <ArticleCard
-                        shareable={false}
-                        textClick={() => { CardClick(article.id) }}
+                    return <TitleCard
                         key={index}
+                        textClick={() => { CardClick(article.id) }}
                         id={article.id}
                         title={article.title}
-                        content={article.content}
-                        thumb={article.thumb}
-                        thumbed={article.thumbState}
                         author={article.author}
-                        authorIcon={article.authorIcon}
-                        deletable={false}
-                        editable={false} />
+                        authorIcon={article.authorIcon} />
                 })
             }
 
