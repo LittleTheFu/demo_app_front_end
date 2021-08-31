@@ -8,6 +8,7 @@ import { AccessData, getCurrentUser, getGreeting, postLogin } from '../common/se
 import { setToken, setTokenHead } from '../common/common';
 import { useDispatch } from 'react-redux';
 import { SET_CURRENT_USEER, SystemActionTypes } from '../reducer/system/types';
+import { getAllArticleUrl } from '../common/UrlHelper';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -51,6 +52,7 @@ export const Login: React.FC = () => {
 
         getCurrentUser((data) => {
             console.log('set avatar!!!!! ' + data.data.icon);
+            history.push(getAllArticleUrl());
             dispatch({
                 type: SET_CURRENT_USEER,
                 payload: {
