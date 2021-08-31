@@ -470,6 +470,16 @@ class ChangeIconResponseData extends BaseData {
     }
 }
 
+const updateNameUrl = 'http://localhost:8080/user/change_name';
+export const updateName = (
+    name: string,
+    resolve: (data: BaseData) => void,
+    reject?: (data: Error) => void,
+): Promise<BaseData> => {
+    const authHead = getTokenString();
+    return rawObjectPut(updateNameUrl, {name: name}, resolve, { 'Authorization': authHead }, reject);
+};
+
 const uploadIconUrl = 'http://localhost:8080/user/change_icon';
 export const uploadIcon = (data: FormData, resolve: (data: ChangeIconResponse) => void): Promise<ChangeIconResponse> => {
     const authHead = getTokenString();

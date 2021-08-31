@@ -1,12 +1,17 @@
-import { Button, IconButton } from "@material-ui/core";
-import { useEffect, useState } from "react";
-import { getCurrentUser, uploadIcon, UserDetail } from "../common/service";
+import { Button, Divider, IconButton, TextField } from "@material-ui/core";
+import { Dispatch, useEffect, useState } from "react";
+import { getCurrentUser, updateName, uploadIcon, UserDetail } from "../common/service";
 import { ControlPoint } from "@material-ui/icons";
 import { UserHead } from "../component/UserHead";
+import { SET_CURRENT_USEER, SystemActionTypes } from "../reducer/system/types";
+import { useDispatch } from "react-redux";
 
 export const ProfilePage: React.FC = () => {
+    const dispatch = useDispatch<Dispatch<SystemActionTypes>>();
+
     const [selectedFile, setSelectedFile] = useState(new Blob());
     const [userDetail, setUserDetail] = useState<UserDetail>(new UserDetail());
+    const [userName, setUserName] = useState('');
     const [size, setSize] = useState(0);
 
     const MAX_SIZE = 1000 * 1024;
@@ -14,6 +19,7 @@ export const ProfilePage: React.FC = () => {
     useEffect(() => {
         getCurrentUser(userData => {
             setUserDetail(userData.data);
+            setUserName(userData.data.name);
             console.log(userData);
         });
     }, []);
@@ -67,6 +73,21 @@ export const ProfilePage: React.FC = () => {
         })
     };
 
+    const applyClick = (): void => {
+        updateName(userName, (data) => {
+            setUserDetail({ ...userDetail, name: userName });
+            dispatch({
+                type: SET_CURRENT_USEER,
+                payload: {
+                    name: userName,
+                    icon: userDetail.icon,
+                }
+            });
+            console.log(data);
+        })
+        console.log('apply click');
+    }
+
     return (
         <div>
             <UserHead userName={userDetail.name} avatar={userDetail.icon}></UserHead>
@@ -85,6 +106,13 @@ export const ProfilePage: React.FC = () => {
                 OK
             </Button>
 
+            <Divider />
+
+            <TextField id="name" label="user" onChange={(e): void => setUserName(e.target.value)} />
+
+            <Button type="submit" variant="contained" color="primary" onClick={applyClick}>
+                apply
+            </Button>
         </div>
     );
 }
