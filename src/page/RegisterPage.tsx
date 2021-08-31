@@ -58,6 +58,7 @@ export const RegisterPage: React.FC = () => {
     const resolveData = (data: RetMsgObj): void => {
         // openHint(dispatch, data.msg);
         // dispatch({ type: OPEN_HINT, payload: { hintMsg: data.msg } });
+        console.log(data);
         history.push(getLoginUrl());
     };
 
@@ -70,52 +71,53 @@ export const RegisterPage: React.FC = () => {
     function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
         event.preventDefault();
 
-        if (!isValidUserName(user)) {
-            openHint(dispatch, 'invalid user name!');
-            return;
-        }
+        // if (!isValidUserName(user)) {
+        //     openHint(dispatch, 'invalid user name!');
+        //     return;
+        // }
 
-        if (!isValidPassowrd(password)) {
-            openHint(dispatch, 'invalid password!');
-            return;
-        }
+        // if (!isValidPassowrd(password)) {
+        //     openHint(dispatch, 'invalid password!');
+        //     return;
+        // }
 
-        if (!isCorrectEmail(email)) {
-            openHint(dispatch, 'please check your email!');
-            return;
-        }
+        // if (!isCorrectEmail(email)) {
+        //     openHint(dispatch, 'please check your email!');
+        //     return;
+        // }
 
-        postRegister(user, password, email, resolveData);
+        // postRegister(user, password, email, resolveData);
+        postRegister(email, password, resolveData);
     }
 
     return (
         <Container maxWidth="sm" className={classes.main}>
             <div className={classes.paper}>
                 <form onSubmit={handleSubmit} className={classes.root} noValidate autoComplete="off">
-                    <TextField
+                    {/* <TextField
                         id="name"
                         error={!isValidUserName(user)}
                         label="user"
                         onChange={(e): void => setUser(e.target.value)}
                         helperText={getUsernameHelpText()}
-                    />
+                    /> */}
                     <TextField
                         autoComplete="on"
-                        error={!isValidPassowrd(password)}
-                        id="pswd"
-                        label="password"
-                        type="password"
-                        onChange={(e): void => setPassword(e.target.value)}
-                        helperText={getPassowrdHelpText()}
-                    />
-                    <TextField
-                        autoComplete="on"
-                        error={!isValidEmail(email)}
+                        // error={!isValidEmail(email)}
                         id="email"
                         label="email"
                         type="email"
                         onChange={(e): void => setEmail(e.target.value)}
                         helperText={getEmailHelpText()}
+                    />
+                    <TextField
+                        autoComplete="on"
+                        // error={!isValidPassowrd(password)}
+                        id="pswd"
+                        label="password"
+                        type="password"
+                        onChange={(e): void => setPassword(e.target.value)}
+                        helperText={getPassowrdHelpText()}
                     />
                     <Button type="submit" variant="contained" color="secondary">
                         register

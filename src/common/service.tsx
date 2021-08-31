@@ -199,13 +199,12 @@ export class RetMsgObj {
 
 const registerUrl = 'http://localhost:8080/account/register';
 export const postRegister = (
-    username: string,
-    password: string,
     email: string,
+    password: string,
     resolve: (data: RetMsgObj) => void,
     reject?: (data: Error) => void,
 ): Promise<RetMsgObj> => {
-    return rawObjectPost(registerUrl, { username: username, password: password, email: email }, resolve, {}, reject);
+    return rawObjectPost(registerUrl, { password: password, email: email }, resolve, {}, reject);
 };
 
 const loginUrl = 'http://localhost:8080/account/login';
