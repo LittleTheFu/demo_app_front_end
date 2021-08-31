@@ -82,6 +82,8 @@ export const TemporaryDrawer: React.FC = () => {
                         padding={5}
                         avatar={headIcon}
                         userName={headName}
+                        nameClick={meClick}
+                        avatarClick={meClick}
                         size={80}
                     ></UserHead>
                     <Divider></Divider>
