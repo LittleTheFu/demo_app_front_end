@@ -7,7 +7,7 @@ import Container from '@material-ui/core/Container';
 import { AccessData, getCurrentUser, getGreeting, postLogin } from '../common/service';
 import { setToken, setTokenHead } from '../common/common';
 import { useDispatch } from 'react-redux';
-import { SET_CURRENT_USEER, SystemActionTypes } from '../reducer/system/types';
+import { SET_CURRENT_USER, SystemActionTypes } from '../reducer/system/types';
 import { getAllArticleUrl } from '../common/UrlHelper';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -54,7 +54,7 @@ export const Login: React.FC = () => {
             console.log('set avatar!!!!! ' + data.data.icon);
             history.push(getAllArticleUrl());
             dispatch({
-                type: SET_CURRENT_USEER,
+                type: SET_CURRENT_USER,
                 payload: {
                     name: data.data.name,
                     icon: data.data.icon

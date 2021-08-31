@@ -13,7 +13,9 @@ import {
     INCREASE_UNREAD_MAIL_COUNT,
     DECREASE_UNREAD_MAIL_COUNT,
     REFRESH_MAIL_PAGE,
-    SET_CURRENT_USEER,
+    SET_CURRENT_USER,
+    SET_CURRENT_USER_NAME,
+    SET_CURRENT_USER_ICON,
 } from './types';
 
 const initialState: AllState = {
@@ -60,7 +62,10 @@ export function systemReducer(state = initialState, action: SystemActionTypes): 
                 hintOpen: false,
             };
         }
-        case SET_CURRENT_USEER: {
+        case SET_CURRENT_USER_ICON:
+        case SET_CURRENT_USER_NAME:
+        case SET_CURRENT_USER: {
+            console.log(action);
             return {
                 ...state,
                 ...action.payload,

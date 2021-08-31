@@ -481,7 +481,7 @@ export const updateName = (
 };
 
 const uploadIconUrl = 'http://localhost:8080/user/change_icon';
-export const uploadIcon = (data: FormData, resolve: (data: ChangeIconResponse) => void): Promise<ChangeIconResponse> => {
+export const uploadIcon = (data: FormData, resolve: (data: ChangeIconResponseData) => void): Promise<ChangeIconResponseData> => {
     const authHead = getTokenString();
 
     return fileObjectPost(uploadIconUrl, data, resolve, {

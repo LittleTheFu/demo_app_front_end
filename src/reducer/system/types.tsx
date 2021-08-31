@@ -44,9 +44,21 @@ interface OpenHintAction {
     payload: { hintMsg: string };
 }
 
-export const SET_CURRENT_USEER = 'SET_AVATAR';
+export const SET_CURRENT_USER_NAME = 'SET_CURRENT_USER_NAME';
+interface SetCurrentUserNameAction {
+    type: typeof SET_CURRENT_USER_NAME;
+    payload: { name: string };
+}
+
+export const SET_CURRENT_USER_ICON = 'SET_CURRENT_USER_ICON';
+interface SetCurrentUserIconAction {
+    type: typeof SET_CURRENT_USER_ICON;
+    payload: { icon: string };
+}
+
+export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 interface SetAvatarAction {
-    type: typeof SET_CURRENT_USEER;
+    type: typeof SET_CURRENT_USER;
     payload: { name: string, icon: string };
 }
 
@@ -105,6 +117,8 @@ interface RefreashMailPageAction {
 }
 
 export type SystemActionTypes =
+    | SetCurrentUserNameAction
+    | SetCurrentUserIconAction
     | SetAvatarAction
     | OpenHintAction
     | CloseHintAction

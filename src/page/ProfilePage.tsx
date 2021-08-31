@@ -3,7 +3,7 @@ import { Dispatch, useEffect, useState } from "react";
 import { getCurrentUser, updateName, uploadIcon, UserDetail } from "../common/service";
 import { ControlPoint } from "@material-ui/icons";
 import { UserHead } from "../component/UserHead";
-import { SET_CURRENT_USEER, SystemActionTypes } from "../reducer/system/types";
+import { SET_CURRENT_USER_ICON, SET_CURRENT_USER_NAME, SystemActionTypes } from "../reducer/system/types";
 import { useDispatch } from "react-redux";
 
 export const ProfilePage: React.FC = () => {
@@ -69,6 +69,15 @@ export const ProfilePage: React.FC = () => {
 
 
         uploadIcon(formData, (data) => {
+            console.log('上传成功 pre:');
+            console.log(data);
+            dispatch({
+                type: SET_CURRENT_USER_ICON,
+                payload: {
+                    icon: data.data.url,
+                }
+            });
+            console.log('上传成功 post:');
             console.log(data);
         })
     };
@@ -77,10 +86,9 @@ export const ProfilePage: React.FC = () => {
         updateName(userName, (data) => {
             setUserDetail({ ...userDetail, name: userName });
             dispatch({
-                type: SET_CURRENT_USEER,
+                type: SET_CURRENT_USER_NAME,
                 payload: {
                     name: userName,
-                    icon: userDetail.icon,
                 }
             });
             console.log(data);
