@@ -14,7 +14,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 import HomeIcon from '@material-ui/icons/Home';
 import { AccountBox, AddBox, Bookmark, Mail, People, Restore } from '@material-ui/icons';
-import { getAllArticleUrl, getFavoriteUrl, getFriendUrl, getHistoryUrl, getMailUrl, getNewArticleUrl, getProfileUrl } from '../common/UrlHelper';
+import { getAllArticleUrl, getFavoriteUrl, getFriendUrl, getHistoryUrl, getLoginUrl, getMailUrl, getNewArticleUrl, getProfileUrl } from '../common/UrlHelper';
 
 
 
@@ -30,6 +30,7 @@ export const TemporaryDrawer: React.FC = () => {
     const history = useHistory();
 
     const logoutClick = (): void => {
+        history.push(getLoginUrl());
     };
 
     const peopleClick = (): void => {
