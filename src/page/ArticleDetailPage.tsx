@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useRef, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Article, ArticleComment, bookmarkArticle, createArticle, createComment, deleteArticle, getArticleById, getArticleComments, thumbArticle, unBookmarkArticle, unthumbArticle, updateArticle } from "../common/service";
+import { Article, ArticleComment, bookmarkArticle, createArticle, createComment, deleteArticle, getArticleById, getArticleComments, thumbArticle, thumbComment, unBookmarkArticle, unthumbArticle, unThumbComment, updateArticle } from "../common/service";
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, MenuItem, Select, TextField } from '@material-ui/core';
 import { CommentCard } from '../component/CommentCard';
@@ -109,6 +109,34 @@ export const ArticleDetail: React.FC = () => {
         console.log('commit share');
     }
 
+    const ThumbCommentClick = (id: number): void => {
+        thumbComment(id, (data) => {
+            const new_comments = comments.map((c) => {
+                if(c.id == id) {
+                    c.thumbState = true;
+                    c.thumbNum += 1;
+                }
+                return c;
+            });
+            setComments(new_comments);
+            console.log(data);
+        });
+    }
+
+    const UnThumbCommentClick = (id: number): void => {
+        unThumbComment(id, (data) => {
+            const new_comments = comments.map((c) => {
+                if(c.id == id) {
+                    c.thumbState = false;
+                    c.thumbNum -= 1;
+                }
+                return c;
+            });
+            setComments(new_comments);
+            console.log(data);
+        });
+    }
+
     useEffect(() => {
 
         getArticleById(id, article => {
@@ -187,7 +215,11 @@ export const ArticleDetail: React.FC = () => {
                         author={comment.articleCommentUserName}
                         authorIcon={comment.articleCommentUserIcon}
                         date={comment.articleCommentDate}
-                        authorClick={() => { AuthorClick(comment.articleCommentUserId) }}></CommentCard>
+                        thumbState={comment.thumbState}
+                        thumbNum={comment.thumbNum}
+                        authorClick={() => { AuthorClick(comment.articleCommentUserId) }}
+                        thumbClick={() => { ThumbCommentClick(comment.id) }}
+                        unThumbClick={() => { UnThumbCommentClick(comment.id) }} />
                 );
             })}
             <form onSubmit={handleSubmit} noValidate autoComplete="off">

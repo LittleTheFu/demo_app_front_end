@@ -5,6 +5,8 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { UserHead } from './UserHead';
+import { IconButton } from '@material-ui/core';
+import { ThumbUp, ThumbUpAltOutlined } from '@material-ui/icons';
 
 const useStyles = makeStyles({
     root: {
@@ -17,8 +19,12 @@ interface CommentCardProps {
     author: string;
     authorIcon: string;
     date: Date;
+    thumbState: boolean;
+    thumbNum: number;
 
     authorClick?: () => void;
+    thumbClick?: () => void;
+    unThumbClick?: () => void;
 }
 
 export const CommentCard: React.FC<CommentCardProps> = (props: CommentCardProps) => {
@@ -38,6 +44,16 @@ export const CommentCard: React.FC<CommentCardProps> = (props: CommentCardProps)
                     <Typography variant="body2" color="textSecondary" component="p">
                         {props.date?.toString()}
                     </Typography>
+                    {props.thumbState ?
+                        <IconButton onClick={props.unThumbClick}>
+                            <ThumbUp />
+                        </IconButton>
+                        :
+                        <IconButton onClick={props.thumbClick}>
+                            <ThumbUpAltOutlined />
+                        </IconButton>
+                    }
+                    {props.thumbNum}
                 </CardContent>
             </CardActionArea>
         </Card>

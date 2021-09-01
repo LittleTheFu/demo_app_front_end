@@ -293,6 +293,25 @@ export const getArticleById = (
     return rawObjectGet(getArticleUrl + id, resolve, { 'Authorization': authHead }, reject);
 };
 
+const thumbCommentUrl = 'http://localhost:8080/article/comment_thumb/'
+export const thumbComment = (
+    id: number,
+    resolve: (data: BaseData) => void,
+    reject?: (data: Error) => void,
+): Promise<BaseData> => {
+    const authHead = getTokenString();
+    return rawObjectPut(thumbCommentUrl + id, {}, resolve, { 'Authorization': authHead }, reject);
+};
+
+const unThumbCommentUrl = 'http://localhost:8080/article/comment_unthumb/'
+export const unThumbComment = (
+    id: number,
+    resolve: (data: BaseData) => void,
+    reject?: (data: Error) => void,
+): Promise<BaseData> => {
+    const authHead = getTokenString();
+    return rawObjectPut(unThumbCommentUrl + id, {}, resolve, { 'Authorization': authHead }, reject);
+};
 
 const thumbArticleUrl = 'http://localhost:8080/article/thumb/'
 export const thumbArticle = (
@@ -422,6 +441,8 @@ export class ArticleComment {
     articleCommentUserIcon: string;
     articleCommentContent: string;
     articleCommentDate: Date;
+    thumbState: boolean;
+    thumbNum: number;
 
     constructor() {
         this.id = 0;
@@ -431,6 +452,8 @@ export class ArticleComment {
         this.articleCommentUserIcon = '';
         this.articleCommentContent = 'content';
         this.articleCommentDate = new Date();
+        this.thumbState = false;
+        this.thumbNum = 0;
     }
 }
 
