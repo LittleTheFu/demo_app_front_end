@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useRef, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Article, ArticleComment, bookmarkArticle, createArticle, createComment, deleteArticle, getArticleById, getArticleComments, thumbArticle, unBookmarkArticle, unthumbArticle, updateArticle } from "../common/service";
 import { useHistory, useLocation, useParams } from 'react-router-dom';
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@material-ui/core';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, MenuItem, Select, TextField } from '@material-ui/core';
 import { CommentCard } from '../component/CommentCard';
 import { EditCard } from '../component/EditCard';
 import { ArticleCard } from '../component/ArticleCard';
@@ -15,6 +15,10 @@ const useStyles = makeStyles({
 });
 
 export const ArticleDetail: React.FC = () => {
+    const ORDER_BY_DATE = 1;
+    const ORDER_BY_THUMB = 2;
+
+    const [commentOrderStatus, setCommentOrderStatus] = useState(ORDER_BY_DATE);
     const [article, setArticle] = useState<Article>(new Article());
     const [content, setContent] = useState('');
     const [comments, setComments] = useState<ArticleComment[]>([]);
@@ -47,7 +51,7 @@ export const ArticleDetail: React.FC = () => {
 
     const BookMarkClick = (id: number): void => {
         bookmarkArticle(id, (data) => {
-            setArticle({...article, bookmarked: true});
+            setArticle({ ...article, bookmarked: true });
             console.log(data);
         });
         console.log('Bookmark click : ' + id);
@@ -55,7 +59,7 @@ export const ArticleDetail: React.FC = () => {
 
     const UnBookMarkClick = (id: number): void => {
         unBookmarkArticle(id, (data) => {
-            setArticle({...article, bookmarked: false});
+            setArticle({ ...article, bookmarked: false });
             console.log(data);
         });
         console.log('UnBookMark click : ' + id);
@@ -113,7 +117,7 @@ export const ArticleDetail: React.FC = () => {
 
         getArticleComments(id, comments => {
             setComments(comments.data);
-            
+
             console.log('comments:');
             console.log(comments);
         })
@@ -127,6 +131,11 @@ export const ArticleDetail: React.FC = () => {
             setComments([...comments, oneCommentData.data]);
         })
     }
+
+    const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+        setCommentOrderStatus(event.target.value as number);
+        console.log(event.target.value);
+    };
 
     return (
         <div>
@@ -158,6 +167,18 @@ export const ArticleDetail: React.FC = () => {
                     shareable={true}
                     bookmarded={article.bookmarked} />
             }
+
+            <FormControl variant="filled">
+                <Select
+                    labelId="demo-simple-select-filled-label"
+                    id="demo-simple-select-filled"
+                    value={commentOrderStatus}
+                    onChange={handleChange}
+                >
+                    <MenuItem value={ORDER_BY_DATE}>按时间排序</MenuItem>
+                    <MenuItem value={ORDER_BY_THUMB}>按点赞排序</MenuItem>
+                </Select>
+            </FormControl>
 
             {comments.map((comment: ArticleComment, index: number) => {
                 return (
