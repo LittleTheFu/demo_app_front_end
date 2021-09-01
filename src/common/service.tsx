@@ -442,7 +442,7 @@ export class ArticleComment {
     articleCommentContent: string;
     articleCommentDate: Date;
     thumbState: boolean;
-    thumbNum: number;
+    articleCommentThumbNum: number;
 
     constructor() {
         this.id = 0;
@@ -453,7 +453,7 @@ export class ArticleComment {
         this.articleCommentContent = 'content';
         this.articleCommentDate = new Date();
         this.thumbState = false;
-        this.thumbNum = 0;
+        this.articleCommentThumbNum = 0;
     }
 }
 

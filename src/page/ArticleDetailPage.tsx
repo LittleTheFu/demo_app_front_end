@@ -114,7 +114,7 @@ export const ArticleDetail: React.FC = () => {
             const new_comments = comments.map((c) => {
                 if(c.id == id) {
                     c.thumbState = true;
-                    c.thumbNum += 1;
+                    c.articleCommentThumbNum += 1;
                 }
                 return c;
             });
@@ -128,7 +128,7 @@ export const ArticleDetail: React.FC = () => {
             const new_comments = comments.map((c) => {
                 if(c.id == id) {
                     c.thumbState = false;
-                    c.thumbNum -= 1;
+                    c.articleCommentThumbNum -= 1;
                 }
                 return c;
             });
@@ -216,7 +216,7 @@ export const ArticleDetail: React.FC = () => {
                         authorIcon={comment.articleCommentUserIcon}
                         date={comment.articleCommentDate}
                         thumbState={comment.thumbState}
-                        thumbNum={comment.thumbNum}
+                        thumbNum={comment.articleCommentThumbNum}
                         authorClick={() => { AuthorClick(comment.articleCommentUserId) }}
                         thumbClick={() => { ThumbCommentClick(comment.id) }}
                         unThumbClick={() => { UnThumbCommentClick(comment.id) }} />
