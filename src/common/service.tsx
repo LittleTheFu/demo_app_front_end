@@ -421,6 +421,7 @@ export class ArticleComment {
     articleCommentUserName: string;
     articleCommentUserIcon: string;
     articleCommentContent: string;
+    articleCommentDate: Date;
 
     constructor() {
         this.id = 0;
@@ -429,6 +430,7 @@ export class ArticleComment {
         this.articleCommentUserName = 'name';
         this.articleCommentUserIcon = '';
         this.articleCommentContent = 'content';
+        this.articleCommentDate = new Date();
     }
 }
 

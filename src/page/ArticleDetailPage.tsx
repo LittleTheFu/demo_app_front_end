@@ -113,6 +113,9 @@ export const ArticleDetail: React.FC = () => {
 
         getArticleComments(id, comments => {
             setComments(comments.data);
+            
+            console.log('comments:');
+            console.log(comments);
         })
     }, [id]);
 
@@ -162,6 +165,7 @@ export const ArticleDetail: React.FC = () => {
                         content={comment.articleCommentContent}
                         author={comment.articleCommentUserName}
                         authorIcon={comment.articleCommentUserIcon}
+                        date={comment.articleCommentDate}
                         authorClick={() => { AuthorClick(comment.articleCommentUserId) }}></CommentCard>
                 );
             })}

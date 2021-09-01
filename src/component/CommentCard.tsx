@@ -16,6 +16,7 @@ interface CommentCardProps {
     content: string;
     author: string;
     authorIcon: string;
+    date: Date;
 
     authorClick?: () => void;
 }
@@ -33,6 +34,9 @@ export const CommentCard: React.FC<CommentCardProps> = (props: CommentCardProps)
                         nameClick={props.authorClick} avatarClick={props.authorClick}></UserHead>
                     <Typography variant="body2" color="textSecondary" component="p">
                         {props.content}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary" component="p">
+                        {props.date?.toString()}
                     </Typography>
                 </CardContent>
             </CardActionArea>
