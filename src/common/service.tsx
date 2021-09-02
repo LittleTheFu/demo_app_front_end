@@ -469,11 +469,12 @@ export class CommentsData extends BaseData {
 const getArticleCommentsUrl = 'http://localhost:8080/article/article_comments/';
 export const getArticleComments = (
     id: string,
+    sortType: string,
     resolve: (data: CommentsData) => void,
     reject?: (data: Error) => void,
 ): Promise<CommentsData> => {
     const authHead = getTokenString();
-    return rawObjectGet(getArticleCommentsUrl + id, resolve, { 'Authorization': authHead }, reject);
+    return rawObjectGet(getArticleCommentsUrl + id + '?sort=' + sortType, resolve, { 'Authorization': authHead }, reject);
 };
 
 class ChangeIconResponse {

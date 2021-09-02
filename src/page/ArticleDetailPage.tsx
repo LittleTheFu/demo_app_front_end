@@ -15,8 +15,8 @@ const useStyles = makeStyles({
 });
 
 export const ArticleDetail: React.FC = () => {
-    const ORDER_BY_DATE = 1;
-    const ORDER_BY_THUMB = 2;
+    const ORDER_BY_DATE = 'date';
+    const ORDER_BY_THUMB = 'thumb';
 
     const [commentOrderStatus, setCommentOrderStatus] = useState(ORDER_BY_DATE);
     const [article, setArticle] = useState<Article>(new Article());
@@ -112,7 +112,7 @@ export const ArticleDetail: React.FC = () => {
     const ThumbCommentClick = (id: number): void => {
         thumbComment(id, (data) => {
             const new_comments = comments.map((c) => {
-                if(c.id == id) {
+                if (c.id == id) {
                     c.thumbState = true;
                     c.articleCommentThumbNum += 1;
                 }
@@ -126,7 +126,7 @@ export const ArticleDetail: React.FC = () => {
     const UnThumbCommentClick = (id: number): void => {
         unThumbComment(id, (data) => {
             const new_comments = comments.map((c) => {
-                if(c.id == id) {
+                if (c.id == id) {
                     c.thumbState = false;
                     c.articleCommentThumbNum -= 1;
                 }
@@ -143,25 +143,35 @@ export const ArticleDetail: React.FC = () => {
             setArticle(article.data);
         });
 
-        getArticleComments(id, comments => {
+        // getArticleComments(id, commentOrderStatus, comments => {
+        //     setComments(comments.data);
+
+        //     console.log('comments:');
+        //     console.log(comments);
+        // })
+    }, [id]);
+
+    useEffect(() => {
+        getArticleComments(id, commentOrderStatus, comments => {
             setComments(comments.data);
 
             console.log('comments:');
             console.log(comments);
         })
-    }, [id]);
+    }, [commentOrderStatus]);
 
     function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
         event.preventDefault();
         console.log(content);
 
         createComment(id, content, (oneCommentData) => {
-            setComments([...comments, oneCommentData.data]);
+            setComments([oneCommentData.data, ...comments]);
         })
     }
 
     const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setCommentOrderStatus(event.target.value as number);
+        setCommentOrderStatus(event.target.value as string);
+
         console.log(event.target.value);
     };
 
