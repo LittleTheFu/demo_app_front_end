@@ -5,8 +5,12 @@ import { ControlPoint } from "@material-ui/icons";
 import { UserHead } from "../component/UserHead";
 import { SET_CURRENT_USER_ICON, SET_CURRENT_USER_NAME, SystemActionTypes } from "../reducer/system/types";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { getUserDetailPageUrl } from "../common/UrlHelper";
+import { getCurrentUserId } from "../common/common";
 
 export const ProfilePage: React.FC = () => {
+    const history = useHistory();
     const dispatch = useDispatch<Dispatch<SystemActionTypes>>();
 
     const [selectedFile, setSelectedFile] = useState(new Blob());
@@ -82,6 +86,11 @@ export const ProfilePage: React.FC = () => {
         })
     };
 
+    const previewClick = (): void => {
+        const id = getCurrentUserId();
+        history.push(getUserDetailPageUrl(id));
+    }
+
     const applyClick = (): void => {
         updateName(userName, (data) => {
             setUserDetail({ ...userDetail, name: userName });
@@ -117,9 +126,14 @@ export const ProfilePage: React.FC = () => {
             <Divider />
 
             <TextField id="name" label="user" onChange={(e): void => setUserName(e.target.value)} />
-
             <Button type="submit" variant="contained" color="primary" onClick={applyClick}>
                 apply
+            </Button>
+
+            <Divider />
+
+            <Button type="submit" variant="contained" color="primary" onClick={previewClick}>
+                preview
             </Button>
         </div>
     );
