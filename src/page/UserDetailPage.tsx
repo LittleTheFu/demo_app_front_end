@@ -1,4 +1,4 @@
-import { Button, Divider, IconButton } from "@material-ui/core";
+import { Box, Button, Divider, IconButton, Paper, Tab, Tabs } from "@material-ui/core";
 import { Mail } from "@material-ui/icons";
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
@@ -14,13 +14,16 @@ export const UserDetailPage: React.FC = () => {
     const [followers, setFollowers] = useState<UserDetail[]>([]);
     const [Titles, setTitles] = useState<ArticleTitle[]>([]);
 
+    const [SelectTabValue, setSelectTabValue] = useState(0);
+    const [FollowingDisplay, setFollowingDisplay] = useState('block');
+    const [FollowersDisplay, setFollowersDisplay] = useState('none');
+    const [TitlesDisplay, setTitlesDisplay] = useState('none');
+
     const history = useHistory();
     const { id } = useParams<{ id: string }>();
 
     useEffect(() => {
         getUserById(id, userData => {
-            // console.log('article');
-            // console.log(article);
             setUserDetail(userData.data);
             console.log(userData);
         });
@@ -40,6 +43,31 @@ export const UserDetailPage: React.FC = () => {
             setTitles(data.data);
         })
     }, [id]);
+
+    useEffect(() => {
+
+        if (SelectTabValue == 0) {
+
+            setFollowingDisplay('block');
+            setFollowersDisplay('none');
+            setTitlesDisplay('none');
+
+        }
+        else if (SelectTabValue == 1) {
+
+            setFollowingDisplay('none');
+            setFollowersDisplay('block');
+            setTitlesDisplay('none');
+
+        } else {
+
+            setFollowingDisplay('none');
+            setFollowersDisplay('none');
+            setTitlesDisplay('block');
+
+        }
+
+    }, [SelectTabValue]);
 
     const ArticleClick = (id: number): void => {
         history.push(getArticleDetailUrl(id));
@@ -111,6 +139,9 @@ export const UserDetailPage: React.FC = () => {
         });
         console.log("Mail Click : ");
     }
+    const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
+        setSelectTabValue(newValue);
+    };
 
     return (
         <div>
@@ -124,34 +155,52 @@ export const UserDetailPage: React.FC = () => {
             <IconButton onClick={() => { MailClick(userDetail.id, userDetail.icon, userDetail.name) }}>
                 <Mail />
             </IconButton>
+            <Paper square>
+                <Tabs
+                    value={SelectTabValue}
+                    indicatorColor="primary"
+                    textColor="primary"
+                    onChange={handleChange}
+                    aria-label="disabled tabs example"
+                >
+                    <Tab label="关注了" />
+                    <Tab label="粉丝" />
+                    <Tab label="文章" />
+                </Tabs>
+            </Paper>
+            <Box component="div" display={FollowingDisplay}>
+                <h1>关注了:</h1>
+                {followings.map((f, index) => {
+                    return <FollowerCard user={f} key={index}
+                        followClick={() => CardFollowClick(f.id)}
+                        unfollowClick={() => CardUnfollowClick(f.id)}
+                        avatarClick={() => { AvatarClick(f.id) }} />
+                })}
+            </Box>
             <Divider />
-            <h1>关注了:</h1>
-            {followings.map((f, index) => {
-                return <FollowerCard user={f} key={index}
-                    followClick={() => CardFollowClick(f.id)}
-                    unfollowClick={() => CardUnfollowClick(f.id)}
-                    avatarClick={() => { AvatarClick(f.id) }} />
-            })}
+            <Box component="div" display={FollowersDisplay}>
+                <h1>粉丝:</h1>
+                {followers.map((f, index) => {
+                    return <FollowerCard user={f} key={index}
+                        followClick={() => CardFollowClick(f.id)}
+                        unfollowClick={() => CardUnfollowClick(f.id)}
+                        avatarClick={() => { AvatarClick(f.id) }} />
+                })}
+            </Box>
             <Divider />
-            <h1>粉丝:</h1>
-            {followers.map((f, index) => {
-                return <FollowerCard user={f} key={index}
-                    followClick={() => CardFollowClick(f.id)}
-                    unfollowClick={() => CardUnfollowClick(f.id)}
-                    avatarClick={() => { AvatarClick(f.id) }} />
-            })}
-            <Divider />
-            <h1>文章:</h1>
-            {
-                Titles.map((a, index) => {
-                    return <TitleCard key={index}
-                        id = {a.id}
-                        title = {a.title}
-                        author = {a.authorName}
-                        authorIcon = {a.authorIcon}
-                        textClick={() => { ArticleClick(a.id) }} />
-                })
-            }
+            <Box component="div" display={TitlesDisplay}>
+                <h1>文章:</h1>
+                {
+                    Titles.map((a, index) => {
+                        return <TitleCard key={index}
+                            id={a.id}
+                            title={a.title}
+                            author={a.authorName}
+                            authorIcon={a.authorIcon}
+                            textClick={() => { ArticleClick(a.id) }} />
+                    })
+                }
+            </Box>
         </div>
     );
 }
