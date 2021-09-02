@@ -676,6 +676,16 @@ export class ArticleTitleResponseData extends BaseData {
     }
 }
 
+const userTitlesUrl = 'http://localhost:8080/article/get_titles_by_user/';
+export const getUserTitles = (
+    id: string,
+    resolve: (data: ArticleTitleResponseData) => void,
+    reject?: (data: Error) => void,
+): Promise<ArticleTitleResponseData> => {
+    const authHead = getTokenString();
+    return rawObjectGet(userTitlesUrl + id, resolve, { 'Authorization': authHead }, reject);
+};
+
 const historyUrl = 'http://localhost:8080/history';
 export const getHistory = (
     resolve: (data: ArticleTitleResponseData) => void,

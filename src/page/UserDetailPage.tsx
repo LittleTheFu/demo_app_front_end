@@ -2,15 +2,17 @@ import { Button, Divider, IconButton } from "@material-ui/core";
 import { Mail } from "@material-ui/icons";
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { getUserDetailPageUrl, getWriteNewMailUrl } from "../common/UrlHelper";
+import { getArticleDetailUrl, getUserDetailPageUrl, getWriteNewMailUrl } from "../common/UrlHelper";
 import { FollowerCard } from "../component/FollowerCard";
-import { followUser, getFollowers, getFollowings, getUserById, unfollowUser, UserDetail } from "../common/service";
+import { ArticleTitle, followUser, getFollowers, getFollowings, getUserById, getUserTitles, unfollowUser, UserDetail } from "../common/service";
 import { UserHead } from "../component/UserHead";
+import { TitleCard } from "../component/TitleCard";
 
 export const UserDetailPage: React.FC = () => {
     const [userDetail, setUserDetail] = useState<UserDetail>(new UserDetail());
     const [followings, setFollowings] = useState<UserDetail[]>([]);
     const [followers, setFollowers] = useState<UserDetail[]>([]);
+    const [Titles, setTitles] = useState<ArticleTitle[]>([]);
 
     const history = useHistory();
     const { id } = useParams<{ id: string }>();
@@ -32,7 +34,17 @@ export const UserDetailPage: React.FC = () => {
             console.log(data);
             setFollowers(data.data);
         })
+
+        getUserTitles(id, (data) => {
+            console.log(data);
+            setTitles(data.data);
+        })
     }, [id]);
+
+    const ArticleClick = (id: number): void => {
+        history.push(getArticleDetailUrl(id));
+        console.log("card clicked : " + id)
+    };
 
     const UpdateFollowFlag =
         (id: number,
@@ -128,6 +140,18 @@ export const UserDetailPage: React.FC = () => {
                     unfollowClick={() => CardUnfollowClick(f.id)}
                     avatarClick={() => { AvatarClick(f.id) }} />
             })}
+            <Divider />
+            <h1>文章:</h1>
+            {
+                Titles.map((a, index) => {
+                    return <TitleCard key={index}
+                        id = {a.id}
+                        title = {a.title}
+                        author = {a.authorName}
+                        authorIcon = {a.authorIcon}
+                        textClick={() => { ArticleClick(a.id) }} />
+                })
+            }
         </div>
     );
 }
