@@ -49,7 +49,7 @@ export const MailPage: React.FC = () => {
                     content={m.content}
                     username={m.authorName}
                     avatar={m.authorIcon}
-                    authorClick={() => { AuthorClick(m.id) }}
+                    authorClick={() => { AuthorClick(m.mailFromId) }}
                     canBeDeleted={true}
                     mailClick={() => { MailClick(m.mailFromId, m.authorName, m.authorIcon) }}
                     deleteClick={() => { DeleteClick(m.id) }} />);
