@@ -1,5 +1,6 @@
 import { TokenData } from "./service";
 import { validate } from 'email-validator';
+import jwt_decode from "jwt-decode";
 
 export const setToken = (token: string): void => {
     sessionStorage.setItem('token', token);
@@ -16,6 +17,23 @@ export const setTokenHead = (head: string): void => {
 export const getTokenHead = (): string => {
     return sessionStorage.getItem('tokenHead') || '';
 };
+
+
+interface DecodedType {
+    sub: string;
+    created: number;
+    current_user_id: number;
+    exp: number;
+};
+
+export const getCurrentUserId = (): number => {
+    const decoded_obj = jwt_decode(getToken()) as DecodedType;
+    if (decoded_obj) {
+        return decoded_obj.current_user_id;
+    }
+
+    return 0;
+}
 
 export const getTokenObject = (): TokenData => {
     return {

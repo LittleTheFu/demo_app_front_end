@@ -5,7 +5,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useHistory, Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import { AccessData, getCurrentUser, getGreeting, postLogin } from '../common/service';
-import { setToken, setTokenHead } from '../common/common';
+import { getCurrentUserId, setToken, setTokenHead } from '../common/common';
 import { useDispatch } from 'react-redux';
 import { SET_CURRENT_USER, SystemActionTypes } from '../reducer/system/types';
 import { getAllArticleUrl } from '../common/UrlHelper';
@@ -49,6 +49,9 @@ export const Login: React.FC = () => {
 
         setTokenHead(accessData.data.tokenHead);
         setToken(accessData.data.token);
+
+        console.log('decoded code');
+        console.log(getCurrentUserId());
 
         getCurrentUser((data) => {
             console.log('set avatar!!!!! ' + data.data.icon);
