@@ -28,9 +28,9 @@ interface CommentCardProps {
 }
 
 export const CommentCard: React.FC<CommentCardProps> = (props: CommentCardProps) => {
-
-
     const classes = useStyles();
+
+    const localDate = new Date(props.date);
 
     return (
         <Card className={classes.root}>
@@ -42,7 +42,7 @@ export const CommentCard: React.FC<CommentCardProps> = (props: CommentCardProps)
                         {props.content}
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="p">
-                        {props.date?.toString()}
+                        {localDate.toString()}
                     </Typography>
                     {props.thumbState ?
                         <IconButton onClick={props.unThumbClick}>
