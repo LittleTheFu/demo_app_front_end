@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useRef, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Article, ArticleComment, bookmarkArticle, createArticle, createComment, deleteArticle, getArticleById, getArticleComments, thumbArticle, thumbComment, unBookmarkArticle, unthumbArticle, unThumbComment, updateArticle } from "../common/service";
+import { Article, ArticleComment, bookmarkArticle, createArticle, createComment, deleteArticle, deleteArticleTag, getArticleById, getArticleComments, thumbArticle, thumbComment, unBookmarkArticle, unthumbArticle, unThumbComment, updateArticle } from "../common/service";
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { Button, Chip, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, FormControl, MenuItem, Select, TextField } from '@material-ui/core';
 import { CommentCard } from '../component/CommentCard';
@@ -142,6 +142,13 @@ export const ArticleDetail: React.FC = () => {
         console.log('tag clicked : ' + tag);
     }
 
+    const TagDeleteClick = (tag: string): void => {
+        deleteArticleTag(article.id, tag, (data) => {
+            console.log(data);
+        });
+        console.log('tag delete clicked : ' + tag);
+    }
+
     useEffect(() => {
 
         getArticleById(id, article => {
@@ -213,7 +220,10 @@ export const ArticleDetail: React.FC = () => {
                         label={tag}
                         clickable color="primary"
                         variant="outlined"
-                        onClick={()=>{TagClick(tag)}}
+                        onClick={() => { TagClick(tag) }}
+                        onDelete={article.editable ?
+                            () => { TagDeleteClick(tag) } :
+                            undefined}
                     />
                 })
             }

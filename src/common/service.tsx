@@ -545,6 +545,18 @@ export const createArticle = (
     return rawObjectPut(createArticleUrl, { title: title, content: content }, resolve, { 'Authorization': authHead }, reject);
 };
 
+const deleteArticlTageUrl = 'http://localhost:8080/article/delete_article_tag';
+export const deleteArticleTag = (
+    id: number,
+    tag: string,
+    resolve: (data: BaseData) => void,
+    reject?: (data: Error) => void,
+): Promise<BaseData> => {
+    const authHead = getTokenString();
+    return rawObjectDelete(deleteArticlTageUrl + '?' + 'id=' + id + '&' + 'tag=' + tag,
+        resolve, { 'Authorization': authHead }, reject);
+};
+
 const deleteArticleUrl = 'http://localhost:8080/article/delete/';
 export const deleteArticle = (
     id: number,
