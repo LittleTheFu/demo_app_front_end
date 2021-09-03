@@ -25,6 +25,7 @@ export const TagTitlePage: React.FC = () => {
 
     return (
         <div>
+            <h1>{tag}</h1>
             {
                 Titles.map((t, index) => {
                     return <TitleCard key={index}
