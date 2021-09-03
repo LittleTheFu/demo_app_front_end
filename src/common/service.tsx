@@ -557,6 +557,19 @@ export const deleteArticleTag = (
         resolve, { 'Authorization': authHead }, reject);
 };
 
+const addArticlTageUrl = 'http://localhost:8080/article/add_article_tag/';
+export const addArticleTag = (
+    id: number,
+    tag: string,
+    resolve: (data: BaseData) => void,
+    reject?: (data: Error) => void,
+): Promise<BaseData> => {
+    const authHead = getTokenString();
+    return rawObjectPut(addArticlTageUrl + id, { tag: tag },
+        resolve, { 'Authorization': authHead }, reject);
+};
+
+
 const deleteArticleUrl = 'http://localhost:8080/article/delete/';
 export const deleteArticle = (
     id: number,

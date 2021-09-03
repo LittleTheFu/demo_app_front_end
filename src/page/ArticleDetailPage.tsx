@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useRef, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Article, ArticleComment, bookmarkArticle, createArticle, createComment, deleteArticle, deleteArticleTag, getArticleById, getArticleComments, thumbArticle, thumbComment, unBookmarkArticle, unthumbArticle, unThumbComment, updateArticle } from "../common/service";
+import { addArticleTag, Article, ArticleComment, bookmarkArticle, createArticle, createComment, deleteArticle, deleteArticleTag, getArticleById, getArticleComments, thumbArticle, thumbComment, unBookmarkArticle, unthumbArticle, unThumbComment, updateArticle } from "../common/service";
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import { Button, Chip, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, FormControl, MenuItem, Select, TextField } from '@material-ui/core';
 import { CommentCard } from '../component/CommentCard';
@@ -24,6 +24,7 @@ export const ArticleDetail: React.FC = () => {
     const [comments, setComments] = useState<ArticleComment[]>([]);
     const [editFlag, setEditFlag] = useState(false);
     const [shareDialogOpen, setShareDialogOpen] = useState(false);
+    const [newTag, setNewTag] = useState('');
 
     const classes = useStyles();
     const history = useHistory();
@@ -149,6 +150,12 @@ export const ArticleDetail: React.FC = () => {
         console.log('tag delete clicked : ' + tag);
     }
 
+    const TagAddClick = (tag: string): void => {
+        addArticleTag(article.id, tag, (data) => {
+            console.log(data);
+        });
+    }
+
     useEffect(() => {
 
         getArticleById(id, article => {
@@ -227,6 +234,15 @@ export const ArticleDetail: React.FC = () => {
                     />
                 })
             }
+
+            <Divider />
+            <TextField id="tag" onChange={(e): void => setNewTag(e.target.value)} />
+            <Button type="submit"
+                variant="contained"
+                color="primary"
+                onClick={() => { TagAddClick(newTag) }}>
+                add tag
+            </Button>
 
             <Divider />
             <FormControl variant="filled">
