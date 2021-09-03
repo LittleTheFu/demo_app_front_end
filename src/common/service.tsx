@@ -505,7 +505,7 @@ export const updateName = (
     reject?: (data: Error) => void,
 ): Promise<BaseData> => {
     const authHead = getTokenString();
-    return rawObjectPut(updateNameUrl, {name: name}, resolve, { 'Authorization': authHead }, reject);
+    return rawObjectPut(updateNameUrl, { name: name }, resolve, { 'Authorization': authHead }, reject);
 };
 
 const uploadIconUrl = 'http://localhost:8080/user/change_icon';
@@ -686,6 +686,17 @@ export const getUserTitles = (
 ): Promise<ArticleTitleResponseData> => {
     const authHead = getTokenString();
     return rawObjectGet(userTitlesUrl + id, resolve, { 'Authorization': authHead }, reject);
+};
+
+const titlesTagUrl = 'http://localhost:8080/article/get_titles_by_tag';
+export const getTitlesBytag = (
+    tag: string,
+    resolve: (data: ArticleTitleResponseData) => void,
+    reject?: (data: Error) => void,
+): Promise<ArticleTitleResponseData> => {
+    const authHead = getTokenString();
+    console.log(authHead);
+    return rawObjectGet(titlesTagUrl + '?' + 'tag=' + tag, resolve, { 'Authorization': authHead }, reject);
 };
 
 const historyUrl = 'http://localhost:8080/history';
