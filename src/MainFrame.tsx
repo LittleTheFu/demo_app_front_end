@@ -10,6 +10,7 @@ import { MailPage } from "./page/MailPage";
 import { NewArticlePage } from "./page/NewArticlePage";
 import { NewMailPage } from "./page/NewMailPage";
 import { ProfilePage } from "./page/ProfilePage";
+import { TagTitlePage } from "./page/TagTitlePage";
 import { UserDetailPage } from "./page/UserDetailPage";
 
 export const MainFrame: React.FC = () => {
@@ -49,6 +50,9 @@ export const MainFrame: React.FC = () => {
                 </Route>
                 <Route path={`${path}/favorite`}>
                     <FavoritePage></FavoritePage>
+                </Route>
+                <Route path={`${path}/tag_titles/:tag`}>
+                    <TagTitlePage></TagTitlePage>
                 </Route>
             </Switch>
         </div>

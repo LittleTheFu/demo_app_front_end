@@ -2,11 +2,11 @@ import React, { createContext, useEffect, useRef, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Article, ArticleComment, bookmarkArticle, createArticle, createComment, deleteArticle, getArticleById, getArticleComments, thumbArticle, thumbComment, unBookmarkArticle, unthumbArticle, unThumbComment, updateArticle } from "../common/service";
 import { useHistory, useLocation, useParams } from 'react-router-dom';
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, MenuItem, Select, TextField } from '@material-ui/core';
+import { Button, Chip, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, FormControl, MenuItem, Select, TextField } from '@material-ui/core';
 import { CommentCard } from '../component/CommentCard';
 import { EditCard } from '../component/EditCard';
 import { ArticleCard } from '../component/ArticleCard';
-import { getAllArticleUrl, getSharedUrl, getUserUrl } from '../common/UrlHelper';
+import { getAllArticleUrl, getSharedUrl, getTagTitleUrl, getUserUrl } from '../common/UrlHelper';
 
 const useStyles = makeStyles({
     root: {
@@ -137,18 +137,18 @@ export const ArticleDetail: React.FC = () => {
         });
     }
 
+    const TagClick = (tag: string): void => {
+        history.push(getTagTitleUrl(tag));
+        console.log('tag clicked : ' + tag);
+    }
+
     useEffect(() => {
 
         getArticleById(id, article => {
+            console.log(article);
             setArticle(article.data);
         });
 
-        // getArticleComments(id, commentOrderStatus, comments => {
-        //     setComments(comments.data);
-
-        //     console.log('comments:');
-        //     console.log(comments);
-        // })
     }, [id]);
 
     useEffect(() => {
@@ -206,6 +206,19 @@ export const ArticleDetail: React.FC = () => {
                     bookmarded={article.bookmarked} />
             }
 
+            {
+                article.tags.map((tag, index) => {
+                    return <Chip
+                        key={index}
+                        label={tag}
+                        clickable color="primary"
+                        variant="outlined"
+                        onClick={()=>{TagClick(tag)}}
+                    />
+                })
+            }
+
+            <Divider />
             <FormControl variant="filled">
                 <Select
                     labelId="demo-simple-select-filled-label"

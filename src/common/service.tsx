@@ -240,6 +240,7 @@ export class Article {
     deletable: boolean;
     editable: boolean;
     bookmarked: boolean;
+    tags: string[];
 
     constructor() {
         this.id = 0;
@@ -253,6 +254,7 @@ export class Article {
         this.deletable = false;
         this.editable = false;
         this.bookmarked = false;
+        this.tags = [];
     }
 }
 

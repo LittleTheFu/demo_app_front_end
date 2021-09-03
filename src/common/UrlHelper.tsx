@@ -54,3 +54,7 @@ export const getArticleUrl = (id: number): string => {
 export const getFavoriteUrl = (): string => {
     return '/main/favorite/';
 }
+
+export const getTagTitleUrl = (tag: string) => {
+    return '/main/tag_titles/' + tag;
+}
