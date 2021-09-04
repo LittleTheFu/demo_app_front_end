@@ -1,3 +1,3 @@
 export const Page: React.FC = () => {
-    return <h1>Page</h1>
+    return <h1>Template Page</h1>
 };
