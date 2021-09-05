@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { createEditor, Descendant } from 'slate'
 import { Slate, Editable, withReact, ReactEditor } from 'slate-react'
 import { BaseEditor } from 'slate'
@@ -16,8 +16,8 @@ declare module 'slate' {
 
 export const FriendPage: React.FC = () => {
 
-  const editor = createEditor();
-  // const editor = useMemo(() => withReact(createEditor()), [])
+  // const editor = createEditor();
+  const editor = useMemo(() => withReact(createEditor()), [])
   // Add the initial value when setting up our state.
   const [value, setValue] = useState<Descendant[]>([
     {
