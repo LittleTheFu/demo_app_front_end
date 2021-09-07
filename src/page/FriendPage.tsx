@@ -3,10 +3,10 @@ import { createEditor, Descendant, Editor, Transforms } from 'slate'
 import { Slate, Editable, withReact, ReactEditor } from 'slate-react'
 import { BaseEditor } from 'slate'
 import { IconButton } from '@material-ui/core'
-import { FormatBold } from '@material-ui/icons'
+import { FormatBold, FormatUnderlined } from '@material-ui/icons'
 
 type CustomElement = { type: 'paragraph' | 'code'; children: CustomText[] }
-type CustomText = { text: string; bold: boolean }
+type CustomText = { text: string; bold: boolean; underline: boolean }
 
 declare module 'slate' {
   interface CustomTypes {
@@ -24,7 +24,7 @@ export const FriendPage: React.FC = () => {
   const [value, setValue] = useState<Descendant[]>([
     {
       type: 'paragraph',
-      children: [{ text: 'A line of text in a paragraph.', bold: false }],
+      children: [{ text: 'A line of text in a paragraph.', bold: false, underline: false }],
     },
   ])
 
@@ -69,12 +69,30 @@ export const FriendPage: React.FC = () => {
     console.log('btn click');
   }
 
+  const underLineBtnClick = (editor: Editor): void => {
+    const marks = Editor.marks(editor);
+    console.log('marks');
+    console.log(marks);
+    let mark = false;
+    if(marks && marks.underline) {
+      mark = marks.underline;
+    }
+    
+    editor.addMark('underline', !mark);
+    console.log('btn click');
+  }
+
   type LeafProp = { attributes: any, children: ReactElement<any, any>, leaf: CustomText };
   const Leaf = (props: LeafProp) => {
     const { attributes, children, leaf } = props;
     let new_children = children;
+
     if (props.leaf.bold) {
       new_children = <strong>{children}</strong>
+    }
+
+    if (props.leaf.underline) {
+      new_children = <u>{new_children}</u>
     }
   
     return <span {...attributes}>{new_children}</span>
@@ -88,6 +106,10 @@ export const FriendPage: React.FC = () => {
     >
       <IconButton onClick={()=>{btnClick(editor)}}>
         <FormatBold />
+      </IconButton>
+
+      <IconButton onClick={()=>{underLineBtnClick(editor)}}>
+        <FormatUnderlined />
       </IconButton>
 
       <Editable
