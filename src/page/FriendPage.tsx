@@ -3,10 +3,15 @@ import { createEditor, Descendant, Editor, Transforms } from 'slate'
 import { Slate, Editable, withReact, ReactEditor } from 'slate-react'
 import { BaseEditor } from 'slate'
 import { IconButton } from '@material-ui/core'
-import { FormatBold, FormatUnderlined } from '@material-ui/icons'
+import { FormatBold, FormatItalic, FormatUnderlined } from '@material-ui/icons'
 
 type CustomElement = { type: 'paragraph' | 'code'; children: CustomText[] }
-type CustomText = { text: string; bold: boolean; underline: boolean }
+type CustomText = {
+  text: string;
+  bold: boolean;
+  underline: boolean;
+  italic: boolean
+}
 
 declare module 'slate' {
   interface CustomTypes {
@@ -24,7 +29,12 @@ export const FriendPage: React.FC = () => {
   const [value, setValue] = useState<Descendant[]>([
     {
       type: 'paragraph',
-      children: [{ text: 'A line of text in a paragraph.', bold: false, underline: false }],
+      children: [{
+        text: 'A line of text in a paragraph.',
+        bold: false,
+        underline: false,
+        italic: false,
+      }],
     },
   ])
 
@@ -61,10 +71,10 @@ export const FriendPage: React.FC = () => {
     console.log('marks');
     console.log(marks);
     let mark = false;
-    if(marks && marks.bold) {
+    if (marks && marks.bold) {
       mark = marks.bold;
     }
-    
+
     editor.addMark('bold', !mark);
     console.log('btn click');
   }
@@ -74,11 +84,24 @@ export const FriendPage: React.FC = () => {
     console.log('marks');
     console.log(marks);
     let mark = false;
-    if(marks && marks.underline) {
+    if (marks && marks.underline) {
       mark = marks.underline;
     }
-    
+
     editor.addMark('underline', !mark);
+    console.log('btn click');
+  }
+
+  const italicBtnClick = (editor: Editor): void => {
+    const marks = Editor.marks(editor);
+    console.log('marks');
+    console.log(marks);
+    let mark = false;
+    if (marks && marks.italic) {
+      mark = marks.italic;
+    }
+
+    editor.addMark('italic', !mark);
     console.log('btn click');
   }
 
@@ -94,7 +117,11 @@ export const FriendPage: React.FC = () => {
     if (props.leaf.underline) {
       new_children = <u>{new_children}</u>
     }
-  
+
+    if (props.leaf.italic) {
+      new_children = <em>{new_children}</em>
+    }
+
     return <span {...attributes}>{new_children}</span>
   }
 
@@ -104,12 +131,16 @@ export const FriendPage: React.FC = () => {
       value={value}
       onChange={newValue => setValue(newValue)}
     >
-      <IconButton onClick={()=>{btnClick(editor)}}>
+      <IconButton onClick={() => { btnClick(editor) }}>
         <FormatBold />
       </IconButton>
 
-      <IconButton onClick={()=>{underLineBtnClick(editor)}}>
+      <IconButton onClick={() => { underLineBtnClick(editor) }}>
         <FormatUnderlined />
+      </IconButton>
+
+      <IconButton onClick={() => { italicBtnClick(editor) }}>
+        <FormatItalic />
       </IconButton>
 
       <Editable
