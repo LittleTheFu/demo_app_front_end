@@ -3,8 +3,9 @@ import { createEditor, Descendant, Editor, Transforms } from 'slate'
 import { Slate, Editable, withReact, ReactEditor } from 'slate-react'
 import { BaseEditor } from 'slate'
 import { IconButton } from '@material-ui/core'
-import { CropOriginal, FormatBold, FormatItalic, FormatUnderlined } from '@material-ui/icons'
+import { Backup, CloudDownload, CropOriginal, FormatBold, FormatItalic, FormatUnderlined } from '@material-ui/icons'
 import { uploadImage } from '../common/service'
+import { getGlobal, globalValue, setGlobal } from '../common/common'
 
 type EmptyText = {
   text: string
@@ -148,6 +149,16 @@ export const FriendPage: React.FC = () => {
     console.log('btn click');
   }
 
+  const saveClick = ():void => {
+    // sessionStorage.setItem('test', value);
+    setGlobal(value);
+  }
+
+  const loadClick = (): void => {
+    // console.log(sessionStorage.getItem('test'));
+    setValue(getGlobal() as Descendant[]);
+  }
+
   const italicBtnClick = (editor: Editor): void => {
     const marks = Editor.marks(editor);
     console.log('marks');
@@ -183,6 +194,8 @@ export const FriendPage: React.FC = () => {
       if (data && data.data && data.data.url && data.data.url != '') {
         setReturnUrl(data.data.url);
       }
+
+      console.log(value);
     });
 
     // const text = { text: '' }
@@ -249,21 +262,17 @@ export const FriendPage: React.FC = () => {
         <CropOriginal />
       </IconButton>
 
+      <IconButton onClick={() => { saveClick() }}>
+        <Backup />
+      </IconButton>
+
+      <IconButton onClick={() => { loadClick() }}>
+        <CloudDownload />
+      </IconButton>
+
       <Editable
         renderElement={renderElement}
         renderLeaf={renderLeaf}
-        onKeyDown={event => {
-          if (event.key === '`' && event.ctrlKey) {
-            // Prevent the "`" from being inserted by default.
-            event.preventDefault()
-            // Otherwise, set the currently selected blocks type to "code".
-            Transforms.setNodes(
-              editor,
-              { type: 'code' },
-              { match: n => Editor.isBlock(editor, n) }
-            )
-          }
-        }}
       />
     </Slate>
   )

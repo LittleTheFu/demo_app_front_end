@@ -2,6 +2,16 @@ import { TokenData } from "./service";
 import { validate } from 'email-validator';
 import jwt_decode from "jwt-decode";
 
+export let globalValue: object = {};
+
+export const setGlobal = (v: object) : void => {
+    globalValue = v;
+}
+
+export const getGlobal = (): object => {
+    return globalValue;
+}
+ 
 export const setToken = (token: string): void => {
     sessionStorage.setItem('token', token);
 };
