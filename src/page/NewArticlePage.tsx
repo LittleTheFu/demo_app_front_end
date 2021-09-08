@@ -1,17 +1,20 @@
-import { Button, TextField } from "@material-ui/core";
-import { useState } from "react";
+import { Button, Divider, TextField } from "@material-ui/core";
+import { createRef, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { createArticle, CreateArticleResponseData } from "../common/service";
 import { getArticleUrl } from "../common/UrlHelper";
+import { RichEditor } from "../component/RichEditor";
 
 export const NewArticlePage: React.FC = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
 
+    const richEditorRef = useRef(null);
+
     const history = useHistory();
 
-    function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
-        event.preventDefault();
+    function handleSubmit(): void {
+        // event.preventDefault();
         console.log(content);
 
         createArticle(title, content, (data: CreateArticleResponseData) => {
@@ -22,22 +25,28 @@ export const NewArticlePage: React.FC = () => {
 
     return (
         <div>
-            <form onSubmit={handleSubmit} noValidate autoComplete="off">
+            {/* <form onSubmit={handleSubmit} noValidate autoComplete="off"> */}
                 <TextField
                     multiline={true}
                     variant="outlined"
                     onChange={(e): void => setTitle(e.target.value)}
                 />
-                <div>----------</div>
+                <Divider />
                 <TextField
                     multiline={true}
                     variant="outlined"
                     onChange={(e): void => setContent(e.target.value)}
                 />
-                <Button type="submit" variant="contained" color="primary" >
+                <Button 
+                type="submit" 
+                variant="contained" 
+                color="primary" 
+                onClick={handleSubmit}>
                     post
                 </Button>
-            </form>
+                <Divider />
+                <RichEditor />
+            {/* </form> */}
         </div>
     );
 }
