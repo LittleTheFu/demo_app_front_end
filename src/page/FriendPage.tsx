@@ -149,14 +149,22 @@ export const FriendPage: React.FC = () => {
     console.log('btn click');
   }
 
-  const saveClick = ():void => {
-    // sessionStorage.setItem('test', value);
-    setGlobal(value);
+  const saveClick = (): void => {
+    const str = JSON.stringify(value);
+    sessionStorage.setItem('test', str);
+    // console.log( str);
+
+    // const o = JSON.parse(str);
+    // console.log(o);
+    // setGlobal(value);
   }
 
   const loadClick = (): void => {
-    // console.log(sessionStorage.getItem('test'));
-    setValue(getGlobal() as Descendant[]);
+    const str = sessionStorage.getItem('test');
+    if (str) {
+      const o = JSON.parse(str);
+      setValue(o);
+    }
   }
 
   const italicBtnClick = (editor: Editor): void => {
