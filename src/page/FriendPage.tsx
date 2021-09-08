@@ -5,7 +5,10 @@ import { BaseEditor } from 'slate'
 import { IconButton } from '@material-ui/core'
 import { FormatBold, FormatItalic, FormatUnderlined } from '@material-ui/icons'
 
-type CustomElement = { type: 'paragraph' | 'code'; children: CustomText[] }
+// type CustomElement = { type: 'paragraph' | 'code'; children: CustomText[] }
+type CustomBlockElement = { type: 'paragraph' | 'code'; children: CustomText[] }
+type CustomImageElement = { type: 'image'; url: string; children: CustomText[] }
+type CustomElement = CustomBlockElement | CustomImageElement;
 type CustomText = {
   text: string;
   bold: boolean;
@@ -36,6 +39,15 @@ export const FriendPage: React.FC = () => {
         italic: false,
       }],
     },
+    {
+      type: 'image',
+      url: 'https://material-ui.com/static/hiring-toc-light.png',
+      children: [{
+        text: '', bold: false,
+        underline: false,
+        italic: false,
+      }],
+    },
   ])
 
   // Define a React component renderer for our code blocks.
@@ -50,6 +62,18 @@ export const FriendPage: React.FC = () => {
     )
   }
 
+  const ImageElement = (props: {
+    attributes: JSX.IntrinsicAttributes & React.ClassAttributes<HTMLPreElement> & React.HTMLAttributes<HTMLPreElement>;
+    children: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined,
+    element: CustomImageElement
+  }) => {
+    return (
+      <div>
+        <img src={props.element.url} />
+      </div>
+    )
+  }
+
   const DefaultElement = (props: {
     attributes: JSX.IntrinsicAttributes & React.ClassAttributes<HTMLParagraphElement> & React.HTMLAttributes<HTMLParagraphElement>;
     children: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined
@@ -61,6 +85,8 @@ export const FriendPage: React.FC = () => {
     switch (props.element.type) {
       case 'code':
         return <CodeElement {...props} />
+      case 'image':
+        return <ImageElement {...props} />
       default:
         return <DefaultElement {...props} />
     }
