@@ -1,8 +1,8 @@
-import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { createEditor, Descendant, Editor, Transforms } from 'slate'
 import { Slate, Editable, withReact, ReactEditor } from 'slate-react'
 import { BaseEditor } from 'slate'
-import { IconButton } from '@material-ui/core'
+import { IconButton, TextField } from '@material-ui/core'
 import { Backup, CloudDownload, CropOriginal, FormatBold, FormatItalic, FormatUnderlined } from '@material-ui/icons'
 import { uploadImage } from '../common/service'
 import { RichEditor } from '../component/RichEditor'
@@ -31,10 +31,18 @@ declare module 'slate' {
 }
 
 export const FriendPage: React.FC = () => {
+  const myRef = useRef();
   return (<div>
+    <TextField
+    inputRef={myRef}
+                    multiline={true}
+                    variant="outlined"
+                />
     <h1>
       friend page
     </h1>
-    <RichEditor />
+    {/* <RichEditor onContentChange={(text) => {
+      
+    }} /> */}
   </div>)
 }

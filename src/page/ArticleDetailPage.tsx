@@ -7,6 +7,8 @@ import { CommentCard } from '../component/CommentCard';
 import { EditCard } from '../component/EditCard';
 import { ArticleCard } from '../component/ArticleCard';
 import { getAllArticleUrl, getSharedUrl, getTagTitleUrl, getUserUrl } from '../common/UrlHelper';
+import { RichEditor } from '../component/RichEditor';
+import { Descendant } from 'slate';
 
 const useStyles = makeStyles({
     root: {
@@ -25,6 +27,8 @@ export const ArticleDetail: React.FC = () => {
     const [editFlag, setEditFlag] = useState(false);
     const [shareDialogOpen, setShareDialogOpen] = useState(false);
     const [newTag, setNewTag] = useState('');
+
+    const [msg, setMsg] = useState<Descendant[]>([]);
 
     const classes = useStyles();
     const history = useHistory();
@@ -161,6 +165,10 @@ export const ArticleDetail: React.FC = () => {
         getArticleById(id, article => {
             console.log(article);
             setArticle(article.data);
+
+            const parsedMsg = JSON.parse(article.data.content);
+            setMsg(parsedMsg);
+            console.log(parsedMsg);
         });
 
     }, [id]);
@@ -272,14 +280,16 @@ export const ArticleDetail: React.FC = () => {
                 );
             })}
             <form onSubmit={handleSubmit} noValidate autoComplete="off">
-                <TextField
+                {/* <TextField
                     // inputRef={textInput}
                     multiline={true}
                     id="standard-basic"
                     label="comment"
                     variant="outlined"
                     onChange={(e): void => setContent(e.target.value)}
-                />
+                /> */}
+                <RichEditor initValue={msg} onContentChange={(text) => {}} />
+
                 <Button type="submit" variant="contained" color="primary" >
                     post
                 </Button>

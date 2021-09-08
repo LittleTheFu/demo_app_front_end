@@ -9,18 +9,20 @@ export const NewArticlePage: React.FC = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
 
-    const richEditorRef = useRef(null);
+    // const richEditorRef = useRef(null);
+    const [textObjects, setTextObjects] = useState('');
 
     const history = useHistory();
 
     function handleSubmit(): void {
         // event.preventDefault();
-        console.log(content);
+        // console.log(content);
 
-        createArticle(title, content, (data: CreateArticleResponseData) => {
+        createArticle(title, textObjects, (data: CreateArticleResponseData) => {
             console.log(data);
             history.push(getArticleUrl(data.data.id));
         });
+        console.log(textObjects);
     }
 
     return (
@@ -45,7 +47,7 @@ export const NewArticlePage: React.FC = () => {
                     post
                 </Button>
                 <Divider />
-                <RichEditor />
+                <RichEditor initValue={[]} onContentChange={(text)=> {setTextObjects(text)}} />
             {/* </form> */}
         </div>
     );

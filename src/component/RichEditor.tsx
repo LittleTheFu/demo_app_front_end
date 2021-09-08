@@ -29,7 +29,12 @@ declare module 'slate' {
     }
 }
 
-export const RichEditor: React.FC = () => {
+interface EditCardProps {
+    onContentChange: (textObjects: string) => void;
+    initValue: Descendant[];
+}
+
+export const RichEditor: React.FC<EditCardProps> = (props:EditCardProps) => {
     const [returnUrl, setReturnUrl] = useState('');
 
     const myRef = createRef();
@@ -37,27 +42,39 @@ export const RichEditor: React.FC = () => {
     const editor = useMemo(() => withReact(createEditor()), []);
     const renderLeaf = useCallback(props => <Leaf {...props} />, []);
     // Add the initial value when setting up our state.
-    const [value, setValue] = useState<Descendant[]>([
-        {
-            type: 'paragraph',
-            children: [{
-                text: 'A line of text in a paragraph.',
-                bold: false,
-                underline: false,
-                italic: false,
-            }],
-        },
-        {
-            type: 'image',
-            url: 'https://material-ui.com/static/hiring-toc-light.png',
-            children: [{
-                text: '',
-                // bold: false,
-                // underline: false,
-                // italic: false,
-            }],
-        },
-    ])
+    // const [value, setValue] = useState<Descendant[]>([
+    //     {
+    //         type: 'paragraph',
+    //         children: [{
+    //             text: 'A line of text in a paragraph.',
+    //             bold: false,
+    //             underline: false,
+    //             italic: false,
+    //         }],
+    //     },
+    //     {
+    //         type: 'image',
+    //         url: 'https://material-ui.com/static/hiring-toc-light.png',
+    //         children: [{
+    //             text: '',
+    //         }],
+    //     },
+    // ])
+    const [value, setValue] = useState<Descendant[]>(props.initValue);
+    console.log('props.initValue');
+    console.log(props.initValue);
+
+    useEffect(() => {
+        const str = JSON.stringify(value);
+        props.onContentChange(str);
+
+        // console.log('value chaged:');
+        // console.log(value);
+    }, [value]);
+
+    useEffect(() => {
+        setValue(props.initValue);
+    }, [props.initValue]);
 
     useEffect(() => {
         if (returnUrl == '') {
