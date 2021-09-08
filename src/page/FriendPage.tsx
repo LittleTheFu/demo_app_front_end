@@ -3,7 +3,7 @@ import { createEditor, Descendant, Editor, Transforms } from 'slate'
 import { Slate, Editable, withReact, ReactEditor } from 'slate-react'
 import { BaseEditor } from 'slate'
 import { IconButton } from '@material-ui/core'
-import { FormatBold, FormatItalic, FormatUnderlined } from '@material-ui/icons'
+import { CropOriginal, FormatBold, FormatItalic, FormatUnderlined } from '@material-ui/icons'
 
 type EmptyText = {
   text: string
@@ -29,6 +29,8 @@ declare module 'slate' {
 }
 
 export const FriendPage: React.FC = () => {
+  const [selectedFile, setSelectedFile] = useState(new Blob());
+
   // const editor = createEditor();
   const editor = useMemo(() => withReact(createEditor()), []);
   const renderLeaf = useCallback(props => <Leaf {...props} />, []);
@@ -48,6 +50,9 @@ export const FriendPage: React.FC = () => {
       url: 'https://material-ui.com/static/hiring-toc-light.png',
       children: [{
         text: '',
+        // bold: false,
+        // underline: false,
+        // italic: false,
       }],
     },
   ])
@@ -65,13 +70,18 @@ export const FriendPage: React.FC = () => {
   }
 
   const ImageElement = (props: {
-    attributes: JSX.IntrinsicAttributes & React.ClassAttributes<HTMLPreElement> & React.HTMLAttributes<HTMLPreElement>;
+    attributes: JSX.IntrinsicAttributes & React.ClassAttributes<HTMLParagraphElement> & React.HTMLAttributes<HTMLParagraphElement>;
     children: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined,
     element: CustomImageElement
   }) => {
     return (
-      <div>
-        <img src={props.element.url} />
+      <div {...props.attributes}>
+        <div contentEditable={false}>
+          <img
+            src={props.element.url}
+          />
+        </div>
+        {props.children}
       </div>
     )
   }
@@ -133,20 +143,41 @@ export const FriendPage: React.FC = () => {
     console.log('btn click');
   }
 
+  const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    if (!e.target.files || e.target.files.length === 0) {
+      // setSelectedFile(undefined);
+      return;
+    }
+
+    const strIcon = URL.createObjectURL(e.target.files[0]);
+    console.log(strIcon);
+
+    // setUserDetail({ ...userDetail, ...{ icon: strIcon } });
+    setSelectedFile(e.target.files[0]);
+
+    const text = { text: '' }
+    const image: CustomImageElement = { type: 'image', url: strIcon, children: [text] }
+    Transforms.insertNodes(editor, image)
+  };
+
   type LeafProp = { attributes: any, children: ReactElement<any, any>, leaf: CustomText };
   const Leaf = (props: LeafProp) => {
     const { attributes, children, leaf } = props;
+
+    // if (typeof (props.leaf) == "EmptyText")
+    //   return <span></span>
+
     let new_children = children;
 
-    if (props.leaf.bold) {
+    if (leaf.bold) {
       new_children = <strong>{children}</strong>
     }
 
-    if (props.leaf.underline) {
+    if (leaf.underline) {
       new_children = <u>{new_children}</u>
     }
 
-    if (props.leaf.italic) {
+    if (leaf.italic) {
       new_children = <em>{new_children}</em>
     }
 
@@ -169,6 +200,18 @@ export const FriendPage: React.FC = () => {
 
       <IconButton onClick={() => { italicBtnClick(editor) }}>
         <FormatItalic />
+      </IconButton>
+
+      <IconButton component="label"
+      // onClick={() => { italicBtnClick(editor) }}
+      >
+        <input
+          accept="image/*"
+          type="file"
+          onChange={onSelectFile}
+          style={{ display: 'none' }}
+        />
+        <CropOriginal />
       </IconButton>
 
       <Editable
