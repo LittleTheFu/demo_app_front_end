@@ -5,9 +5,13 @@ import { BaseEditor } from 'slate'
 import { IconButton } from '@material-ui/core'
 import { FormatBold, FormatItalic, FormatUnderlined } from '@material-ui/icons'
 
+type EmptyText = {
+  text: string
+}
+
 // type CustomElement = { type: 'paragraph' | 'code'; children: CustomText[] }
 type CustomBlockElement = { type: 'paragraph' | 'code'; children: CustomText[] }
-type CustomImageElement = { type: 'image'; url: string; children: CustomText[] }
+type CustomImageElement = { type: 'image'; url: string; children: EmptyText[] }
 type CustomElement = CustomBlockElement | CustomImageElement;
 type CustomText = {
   text: string;
@@ -43,9 +47,7 @@ export const FriendPage: React.FC = () => {
       type: 'image',
       url: 'https://material-ui.com/static/hiring-toc-light.png',
       children: [{
-        text: '', bold: false,
-        underline: false,
-        italic: false,
+        text: '',
       }],
     },
   ])
