@@ -5,7 +5,6 @@ import { BaseEditor } from 'slate'
 import { IconButton } from '@material-ui/core'
 import { Backup, CloudDownload, CropOriginal, FormatBold, FormatItalic, FormatUnderlined } from '@material-ui/icons'
 import { uploadImage } from '../common/service'
-import { getGlobal, globalValue, setGlobal } from '../common/common'
 
 type EmptyText = {
   text: string
