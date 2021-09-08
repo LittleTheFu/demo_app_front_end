@@ -509,10 +509,21 @@ export const updateName = (
 };
 
 const uploadIconUrl = 'http://localhost:8080/user/change_icon';
-export const uploadIcon = (data: FormData, resolve: (data: ChangeIconResponseData) => void): Promise<ChangeIconResponseData> => {
+export const uploadIcon = (data: FormData, resolve: (data: ChangeIconResponseData) => void)
+    : Promise<ChangeIconResponseData> => {
     const authHead = getTokenString();
 
     return fileObjectPost(uploadIconUrl, data, resolve, {
+        Authorization: authHead,
+    });
+};
+
+const uploadImageUrl = 'http://localhost:8080/file/upload';
+export const uploadImage = (data: FormData, resolve: (data: ChangeIconResponseData) => void)
+    : Promise<ChangeIconResponseData> => {
+    const authHead = getTokenString();
+
+    return fileObjectPost(uploadImageUrl, data, resolve, {
         Authorization: authHead,
     });
 };

@@ -1,9 +1,10 @@
-import React, { ReactElement, useCallback, useMemo, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
 import { createEditor, Descendant, Editor, Transforms } from 'slate'
 import { Slate, Editable, withReact, ReactEditor } from 'slate-react'
 import { BaseEditor } from 'slate'
 import { IconButton } from '@material-ui/core'
 import { CropOriginal, FormatBold, FormatItalic, FormatUnderlined } from '@material-ui/icons'
+import { uploadImage } from '../common/service'
 
 type EmptyText = {
   text: string
@@ -29,7 +30,8 @@ declare module 'slate' {
 }
 
 export const FriendPage: React.FC = () => {
-  const [selectedFile, setSelectedFile] = useState(new Blob());
+  const [selectedFile, setSelectedFile] = useState<Blob>(new Blob());
+  const [returnUrl, setReturnUrl] = useState('');
 
   // const editor = createEditor();
   const editor = useMemo(() => withReact(createEditor()), []);
@@ -56,6 +58,22 @@ export const FriendPage: React.FC = () => {
       }],
     },
   ])
+
+  useEffect(() => {
+    if (returnUrl == '') {
+      return;
+    }
+
+    const text = { text: '' }
+    const image: CustomImageElement = {
+      type: 'image',
+      url: returnUrl,
+      children: [text]
+    }
+
+    Transforms.insertNodes(editor, image)
+
+  }, [returnUrl]);
 
   // Define a React component renderer for our code blocks.
   const CodeElement = (props: {
@@ -153,11 +171,23 @@ export const FriendPage: React.FC = () => {
     console.log(strIcon);
 
     // setUserDetail({ ...userDetail, ...{ icon: strIcon } });
-    setSelectedFile(e.target.files[0]);
+    // setSelectedFile(e.target.files[0]);
 
-    const text = { text: '' }
-    const image: CustomImageElement = { type: 'image', url: strIcon, children: [text] }
-    Transforms.insertNodes(editor, image)
+    const formData = new FormData();
+    formData.append('file', e.target.files[0]);
+
+    uploadImage(formData, (data) => {
+      console.log('上传成功');
+      console.log(data);
+
+      if (data && data.data && data.data.url && data.data.url != '') {
+        setReturnUrl(data.data.url);
+      }
+    });
+
+    // const text = { text: '' }
+    // const image: CustomImageElement = { type: 'image', url: strIcon, children: [text] }
+    // Transforms.insertNodes(editor, image)
   };
 
   type LeafProp = { attributes: any, children: ReactElement<any, any>, leaf: CustomText };
@@ -188,6 +218,7 @@ export const FriendPage: React.FC = () => {
     <Slate
       editor={editor}
       value={value}
+
       onChange={newValue => setValue(newValue)}
     >
       <IconButton onClick={() => { btnClick(editor) }}>
@@ -208,6 +239,10 @@ export const FriendPage: React.FC = () => {
         <input
           accept="image/*"
           type="file"
+          onClick={
+            (event) => {
+              event.currentTarget.value = '';
+            }}
           onChange={onSelectFile}
           style={{ display: 'none' }}
         />
