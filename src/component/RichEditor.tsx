@@ -32,9 +32,10 @@ declare module 'slate' {
 interface EditCardProps {
     onContentChange: (content: Descendant[]) => void;
     content: Descendant[];
+    readonly: boolean;
 }
 
-export const RichEditor: React.FC<EditCardProps> = (props:EditCardProps) => {
+export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
     const [returnUrl, setReturnUrl] = useState('');
 
     const myRef = createRef();
@@ -65,11 +66,11 @@ export const RichEditor: React.FC<EditCardProps> = (props:EditCardProps) => {
     // console.log(props.initValue);
 
     // useEffect(() => {
-        // const str = JSON.stringify(value);
-        // props.onContentChange(str);
+    // const str = JSON.stringify(value);
+    // props.onContentChange(str);
 
-        // console.log('value chaged:');
-        // console.log(value);
+    // console.log('value chaged:');
+    // console.log(value);
     // }, [value]);
 
     // useEffect(() => {
@@ -296,6 +297,7 @@ export const RichEditor: React.FC<EditCardProps> = (props:EditCardProps) => {
             </IconButton>
 
             <Editable
+                readOnly={props.readonly}
                 renderElement={renderElement}
                 renderLeaf={renderLeaf}
             />

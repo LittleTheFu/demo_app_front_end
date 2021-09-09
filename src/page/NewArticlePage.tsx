@@ -61,6 +61,7 @@ export const NewArticlePage: React.FC = () => {
             </Button>
             <Divider />
             <RichEditor
+                readonly={false}
                 content={richContent}
                 onContentChange={(content) => { setRichContent(content) }} />
             {/* </form> */}

@@ -254,6 +254,7 @@ export const ArticleDetail: React.FC = () => {
             <Divider />
 
             <RichEditor
+                readonly={true}
                 content={richContent}
                 onContentChange={(content) => { setRichContent(content) }}
             />
