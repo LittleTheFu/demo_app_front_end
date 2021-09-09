@@ -1,6 +1,7 @@
 import { Button, Divider, TextField } from "@material-ui/core";
 import { createRef, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
+import { Descendant } from "slate";
 import { createArticle, CreateArticleResponseData } from "../common/service";
 import { getArticleUrl } from "../common/UrlHelper";
 import { RichEditor } from "../component/RichEditor";
@@ -8,6 +9,17 @@ import { RichEditor } from "../component/RichEditor";
 export const NewArticlePage: React.FC = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
+    const [richContent, setRichContent] = useState<Descendant[]>([
+        {
+            type: 'paragraph',
+            children: [{
+                text: 'A line of text in a paragraph.',
+                bold: false,
+                underline: false,
+                italic: false,
+            }],
+        },
+    ]);
 
     // const richEditorRef = useRef(null);
     const [textObjects, setTextObjects] = useState('');
@@ -18,7 +30,8 @@ export const NewArticlePage: React.FC = () => {
         // event.preventDefault();
         // console.log(content);
 
-        createArticle(title, textObjects, (data: CreateArticleResponseData) => {
+        const strContent = JSON.stringify(richContent);
+        createArticle(title, strContent, (data: CreateArticleResponseData) => {
             console.log(data);
             history.push(getArticleUrl(data.data.id));
         });
@@ -28,26 +41,28 @@ export const NewArticlePage: React.FC = () => {
     return (
         <div>
             {/* <form onSubmit={handleSubmit} noValidate autoComplete="off"> */}
-                <TextField
-                    multiline={true}
-                    variant="outlined"
-                    onChange={(e): void => setTitle(e.target.value)}
-                />
-                <Divider />
-                <TextField
-                    multiline={true}
-                    variant="outlined"
-                    onChange={(e): void => setContent(e.target.value)}
-                />
-                <Button 
-                type="submit" 
-                variant="contained" 
-                color="primary" 
+            <TextField
+                multiline={true}
+                variant="outlined"
+                onChange={(e): void => setTitle(e.target.value)}
+            />
+            <Divider />
+            <TextField
+                multiline={true}
+                variant="outlined"
+                onChange={(e): void => setContent(e.target.value)}
+            />
+            <Button
+                type="submit"
+                variant="contained"
+                color="primary"
                 onClick={handleSubmit}>
-                    post
-                </Button>
-                <Divider />
-                <RichEditor initValue={[]} onContentChange={(text)=> {setTextObjects(text)}} />
+                post
+            </Button>
+            <Divider />
+            <RichEditor
+                content={richContent}
+                onContentChange={(content) => { setRichContent(content) }} />
             {/* </form> */}
         </div>
     );

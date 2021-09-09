@@ -30,8 +30,8 @@ declare module 'slate' {
 }
 
 interface EditCardProps {
-    onContentChange: (textObjects: string) => void;
-    initValue: Descendant[];
+    onContentChange: (content: Descendant[]) => void;
+    content: Descendant[];
 }
 
 export const RichEditor: React.FC<EditCardProps> = (props:EditCardProps) => {
@@ -60,21 +60,21 @@ export const RichEditor: React.FC<EditCardProps> = (props:EditCardProps) => {
     //         }],
     //     },
     // ])
-    const [value, setValue] = useState<Descendant[]>(props.initValue);
-    console.log('props.initValue');
-    console.log(props.initValue);
+    // const [value, setValue] = useState<Descendant[]>(props.initValue);
+    // console.log('props.initValue');
+    // console.log(props.initValue);
 
-    useEffect(() => {
-        const str = JSON.stringify(value);
-        props.onContentChange(str);
+    // useEffect(() => {
+        // const str = JSON.stringify(value);
+        // props.onContentChange(str);
 
         // console.log('value chaged:');
         // console.log(value);
-    }, [value]);
+    // }, [value]);
 
-    useEffect(() => {
-        setValue(props.initValue);
-    }, [props.initValue]);
+    // useEffect(() => {
+    //     setValue(props.initValue);
+    // }, [props.initValue]);
 
     useEffect(() => {
         if (returnUrl == '') {
@@ -166,8 +166,8 @@ export const RichEditor: React.FC<EditCardProps> = (props:EditCardProps) => {
     }
 
     const saveClick = (): void => {
-        const str = JSON.stringify(value);
-        sessionStorage.setItem('test', str);
+        // const str = JSON.stringify(value);
+        // sessionStorage.setItem('test', str);
         // console.log( str);
 
         // const o = JSON.parse(str);
@@ -176,11 +176,11 @@ export const RichEditor: React.FC<EditCardProps> = (props:EditCardProps) => {
     }
 
     const loadClick = (): void => {
-        const str = sessionStorage.getItem('test');
-        if (str) {
-            const o = JSON.parse(str);
-            setValue(o);
-        }
+        // const str = sessionStorage.getItem('test');
+        // if (str) {
+        //     const o = JSON.parse(str);
+        //     setValue(o);
+        // }
     }
 
     const italicBtnClick = (editor: Editor): void => {
@@ -219,7 +219,7 @@ export const RichEditor: React.FC<EditCardProps> = (props:EditCardProps) => {
                 setReturnUrl(data.data.url);
             }
 
-            console.log(value);
+            // console.log(value);
         });
 
         // const text = { text: '' }
@@ -254,9 +254,10 @@ export const RichEditor: React.FC<EditCardProps> = (props:EditCardProps) => {
     return (
         <Slate
             editor={editor}
-            value={value}
+            value={props.content}
 
-            onChange={newValue => setValue(newValue)}
+            // onChange={newValue => setValue(newValue)}
+            onChange={newValue => props.onContentChange(newValue)}
         >
             <IconButton onClick={() => { btnClick(editor) }} >
                 <FormatBold />

@@ -28,7 +28,7 @@ export const ArticleDetail: React.FC = () => {
     const [shareDialogOpen, setShareDialogOpen] = useState(false);
     const [newTag, setNewTag] = useState('');
 
-    const [msg, setMsg] = useState<Descendant[]>([]);
+    const [richContent, setRichContent] = useState<Descendant[]>([]);
 
     const classes = useStyles();
     const history = useHistory();
@@ -166,9 +166,9 @@ export const ArticleDetail: React.FC = () => {
             console.log(article);
             setArticle(article.data);
 
-            const parsedMsg = JSON.parse(article.data.content);
-            setMsg(parsedMsg);
-            console.log(parsedMsg);
+            const parsedObject = JSON.parse(article.data.content);
+            setRichContent(parsedObject);
+            console.log(parsedObject);
         });
 
     }, [id]);
@@ -288,7 +288,10 @@ export const ArticleDetail: React.FC = () => {
                     variant="outlined"
                     onChange={(e): void => setContent(e.target.value)}
                 /> */}
-                <RichEditor initValue={msg} onContentChange={(text) => {}} />
+                <RichEditor
+                    content={richContent}
+                    onContentChange={(content) => { setRichContent(content) }}
+                />
 
                 <Button type="submit" variant="contained" color="primary" >
                     post
