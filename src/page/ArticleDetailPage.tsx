@@ -182,8 +182,8 @@ export const ArticleDetail: React.FC = () => {
         })
     }, [commentOrderStatus]);
 
-    function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
-        event.preventDefault();
+    function handleSubmit(): void {
+        // event.preventDefault();
         console.log(content);
 
         createComment(id, content, (oneCommentData) => {
@@ -251,8 +251,14 @@ export const ArticleDetail: React.FC = () => {
                 onClick={() => { TagAddClick(newTag) }}>
                 add tag
             </Button>
-
             <Divider />
+
+            <RichEditor
+                content={richContent}
+                onContentChange={(content) => { setRichContent(content) }}
+            />
+            <Divider />
+
             <FormControl variant="filled">
                 <Select
                     labelId="demo-simple-select-filled-label"
@@ -279,24 +285,25 @@ export const ArticleDetail: React.FC = () => {
                         unThumbClick={() => { UnThumbCommentClick(comment.id) }} />
                 );
             })}
-            <form onSubmit={handleSubmit} noValidate autoComplete="off">
-                {/* <TextField
-                    // inputRef={textInput}
-                    multiline={true}
-                    id="standard-basic"
-                    label="comment"
-                    variant="outlined"
-                    onChange={(e): void => setContent(e.target.value)}
-                /> */}
-                <RichEditor
-                    content={richContent}
-                    onContentChange={(content) => { setRichContent(content) }}
-                />
 
-                <Button type="submit" variant="contained" color="primary" >
-                    post
-                </Button>
-            </form>
+            {/* <form onSubmit={handleSubmit} noValidate autoComplete="off"> */}
+            <TextField
+                // inputRef={textInput}
+                multiline={true}
+                id="standard-basic"
+                label="comment"
+                variant="outlined"
+                onChange={(e): void => setContent(e.target.value)}
+            />
+
+
+            <Button type="submit"
+                variant="contained"
+                color="primary"
+                onClick={handleSubmit}>
+                post
+            </Button>
+            {/* </form> */}
 
             <Dialog
                 open={shareDialogOpen}
