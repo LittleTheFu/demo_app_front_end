@@ -6,6 +6,7 @@ import { ArticleCard } from "../component/ArticleCard";
 import { Article, getAllArticles } from "../common/service";
 import { getArticleDetailUrl } from "../common/UrlHelper";
 import { TitleCard } from "../component/TitleCard";
+import { Pagination } from "@material-ui/lab";
 
 const useStyles = makeStyles({
     root: {
@@ -34,6 +35,8 @@ export const AllArticle: React.FC = () => {
 
     return (
         <div>
+            <Pagination count={10} color="primary" />
+
             {
                 allArticles.map((article: Article, index: number) => {
                     return <TitleCard
