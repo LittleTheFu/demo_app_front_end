@@ -773,14 +773,17 @@ export const getTitlesBytag = (
     return rawObjectGet(titlesTagUrl + '?' + 'tag=' + tag, resolve, { 'Authorization': authHead }, reject);
 };
 
+export type IArticleTitleResponseData = IBaseData<IPageWrapper<ArticleTitle[]>>;
+
 const historyUrl = 'http://localhost:8080/history';
 export const getHistory = (
-    resolve: (data: ArticleTitleResponseData) => void,
+    page: number,
+    resolve: (data: IArticleTitleResponseData) => void,
     reject?: (data: Error) => void,
-): Promise<ArticleTitleResponseData> => {
+): Promise<IArticleTitleResponseData> => {
     const authHead = getTokenString();
     console.log(authHead);
-    return rawObjectGet(historyUrl, resolve, { 'Authorization': authHead }, reject);
+    return rawObjectGet(historyUrl + '?page=' + page, resolve, { 'Authorization': authHead }, reject);
 };
 
 const bookmarkArticleUrl = 'http://localhost:8080/article/bookmark/'
