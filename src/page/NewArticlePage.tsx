@@ -47,11 +47,11 @@ export const NewArticlePage: React.FC = () => {
                 onChange={(e): void => setTitle(e.target.value)}
             />
             <Divider />
-            <TextField
+            {/* <TextField
                 multiline={true}
                 variant="outlined"
                 onChange={(e): void => setContent(e.target.value)}
-            />
+            /> */}
             <Button
                 type="submit"
                 variant="contained"

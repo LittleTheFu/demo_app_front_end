@@ -53,9 +53,9 @@ export const ArticleCard: React.FC<ArticleCardProps> = (props: ArticleCardProps)
                     </Typography>
                     <UserHead userName={props.author} avatar={props.authorIcon}
                         nameClick={props.authorClick} avatarClick={props.authorClick}></UserHead>
-                    <Typography variant="body2" color="textSecondary" component="p">
+                    {/* <Typography variant="body2" color="textSecondary" component="p">
                         {props.content}
-                    </Typography>
+                    </Typography> */}
                 </CardContent>
             </CardActionArea>
             <CardActions>

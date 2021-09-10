@@ -39,12 +39,12 @@ export const EditCard: React.FC<EditCardProps> = (props: EditCardProps) => {
                         onChange={(e): void => {
                             setTitle(e.target.value);
                         }} />
-                    <TextField id="content"
+                    {/* <TextField id="content"
                         label="content"
                         defaultValue={props.content}
                         onChange={(e): void => {
                             setContent(e.target.value);
-                        }} />
+                        }} /> */}
                 </CardContent>
             </CardActionArea>
             <CardActions>
