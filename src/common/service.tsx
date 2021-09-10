@@ -258,6 +258,13 @@ export class Article {
     }
 }
 
+export interface PageWrapper<T> {
+    pages: number;
+    pageNum: number;
+
+    content: T;
+}
+
 export class AllArticleData extends BaseData {
     data: Article[];
 
@@ -267,14 +274,45 @@ export class AllArticleData extends BaseData {
     }
 }
 
+//////////////////////////////////////////////////
+export interface IBaseData<T> {
+    code: number;
+    token: string;
+
+    data: T;
+}
+
+// export interface IAllArticleData extends IBaseData {
+//     data: Article[];
+// }
+
+export interface IPageWrapper<T> {
+    pages: number;
+    pageNum: number;
+
+    content: T;
+}
+
+export type IAllArticleData = IBaseData<IPageWrapper<Article[]>>;
+
 const allArticleUrl = 'http://localhost:8080/article/all';
 export const getAllArticles = (
-    resolve: (data: AllArticleData) => void,
+    page: number,
+    resolve: (data: IAllArticleData) => void,
     reject?: (data: Error) => void,
-): Promise<AllArticleData> => {
+): Promise<IAllArticleData> => {
     const authHead = getTokenString();
-    return rawObjectGet(allArticleUrl, resolve, { 'Authorization': authHead }, reject);
+    return rawObjectGet(allArticleUrl + '?page=' + page, resolve, { 'Authorization': authHead }, reject);
 };
+
+// const allArticleUrl = 'http://localhost:8080/article/all';
+// export const getAllArticles = (
+//     resolve: (data: AllArticleData) => void,
+//     reject?: (data: Error) => void,
+// ): Promise<AllArticleData> => {
+//     const authHead = getTokenString();
+//     return rawObjectGet(allArticleUrl, resolve, { 'Authorization': authHead }, reject);
+// };
 
 export class ArticleData extends BaseData {
     data: Article;
