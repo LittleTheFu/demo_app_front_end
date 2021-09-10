@@ -506,15 +506,23 @@ export class CommentsData extends BaseData {
     }
 }
 
+export type ICommentsData = IBaseData<IPageWrapper<ArticleComment[]>>;
+
 const getArticleCommentsUrl = 'http://localhost:8080/article/article_comments/';
 export const getArticleComments = (
     id: string,
+    page: number,
     sortType: string,
-    resolve: (data: CommentsData) => void,
+    resolve: (data: ICommentsData) => void,
     reject?: (data: Error) => void,
-): Promise<CommentsData> => {
+): Promise<ICommentsData> => {
     const authHead = getTokenString();
-    return rawObjectGet(getArticleCommentsUrl + id + '?sort=' + sortType, resolve, { 'Authorization': authHead }, reject);
+    return rawObjectGet(getArticleCommentsUrl + id +
+        '?sort=' + sortType +
+        '&page=' + page,
+        resolve,
+        { 'Authorization': authHead },
+        reject);
 };
 
 class ChangeIconResponse {

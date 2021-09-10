@@ -9,6 +9,7 @@ import { ArticleCard } from '../component/ArticleCard';
 import { getAllArticleUrl, getSharedUrl, getTagTitleUrl, getUserUrl } from '../common/UrlHelper';
 import { RichEditor } from '../component/RichEditor';
 import { Descendant } from 'slate';
+import { Pagination } from '@material-ui/lab';
 
 const useStyles = makeStyles({
     root: {
@@ -29,6 +30,9 @@ export const ArticleDetail: React.FC = () => {
     const [newTag, setNewTag] = useState('');
 
     const [richContent, setRichContent] = useState<Descendant[]>([]);
+
+    const [pageNum, setPageNum] = useState(0);
+    const [pages, setPages] = useState(0);
 
     const classes = useStyles();
     const history = useHistory();
@@ -142,6 +146,18 @@ export const ArticleDetail: React.FC = () => {
         });
     }
 
+    const Change = (event: React.ChangeEvent<unknown>, page: number): void => {
+        console.log('page change : ' + page);
+        getArticleComments(id, page, commentOrderStatus, comments => {
+            setComments(comments.data.content);
+            setPageNum(comments.data.pageNum);
+            setPages(comments.data.pages);
+
+            console.log('comments:');
+            console.log(comments);
+        })
+    }
+
     const TagClick = (tag: string): void => {
         history.push(getTagTitleUrl(tag));
         console.log('tag clicked : ' + tag);
@@ -174,8 +190,10 @@ export const ArticleDetail: React.FC = () => {
     }, [id]);
 
     useEffect(() => {
-        getArticleComments(id, commentOrderStatus, comments => {
-            setComments(comments.data);
+        getArticleComments(id, 1, commentOrderStatus, comments => {
+            setComments(comments.data.content);
+            setPageNum(comments.data.pageNum);
+            setPages(comments.data.pages);
 
             console.log('comments:');
             console.log(comments);
@@ -272,6 +290,12 @@ export const ArticleDetail: React.FC = () => {
                 </Select>
             </FormControl>
 
+            <Pagination
+                count={pages}
+                page={pageNum}
+                color="primary"
+                onChange={Change} />
+                
             {comments.map((comment: ArticleComment, index: number) => {
                 return (
                     <CommentCard key={index}
