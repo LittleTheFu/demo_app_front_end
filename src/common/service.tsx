@@ -816,10 +816,11 @@ export const unBookmarkArticle = (
 
 const allBookmarkArticleUrl = 'http://localhost:8080/article/get_bookmark_articles';
 export const getBookmarkArticles = (
-    resolve: (data: ArticleTitleResponseData) => void,
+    page: number,
+    resolve: (data: IArticleTitleResponseData) => void,
     reject?: (data: Error) => void,
-): Promise<ArticleTitleResponseData> => {
+): Promise<IArticleTitleResponseData> => {
     const authHead = getTokenString();
     console.log(authHead);
-    return rawObjectGet(allBookmarkArticleUrl, resolve, { 'Authorization': authHead }, reject);
+    return rawObjectGet(allBookmarkArticleUrl + '?page=' + page, resolve, { 'Authorization': authHead }, reject);
 };
