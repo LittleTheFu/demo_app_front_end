@@ -265,15 +265,6 @@ export interface PageWrapper<T> {
     content: T;
 }
 
-export class AllArticleData extends BaseData {
-    data: Article[];
-
-    constructor() {
-        super();
-        this.data = [];
-    }
-}
-
 //////////////////////////////////////////////////
 export interface IBaseData<T> {
     code: number;
@@ -281,10 +272,6 @@ export interface IBaseData<T> {
 
     data: T;
 }
-
-// export interface IAllArticleData extends IBaseData {
-//     data: Article[];
-// }
 
 export interface IPageWrapper<T> {
     pages: number;
@@ -305,30 +292,14 @@ export const getAllArticles = (
     return rawObjectGet(allArticleUrl + '?page=' + page, resolve, { 'Authorization': authHead }, reject);
 };
 
-// const allArticleUrl = 'http://localhost:8080/article/all';
-// export const getAllArticles = (
-//     resolve: (data: AllArticleData) => void,
-//     reject?: (data: Error) => void,
-// ): Promise<AllArticleData> => {
-//     const authHead = getTokenString();
-//     return rawObjectGet(allArticleUrl, resolve, { 'Authorization': authHead }, reject);
-// };
-
-export class ArticleData extends BaseData {
-    data: Article;
-
-    constructor() {
-        super();
-        this.data = new Article();
-    }
-}
+export type IArticleData = IBaseData<Article>;
 
 const getArticleUrl = 'http://localhost:8080/article/';
 export const getArticleById = (
     id: string,
-    resolve: (data: ArticleData) => void,
+    resolve: (data: IArticleData) => void,
     reject?: (data: Error) => void,
-): Promise<ArticleData> => {
+): Promise<IArticleData> => {
     const authHead = getTokenString();
     return rawObjectGet(getArticleUrl + id, resolve, { 'Authorization': authHead }, reject);
 };
@@ -356,9 +327,9 @@ export const unThumbComment = (
 const thumbArticleUrl = 'http://localhost:8080/article/thumb/'
 export const thumbArticle = (
     id: number,
-    resolve: (data: ArticleData) => void,
+    resolve: (data: IArticleData) => void,
     reject?: (data: Error) => void,
-): Promise<ArticleData> => {
+): Promise<IArticleData> => {
     const authHead = getTokenString();
     return rawObjectPut(thumbArticleUrl + id, {}, resolve, { 'Authorization': authHead }, reject);
 };
@@ -366,9 +337,9 @@ export const thumbArticle = (
 const unthumbArticleUrl = 'http://localhost:8080/article/unthumb/';
 export const unthumbArticle = (
     id: number,
-    resolve: (data: ArticleData) => void,
+    resolve: (data: IArticleData) => void,
     reject?: (data: Error) => void,
-): Promise<ArticleData> => {
+): Promise<IArticleData> => {
     const authHead = getTokenString();
     return rawObjectPut(unthumbArticleUrl + id, {}, resolve, { 'Authorization': authHead }, reject);
 };
@@ -387,29 +358,22 @@ export class UserDetail {
     }
 }
 
-export class UserData extends BaseData {
-    data: UserDetail;
-
-    constructor() {
-        super();
-        this.data = new UserDetail();
-    }
-}
+export type IUserData = IBaseData<UserDetail>;
 
 const getUserDetailUrl = 'http://localhost:8080/user/';
 export const getUserById = (
     id: string,
-    resolve: (data: UserData) => void,
+    resolve: (data: IUserData) => void,
     reject?: (data: Error) => void,
-): Promise<UserData> => {
+): Promise<IUserData> => {
     const authHead = getTokenString();
     return rawObjectGet(getUserDetailUrl + id, resolve, { 'Authorization': authHead }, reject);
 };
 
 export const getCurrentUser = (
-    resolve: (data: UserData) => void,
+    resolve: (data: IUserData) => void,
     reject?: (data: Error) => void,
-): Promise<UserData> => {
+): Promise<IUserData> => {
     const authHead = getTokenString();
     return rawObjectGet(getUserDetailUrl, resolve, { 'Authorization': authHead }, reject);
 };
@@ -422,22 +386,14 @@ export class FollowResponse {
     }
 }
 
-export class FollowResponseData extends BaseData {
-    data: FollowResponse;
-
-    constructor() {
-        super();
-        this.data = new FollowResponse();
-    }
-}
-
+export type IFollowResponseData = IBaseData<FollowResponse>;
 
 const followUserUrl = 'http://localhost:8080/user/follow/';
 export const followUser = (
     id: number,
-    resolve: (data: FollowResponseData) => void,
+    resolve: (data: IFollowResponseData) => void,
     reject?: (data: Error) => void,
-): Promise<FollowResponseData> => {
+): Promise<IFollowResponseData> => {
     const authHead = getTokenString();
     return rawObjectPut(followUserUrl + id, {}, resolve, { 'Authorization': authHead }, reject);
 };
@@ -446,29 +402,22 @@ export const followUser = (
 const unfollowUserUrl = 'http://localhost:8080/user/unfollow/';
 export const unfollowUser = (
     id: number,
-    resolve: (data: FollowResponseData) => void,
+    resolve: (data: IFollowResponseData) => void,
     reject?: (data: Error) => void,
-): Promise<FollowResponseData> => {
+): Promise<IFollowResponseData> => {
     const authHead = getTokenString();
     return rawObjectPut(unfollowUserUrl + id, {}, resolve, { 'Authorization': authHead }, reject);
 };
 
-export class OneCommentData extends BaseData {
-    data: ArticleComment;
-
-    constructor() {
-        super();
-        this.data = new ArticleComment();
-    }
-}
+export type IOneCommentData = IBaseData<ArticleComment>;
 
 const createCommentUrl = 'http://localhost:8080/article/create_comment/';
 export const createComment = (
     id: string,
     content: string,
-    resolve: (data: OneCommentData) => void,
+    resolve: (data: IOneCommentData) => void,
     reject?: (data: Error) => void,
-): Promise<OneCommentData> => {
+): Promise<IOneCommentData> => {
     const authHead = getTokenString();
     return rawObjectPut(createCommentUrl + id, { content: content }, resolve, { 'Authorization': authHead }, reject);
 };
@@ -494,15 +443,6 @@ export class ArticleComment {
         this.articleCommentDate = new Date();
         this.thumbState = false;
         this.articleCommentThumbNum = 0;
-    }
-}
-
-export class CommentsData extends BaseData {
-    data: ArticleComment[];
-
-    constructor() {
-        super();
-        this.data = [];
     }
 }
 
@@ -535,14 +475,7 @@ class ChangeIconResponse {
     }
 }
 
-class ChangeIconResponseData extends BaseData {
-    data: ChangeIconResponse;
-
-    constructor() {
-        super();
-        this.data = new ChangeIconResponse();
-    }
-}
+export type IChangeIconResponseData = IBaseData<ChangeIconResponse>;
 
 const updateNameUrl = 'http://localhost:8080/user/change_name';
 export const updateName = (
@@ -555,8 +488,8 @@ export const updateName = (
 };
 
 const uploadIconUrl = 'http://localhost:8080/user/change_icon';
-export const uploadIcon = (data: FormData, resolve: (data: ChangeIconResponseData) => void)
-    : Promise<ChangeIconResponseData> => {
+export const uploadIcon = (data: FormData, resolve: (data: IChangeIconResponseData) => void)
+    : Promise<IChangeIconResponseData> => {
     const authHead = getTokenString();
 
     return fileObjectPost(uploadIconUrl, data, resolve, {
@@ -565,8 +498,8 @@ export const uploadIcon = (data: FormData, resolve: (data: ChangeIconResponseDat
 };
 
 const uploadImageUrl = 'http://localhost:8080/file/upload';
-export const uploadImage = (data: FormData, resolve: (data: ChangeIconResponseData) => void)
-    : Promise<ChangeIconResponseData> => {
+export const uploadImage = (data: FormData, resolve: (data: IChangeIconResponseData) => void)
+    : Promise<IChangeIconResponseData> => {
     const authHead = getTokenString();
 
     return fileObjectPost(uploadImageUrl, data, resolve, {
@@ -582,22 +515,15 @@ class CreateArticleResponse {
     }
 }
 
-export class CreateArticleResponseData extends BaseData {
-    data: CreateArticleResponse;
-
-    constructor() {
-        super();
-        this.data = new CreateArticleResponse();
-    }
-}
+export type ICreateArticleResponseData = IBaseData<CreateArticleResponse>;
 
 const createArticleUrl = 'http://localhost:8080/article/create_article';
 export const createArticle = (
     title: string,
     content: string,
-    resolve: (data: CreateArticleResponseData) => void,
+    resolve: (data: ICreateArticleResponseData) => void,
     reject?: (data: Error) => void,
-): Promise<CreateArticleResponseData> => {
+): Promise<ICreateArticleResponseData> => {
     const authHead = getTokenString();
     return rawObjectPut(createArticleUrl, { title: title, content: content }, resolve, { 'Authorization': authHead }, reject);
 };
@@ -658,12 +584,14 @@ export class FollowersData extends BaseData {
     }
 }
 
+export type IFollowersData = IBaseData<UserDetail[]>
+
 const getFollowingsUrl = 'http://localhost:8080/user/followings/';
 export const getFollowings = (
     id: string,
-    resolve: (data: FollowersData) => void,
+    resolve: (data: IFollowersData) => void,
     reject?: (data: Error) => void,
-): Promise<FollowersData> => {
+): Promise<IFollowersData> => {
     const authHead = getTokenString();
     return rawObjectGet(getFollowingsUrl + id, resolve, { 'Authorization': authHead }, reject);
 };
@@ -671,9 +599,9 @@ export const getFollowings = (
 const getFollowersUrl = 'http://localhost:8080/user/followers/';
 export const getFollowers = (
     id: string,
-    resolve: (data: FollowersData) => void,
+    resolve: (data: IFollowersData) => void,
     reject?: (data: Error) => void,
-): Promise<FollowersData> => {
+): Promise<IFollowersData> => {
     const authHead = getTokenString();
     return rawObjectGet(getFollowersUrl + id, resolve, { 'Authorization': authHead }, reject);
 };
@@ -707,20 +635,13 @@ export class Mail {
     }
 }
 
-export class MailsResponseData extends BaseData {
-    data: Mail[];
-
-    constructor() {
-        super();
-        this.data = [];
-    }
-}
+export type IMailsResponseData = IBaseData<Mail[]>;
 
 const getMailsUrl = 'http://localhost:8080/mail/get_mails';
 export const getMails = (
-    resolve: (data: MailsResponseData) => void,
+    resolve: (data: IMailsResponseData) => void,
     reject?: (data: Error) => void,
-): Promise<MailsResponseData> => {
+): Promise<IMailsResponseData> => {
     const authHead = getTokenString();
     return rawObjectGet(getMailsUrl, resolve, { 'Authorization': authHead }, reject);
 };

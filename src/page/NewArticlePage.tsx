@@ -2,7 +2,7 @@ import { Button, Divider, TextField } from "@material-ui/core";
 import { createRef, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Descendant } from "slate";
-import { createArticle, CreateArticleResponseData } from "../common/service";
+import { createArticle, ICreateArticleResponseData } from "../common/service";
 import { getArticleUrl } from "../common/UrlHelper";
 import { RichEditor } from "../component/RichEditor";
 
@@ -31,7 +31,7 @@ export const NewArticlePage: React.FC = () => {
         // console.log(content);
 
         const strContent = JSON.stringify(richContent);
-        createArticle(title, strContent, (data: CreateArticleResponseData) => {
+        createArticle(title, strContent, (data: ICreateArticleResponseData) => {
             console.log(data);
             history.push(getArticleUrl(data.data.id));
         });
