@@ -21,15 +21,7 @@ export class TokenData {
     }
 }
 
-export class AccessData extends BaseData {
-    data: TokenData;
-
-    constructor() {
-        super();
-
-        this.data = new TokenData();
-    }
-}
+export type IAccessData = IBaseData<TokenData>;
 
 export class RetMsgObj {
     msg: string | undefined;
@@ -49,22 +41,38 @@ const loginUrl = 'http://localhost:8080/account/login';
 export const postLogin = (
     email: string,
     password: string,
-    resolve: (data: AccessData) => void,
+    resolve: (data: IAccessData) => void,
     reject?: (data: Error) => void,
-): Promise<AccessData> => {
+): Promise<IAccessData> => {
     return rawObjectPost(loginUrl, { email: email, password: password }, resolve, {}, reject);
 };
 
 
 const greetingUrl = 'http://localhost:8080/greeting';
 export const getGreeting = (
-    resolve: (data: AccessData) => void,
+    resolve: (data: IAccessData) => void,
     reject?: (data: Error) => void,
-): Promise<AccessData> => {
+): Promise<IAccessData> => {
     const authHead = getTokenString();
     console.log(authHead);
     return rawObjectGet(greetingUrl, resolve, { 'Authorization': authHead }, reject);
 };
+
+export interface IArticle {
+    id: number;
+    title: string;
+    content: string;
+    author: string;
+    authorIcon: string;
+    authorId: number;
+    thumb: number;
+    thumbState: boolean;
+    deletable: boolean;
+    editable: boolean;
+    bookmarked: boolean;
+    tags: string[];
+}
+
 
 export class Article {
     id: number;

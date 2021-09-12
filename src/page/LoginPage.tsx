@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useHistory, Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
-import { AccessData, getCurrentUser, getGreeting, postLogin } from '../common/service';
+import { IAccessData, getCurrentUser, getGreeting, postLogin } from '../common/service';
 import { getCurrentUserId, setToken, setTokenHead } from '../common/common';
 import { useDispatch } from 'react-redux';
 import { SET_CURRENT_USER, SystemActionTypes } from '../reducer/system/types';
@@ -43,7 +43,7 @@ export const Login: React.FC = () => {
     const history = useHistory();
     const classes = useStyles({});
 
-    const resolveData = (accessData: AccessData): void => {
+    const resolveData = (accessData: IAccessData): void => {
         console.log(accessData);
         console.log(accessData.data);
 
