@@ -224,12 +224,8 @@ export const getCurrentUser = (
     return rawObjectGet(getUserDetailUrl, resolve, { 'Authorization': authHead }, reject);
 };
 
-export class FollowResponse {
+interface FollowResponse {
     followed: boolean;
-
-    constructor() {
-        this.followed = false;
-    }
 }
 
 export type IFollowResponseData = IBaseData<FollowResponse>;
@@ -268,7 +264,7 @@ export const createComment = (
     return rawObjectPut(createCommentUrl + id, { content: content }, resolve, { 'Authorization': authHead }, reject);
 };
 
-export class ArticleComment {
+export interface ArticleComment {
     id: number;
     articleCommentArticleId: number;
     articleCommentUserId: number;
@@ -278,18 +274,6 @@ export class ArticleComment {
     articleCommentDate: Date;
     thumbState: boolean;
     articleCommentThumbNum: number;
-
-    constructor() {
-        this.id = 0;
-        this.articleCommentArticleId = 0;
-        this.articleCommentUserId = 0;
-        this.articleCommentUserName = 'name';
-        this.articleCommentUserIcon = '';
-        this.articleCommentContent = 'content';
-        this.articleCommentDate = new Date();
-        this.thumbState = false;
-        this.articleCommentThumbNum = 0;
-    }
 }
 
 export type ICommentsData = IBaseData<IPageWrapper<ArticleComment[]>>;
@@ -311,14 +295,9 @@ export const getArticleComments = (
         reject);
 };
 
-class ChangeIconResponse {
+export interface ChangeIconResponse {
     name: string;
     url: string;
-
-    constructor() {
-        this.name = '';
-        this.url = '';
-    }
 }
 
 export type IChangeIconResponseData = IBaseData<ChangeIconResponse>;
@@ -353,12 +332,8 @@ export const uploadImage = (data: FormData, resolve: (data: IChangeIconResponseD
     });
 };
 
-class CreateArticleResponse {
+export interface CreateArticleResponse {
     id: number;
-
-    constructor() {
-        this.id = 0;
-    }
 }
 
 export type ICreateArticleResponseData = IBaseData<CreateArticleResponse>;
@@ -421,15 +396,6 @@ export const updateArticle = (
     return rawObjectPut(updateArticleUrl + id, { id: id, title: title, content: content }, resolve, { 'Authorization': authHead }, reject);
 };
 
-export class FollowersData extends BaseData {
-    data: UserDetail[];
-
-    constructor() {
-        super();
-        this.data = [];
-    }
-}
-
 export type IFollowersData = IBaseData<UserDetail[]>
 
 const getFollowingsUrl = 'http://localhost:8080/user/followings/';
@@ -463,22 +429,13 @@ export const createMail = (
     return rawObjectPost(createMailUrl, { mailToId: mailToId, content: content }, resolve, { 'Authorization': authHead }, reject);
 };
 
-export class Mail {
+export interface Mail {
     id: number;
     mailFromId: number;
     mailToId: number;
     content: string;
     authorName: string;
     authorIcon: string;
-
-    constructor() {
-        this.id = 0;
-        this.mailFromId = 0;
-        this.mailToId = 0;
-        this.content = 'content';
-        this.authorName = 'author';
-        this.authorIcon = 'icon';
-    }
 }
 
 export type IMailsResponseData = IBaseData<Mail[]>;
@@ -502,20 +459,12 @@ export const deleteMail = (
     return rawObjectDelete(deleteMailUrl + id, resolve, { 'Authorization': authHead }, reject);
 };
 
-export class ArticleTitle {
+export interface ArticleTitle {
     id: number;
     title: string;
     authorName: string;
     authorIcon: string;
     authorId: number;
-
-    constructor() {
-        this.id = 0;
-        this.title = 'title';
-        this.authorName = 'author_name';
-        this.authorIcon = 'icon';
-        this.authorId = 0;
-    }
 }
 
 export class ArticleTitleResponseData extends BaseData {
