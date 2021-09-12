@@ -1,7 +1,7 @@
 import { Pagination } from "@material-ui/lab";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { ArticleTitle, ArticleTitleResponseData, getBookmarkArticles, IArticleTitleResponseData } from "../common/service";
+import { ArticleTitle, ArticleTitleResponseData, getBookmarkArticles, IPagedArticleTitle } from "../common/service";
 import { getArticleDetailUrl } from "../common/UrlHelper";
 import { TitleCard } from "../component/TitleCard";
 
@@ -17,7 +17,7 @@ export const FavoritePage: React.FC = () => {
     };
 
     useEffect(() => {
-        getBookmarkArticles(1, (data: IArticleTitleResponseData) => {
+        getBookmarkArticles(1, (data: IPagedArticleTitle) => {
             setVisitedArticles(data.data.content);
 
             setPageNum(data.data.pageNum);

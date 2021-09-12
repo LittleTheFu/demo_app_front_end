@@ -497,14 +497,14 @@ export const getTitlesBytag = (
     return rawObjectGet(titlesTagUrl + '?' + 'tag=' + tag, resolve, { 'Authorization': authHead }, reject);
 };
 
-export type IArticleTitleResponseData = IBaseData<IPageWrapper<ArticleTitle[]>>;
+export type IPagedArticleTitle = IBaseData<IPageWrapper<ArticleTitle[]>>;
 
 const historyUrl = 'http://localhost:8080/history';
 export const getHistory = (
     page: number,
-    resolve: (data: IArticleTitleResponseData) => void,
+    resolve: (data: IPagedArticleTitle) => void,
     reject?: (data: Error) => void,
-): Promise<IArticleTitleResponseData> => {
+): Promise<IPagedArticleTitle> => {
     const authHead = getTokenString();
     console.log(authHead);
     return rawObjectGet(historyUrl + '?page=' + page, resolve, { 'Authorization': authHead }, reject);
@@ -533,9 +533,9 @@ export const unBookmarkArticle = (
 const allBookmarkArticleUrl = 'http://localhost:8080/article/get_bookmark_articles';
 export const getBookmarkArticles = (
     page: number,
-    resolve: (data: IArticleTitleResponseData) => void,
+    resolve: (data: IPagedArticleTitle) => void,
     reject?: (data: Error) => void,
-): Promise<IArticleTitleResponseData> => {
+): Promise<IPagedArticleTitle> => {
     const authHead = getTokenString();
     console.log(authHead);
     return rawObjectGet(allBookmarkArticleUrl + '?page=' + page, resolve, { 'Authorization': authHead }, reject);

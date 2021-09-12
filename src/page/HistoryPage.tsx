@@ -1,7 +1,7 @@
 import { Pagination } from "@material-ui/lab";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { getHistory, ArticleTitle, IArticleTitleResponseData } from "../common/service";
+import { getHistory, ArticleTitle, IPagedArticleTitle } from "../common/service";
 import { getArticleDetailUrl } from "../common/UrlHelper";
 import { TitleCard } from "../component/TitleCard";
 
@@ -30,7 +30,7 @@ export const HistoryPage: React.FC = () => {
     }
 
     useEffect(() => {
-        getHistory(1, (data: IArticleTitleResponseData) => {
+        getHistory(1, (data: IPagedArticleTitle) => {
 
             setVisitedArticles(data.data.content);
             setPageNum(data.data.pageNum);
