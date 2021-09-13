@@ -78,7 +78,7 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
     // }, [props.initValue]);
 
     useEffect(() => {
-        if (returnUrl == '') {
+        if (returnUrl === '') {
             return;
         }
 
@@ -216,7 +216,7 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
             console.log('上传成功');
             console.log(data);
 
-            if (data && data.data && data.data.url && data.data.url != '') {
+            if (data && data.data && data.data.url && data.data.url !== '') {
                 setReturnUrl(data.data.url);
             }
 

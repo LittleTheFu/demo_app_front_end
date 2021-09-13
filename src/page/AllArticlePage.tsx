@@ -2,7 +2,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { ArticleCard } from "../component/ArticleCard";
 import { Article, getAllArticles } from "../common/service";
 import { getArticleDetailUrl } from "../common/UrlHelper";
 import { TitleCard } from "../component/TitleCard";

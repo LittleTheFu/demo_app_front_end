@@ -1,5 +1,5 @@
 import { Button, Divider, TextField } from "@material-ui/core";
-import { createRef, useRef, useState } from "react";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Descendant } from "slate";
 import { createArticle, ICreateArticleResponseData } from "../common/service";
@@ -8,7 +8,6 @@ import { RichEditor } from "../component/RichEditor";
 
 export const NewArticlePage: React.FC = () => {
     const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
     const [richContent, setRichContent] = useState<Descendant[]>([
         {
             type: 'paragraph',
@@ -21,15 +20,11 @@ export const NewArticlePage: React.FC = () => {
         },
     ]);
 
-    // const richEditorRef = useRef(null);
-    const [textObjects, setTextObjects] = useState('');
+    const [textObjects] = useState('');
 
     const history = useHistory();
 
     function handleSubmit(): void {
-        // event.preventDefault();
-        // console.log(content);
-
         const strContent = JSON.stringify(richContent);
         createArticle(title, strContent, (data: ICreateArticleResponseData) => {
             console.log(data);
@@ -40,18 +35,13 @@ export const NewArticlePage: React.FC = () => {
 
     return (
         <div>
-            {/* <form onSubmit={handleSubmit} noValidate autoComplete="off"> */}
             <TextField
                 multiline={true}
                 variant="outlined"
                 onChange={(e): void => setTitle(e.target.value)}
             />
             <Divider />
-            {/* <TextField
-                multiline={true}
-                variant="outlined"
-                onChange={(e): void => setContent(e.target.value)}
-            /> */}
+          
             <Button
                 type="submit"
                 variant="contained"
@@ -59,12 +49,13 @@ export const NewArticlePage: React.FC = () => {
                 onClick={handleSubmit}>
                 post
             </Button>
+
             <Divider />
+
             <RichEditor
                 readonly={false}
                 content={richContent}
                 onContentChange={(content) => { setRichContent(content) }} />
-            {/* </form> */}
         </div>
     );
 }

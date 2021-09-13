@@ -1,7 +1,7 @@
 import { Pagination } from "@material-ui/lab";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { ArticleTitle, ArticleTitleResponseData, getBookmarkArticles, IPagedArticleTitle } from "../common/service";
+import { ArticleTitle, getBookmarkArticles, IPagedArticleTitle } from "../common/service";
 import { getArticleDetailUrl } from "../common/UrlHelper";
 import { TitleCard } from "../component/TitleCard";
 
@@ -50,12 +50,13 @@ export const FavoritePage: React.FC = () => {
             {
                 VisitedArticles.map((a, index) => {
                     return <TitleCard key={index}
-                        id = {a.id}
-                        title = {a.title}
-                        author = {a.authorName}
-                        authorIcon = {a.authorIcon}
+                        id={a.id}
+                        title={a.title}
+                        author={a.authorName}
+                        authorIcon={a.authorIcon}
                         textClick={() => { ArticleClick(a.id) }} />
                 })
             }
         </div>
-    )};
+    )
+};

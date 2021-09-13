@@ -46,14 +46,14 @@ export const UserDetailPage: React.FC = () => {
 
     useEffect(() => {
 
-        if (SelectTabValue == 0) {
+        if (SelectTabValue === 0) {
 
             setFollowingDisplay('block');
             setFollowersDisplay('none');
             setTitlesDisplay('none');
 
         }
-        else if (SelectTabValue == 1) {
+        else if (SelectTabValue === 1) {
 
             setFollowingDisplay('none');
             setFollowersDisplay('block');
@@ -81,7 +81,7 @@ export const UserDetailPage: React.FC = () => {
             func: (value: React.SetStateAction<UserDetail[]>) => void): void => {
 
             const new_src = src.map((f) => {
-                if (f.id == id) {
+                if (f.id === id) {
                     f.followed = followFlag;
                 }
 

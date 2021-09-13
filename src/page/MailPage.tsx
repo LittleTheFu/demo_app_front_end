@@ -33,7 +33,7 @@ export const MailPage: React.FC = () => {
     const DeleteClick = (id: number) => {
         deleteMail(id, data=> {
             const newMails = mails.filter((m) => {
-                return m.id != id;
+                return m.id !== id;
             });
             setMails(newMails);
             console.log(data);

@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { addArticleTag, Article, ArticleComment, bookmarkArticle, createArticle, createComment, deleteArticle, deleteArticleTag, getArticleById, getArticleComments, thumbArticle, thumbComment, unBookmarkArticle, unthumbArticle, unThumbComment, updateArticle } from "../common/service";
 import { useHistory, useLocation, useParams } from 'react-router-dom';
@@ -121,7 +121,7 @@ export const ArticleDetail: React.FC = () => {
     const ThumbCommentClick = (id: number): void => {
         thumbComment(id, (data) => {
             const new_comments = comments.map((c) => {
-                if (c.id == id) {
+                if (c.id === id) {
                     c.thumbState = true;
                     c.articleCommentThumbNum += 1;
                 }
@@ -135,7 +135,7 @@ export const ArticleDetail: React.FC = () => {
     const UnThumbCommentClick = (id: number): void => {
         unThumbComment(id, (data) => {
             const new_comments = comments.map((c) => {
-                if (c.id == id) {
+                if (c.id === id) {
                     c.thumbState = false;
                     c.articleCommentThumbNum -= 1;
                 }
@@ -295,7 +295,7 @@ export const ArticleDetail: React.FC = () => {
                 page={pageNum}
                 color="primary"
                 onChange={Change} />
-                
+
             {comments.map((comment: ArticleComment, index: number) => {
                 return (
                     <CommentCard key={index}

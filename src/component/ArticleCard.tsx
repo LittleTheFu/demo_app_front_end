@@ -5,7 +5,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { Bookmark, BookmarkBorder, Delete, Edit, Favorite, FavoriteBorder, Share, TramRounded } from '@material-ui/icons';
+import { Bookmark, BookmarkBorder, Delete, Edit, Favorite, FavoriteBorder, Share } from '@material-ui/icons';
 import { UserHead } from './UserHead';
 import { CommonButton } from './CommonButton';
 

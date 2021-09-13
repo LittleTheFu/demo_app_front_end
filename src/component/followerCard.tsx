@@ -44,7 +44,7 @@ interface FollowerCardProps {
 export const FollowerCard: React.FC<FollowerCardProps> = (props: FollowerCardProps) => {
     const classes = useStyles({});
 
-    const { user: user, followClick, unfollowClick, avatarClick } = props;
+    const { user, followClick, unfollowClick, avatarClick } = props;
     const { icon, id, name, followed } = user;
 
     return (

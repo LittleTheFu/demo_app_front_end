@@ -357,7 +357,7 @@ export const deleteArticleTag = (
     reject?: (data: Error) => void,
 ): Promise<BaseData> => {
     const authHead = getTokenString();
-    return rawObjectDelete(deleteArticlTageUrl + '?' + 'id=' + id + '&' + 'tag=' + tag,
+    return rawObjectDelete(deleteArticlTageUrl + '?id=' + id + '&tag=' + tag,
         resolve, { 'Authorization': authHead }, reject);
 };
 
@@ -494,7 +494,7 @@ export const getTitlesBytag = (
 ): Promise<ArticleTitleResponseData> => {
     const authHead = getTokenString();
     console.log(authHead);
-    return rawObjectGet(titlesTagUrl + '?' + 'tag=' + tag, resolve, { 'Authorization': authHead }, reject);
+    return rawObjectGet(titlesTagUrl + '?tag=' + tag, resolve, { 'Authorization': authHead }, reject);
 };
 
 export type IPagedArticleTitle = IBaseData<IPageWrapper<ArticleTitle[]>>;
