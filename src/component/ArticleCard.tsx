@@ -4,11 +4,10 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { Bookmark, BookmarkBorder, Delete, Edit, Favorite, FavoriteBorder, Share } from '@material-ui/icons';
-import { IconButton } from '@material-ui/core';
+import { Bookmark, BookmarkBorder, Delete, Edit, Favorite, FavoriteBorder, Share, TramRounded } from '@material-ui/icons';
 import { UserHead } from './UserHead';
+import { CommonButton } from './CommonButton';
 
 const useStyles = makeStyles({
     root: {
@@ -61,49 +60,49 @@ export const ArticleCard: React.FC<ArticleCardProps> = (props: ArticleCardProps)
             <CardActions>
                 {
                     props.thumbed ?
-                        <IconButton onClick={props.unlikeClick}>
-                            <Favorite />
-                            {props.thumb}
-                        </IconButton>
+                        <CommonButton
+                            visible={true}
+                            clickAction={props.unlikeClick}
+                            IconComponent={Favorite}
+                            count={props.thumb} />
                         :
-                        <IconButton onClick={props.likeClick}>
-                            <FavoriteBorder />
-                            {props.thumb}
-                        </IconButton>
+                        <CommonButton
+                            visible={true}
+                            clickAction={props.likeClick}
+                            IconComponent={FavoriteBorder}
+                            count={props.thumb} />
                 }
-                {
-                    props.shareable ?
-                        <IconButton onClick={props.shareClick}>
-                            <Share />
-                        </IconButton>
-                        :
-                        <div></div>
-                }
-                {
-                    props.deletable ?
-                        (<IconButton onClick={props.deleteClick}>
-                            <Delete />
-                        </IconButton>)
-                        :
-                        <div></div>
-                }
-                {
-                    props.editable ?
-                        (<IconButton onClick={props.editClick}>
-                            <Edit />
-                        </IconButton>)
-                        :
-                        <div></div>
-                }
+                <CommonButton
+                    visible={props.shareable}
+                    clickAction={props.shareClick}
+                    IconComponent={Share}
+                />
+
+                <CommonButton
+                    visible={props.deletable}
+                    clickAction={props.deleteClick}
+                    IconComponent={Delete}
+                />
+
+                <CommonButton
+                    visible={props.editable}
+                    clickAction={props.editClick}
+                    IconComponent={Edit}
+                />
+
                 {
                     props.bookmarded ?
-                        <IconButton onClick={props.unbookmarkClick}>
-                            <Bookmark />
-                        </IconButton>
+                        <CommonButton
+                            visible={true}
+                            clickAction={props.unbookmarkClick}
+                            IconComponent={Bookmark}
+                        />
                         :
-                        <IconButton onClick={props.bookmarkClick}>
-                            <BookmarkBorder />
-                        </IconButton>
+                        <CommonButton
+                            visible={true}
+                            clickAction={props.bookmarkClick}
+                            IconComponent={BookmarkBorder}
+                        />
                 }
             </CardActions>
         </Card>
