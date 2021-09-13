@@ -5,18 +5,23 @@ import { OverridableComponent } from '@material-ui/core/OverridableComponent';
 interface CommonButtonProps {
     IconComponent: OverridableComponent<SvgIconTypeMap<{}, "svg">>;
     clickAction: (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+    visible: boolean;
 }
 
 export const CommonButton: React.FC<CommonButtonProps> = (props: CommonButtonProps) => {
-    const { clickAction } = props;
+    const { clickAction, visible } = props;
     return (
-        <IconButton
-            onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
-                e.stopPropagation();
-                clickAction(e);
-            }}
-        >
-            <props.IconComponent />
-        </IconButton>
+        { visible }
+            ?
+            <IconButton
+                onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+                    e.stopPropagation();
+                    clickAction(e);
+                }}
+            >
+                <props.IconComponent />
+            </IconButton>
+            :
+            <div></div>
     );
 };

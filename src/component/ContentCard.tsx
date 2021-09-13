@@ -70,13 +70,16 @@ export const ContentCard: React.FC<ContentCardProps> = (props: ContentCardProps)
                 <Grid container item xs={9} md={10} lg={11}>
                     <div className={boldText ? classes.contentBold : classes.contentNormal}>{content}</div>
                     <Grid item xs={12} className={classes.date}>
-                        <CommonButton IconComponent={Mail} clickAction={mailClick} />
+                        <CommonButton
+                            visible={true}
+                            IconComponent={Mail}
+                            clickAction={mailClick} />
                     </Grid>
                     <Grid item xs={12} className={classes.date}>
-                        {canBeDeleted ?
-                            <CommonButton IconComponent={Delete} clickAction={deleteClick} />
-                            :
-                            <div></div>}
+                        <CommonButton
+                            IconComponent={Delete}
+                            clickAction={deleteClick}
+                            visible={canBeDeleted} />
                     </Grid>
                 </Grid>
             </Grid>
