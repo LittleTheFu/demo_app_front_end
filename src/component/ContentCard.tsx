@@ -73,7 +73,10 @@ export const ContentCard: React.FC<ContentCardProps> = (props: ContentCardProps)
                         <CommonButton IconComponent={Mail} clickAction={mailClick} />
                     </Grid>
                     <Grid item xs={12} className={classes.date}>
-                        {canBeDeleted ? <CommonButton IconComponent={Delete} clickAction={deleteClick}></CommonButton> : <div></div>}
+                        {canBeDeleted ?
+                            <CommonButton IconComponent={Delete} clickAction={deleteClick} />
+                            :
+                            <div></div>}
                     </Grid>
                 </Grid>
             </Grid>

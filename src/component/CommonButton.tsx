@@ -3,11 +3,9 @@ import { IconButton, SvgIconTypeMap } from '@material-ui/core';
 import { OverridableComponent } from '@material-ui/core/OverridableComponent';
 
 interface CommonButtonProps {
-    IconComponent: IconComponent;
+    IconComponent: OverridableComponent<SvgIconTypeMap<{}, "svg">>;
     clickAction: (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
-
-type IconComponent = OverridableComponent<SvgIconTypeMap<{}, "svg">>;
 
 export const CommonButton: React.FC<CommonButtonProps> = (props: CommonButtonProps) => {
     const { clickAction } = props;
