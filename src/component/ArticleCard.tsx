@@ -108,7 +108,3 @@ export const ArticleCard: React.FC<ArticleCardProps> = (props: ArticleCardProps)
         </Card>
     );
 };
-
-
-
-
