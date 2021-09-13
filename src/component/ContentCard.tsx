@@ -2,9 +2,9 @@ import React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
-import { DeleteButton } from './DeleteButton';
+import { CommonButton } from './CommonButton';
 import { UserHead } from './UserHead';
-import { MailButton } from './MailButton';
+import { Delete, Mail } from '@material-ui/icons';
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -70,10 +70,10 @@ export const ContentCard: React.FC<ContentCardProps> = (props: ContentCardProps)
                 <Grid container item xs={9} md={10} lg={11}>
                     <div className={boldText ? classes.contentBold : classes.contentNormal}>{content}</div>
                     <Grid item xs={12} className={classes.date}>
-                        <MailButton clickMail={mailClick} />
+                        <CommonButton IconComponent={Mail} clickAction={mailClick} />
                     </Grid>
                     <Grid item xs={12} className={classes.date}>
-                        {canBeDeleted ? <DeleteButton clickDelete={deleteClick}></DeleteButton> : <div></div>}
+                        {canBeDeleted ? <CommonButton IconComponent={Delete} clickAction={deleteClick}></CommonButton> : <div></div>}
                     </Grid>
                 </Grid>
             </Grid>
