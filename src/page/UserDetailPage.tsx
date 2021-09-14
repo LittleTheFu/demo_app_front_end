@@ -134,13 +134,13 @@ export const UserDetailPage: React.FC = () => {
         setSelectTabValue(newValue);
     };
 
-    const fetchTitleFunc = (
-        page: number,
-        resolve: (data: IPagedArticleTitle) => void,
-        reject?: (data: Error) => void,
-    ): Promise<IPagedArticleTitle> => {
-        return getUserTitles(id, page, resolve, reject);
-    }
+    // const fetchTitleFunc = (
+    //     page: number,
+    //     resolve: (data: IPagedArticleTitle) => void,
+    //     reject?: (data: Error) => void,
+    // ): Promise<IPagedArticleTitle> => {
+    //     return getUserTitles(id, page, resolve, reject);
+    // }
 
     return (
         <div>
@@ -191,7 +191,7 @@ export const UserDetailPage: React.FC = () => {
                 <h1>文章:</h1>
                 <Titles
                     titles={titles}
-                    fetch={fetchTitleFunc}
+                    fetch={getUserTitles(id)}
                     onFetched={setTitles}
                 />
             </Box>
