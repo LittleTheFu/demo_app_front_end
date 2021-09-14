@@ -2,11 +2,10 @@ import { Box, Button, Divider, IconButton, Paper, Tab, Tabs } from "@material-ui
 import { Mail } from "@material-ui/icons";
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { getArticleDetailUrl, getUserDetailPageUrl, getWriteNewMailUrl } from "../common/UrlHelper";
+import { getUserDetailPageUrl, getWriteNewMailUrl } from "../common/UrlHelper";
 import { FollowerCard } from "../component/FollowerCard";
 import { ArticleTitle, followUser, getFollowers, getFollowings, getUserById, getUserTitles, IPagedArticleTitle, unfollowUser, UserDetail } from "../common/service";
 import { UserHead } from "../component/UserHead";
-import { TitleCard } from "../component/TitleCard";
 import { Titles } from "../component/Titles";
 
 export const UserDetailPage: React.FC = () => {
