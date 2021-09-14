@@ -129,11 +129,11 @@ export interface IPageWrapper<T> {
 export type IAllArticleData = IBaseData<IPageWrapper<Article[]>>;
 
 const allArticleUrl = 'http://localhost:8080/article/all';
-export const getAllArticles = (
+export const getAllTitles = (
     page: number,
-    resolve: (data: IAllArticleData) => void,
+    resolve: (data: IPagedArticleTitle) => void,
     reject?: (data: Error) => void,
-): Promise<IAllArticleData> => {
+): Promise<IPagedArticleTitle> => {
     const authHead = getTokenString();
     return rawObjectGet(allArticleUrl + '?page=' + page, resolve, { 'Authorization': authHead }, reject);
 };
