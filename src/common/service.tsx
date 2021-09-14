@@ -479,11 +479,15 @@ export class ArticleTitleResponseData extends BaseData {
 const userTitlesUrl = 'http://localhost:8080/article/get_titles_by_user/';
 export const getUserTitles = (
     id: string,
-    resolve: (data: ArticleTitleResponseData) => void,
+    page: number,
+    resolve: (data: IPagedArticleTitle) => void,
     reject?: (data: Error) => void,
-): Promise<ArticleTitleResponseData> => {
+): Promise<IPagedArticleTitle> => {
     const authHead = getTokenString();
-    return rawObjectGet(userTitlesUrl + id, resolve, { 'Authorization': authHead }, reject);
+    return rawObjectGet(userTitlesUrl + id + '?page=' + page,
+        resolve,
+        { 'Authorization': authHead },
+        reject);
 };
 
 const titlesTagUrl = 'http://localhost:8080/article/get_titles_by_tag';

@@ -4,15 +4,16 @@ import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { getArticleDetailUrl, getUserDetailPageUrl, getWriteNewMailUrl } from "../common/UrlHelper";
 import { FollowerCard } from "../component/FollowerCard";
-import { ArticleTitle, followUser, getFollowers, getFollowings, getUserById, getUserTitles, unfollowUser, UserDetail } from "../common/service";
+import { ArticleTitle, followUser, getFollowers, getFollowings, getUserById, getUserTitles, IPagedArticleTitle, unfollowUser, UserDetail } from "../common/service";
 import { UserHead } from "../component/UserHead";
 import { TitleCard } from "../component/TitleCard";
+import { Titles } from "../component/Titles";
 
 export const UserDetailPage: React.FC = () => {
     const [userDetail, setUserDetail] = useState<UserDetail>(new UserDetail());
     const [followings, setFollowings] = useState<UserDetail[]>([]);
     const [followers, setFollowers] = useState<UserDetail[]>([]);
-    const [Titles, setTitles] = useState<ArticleTitle[]>([]);
+    const [titles, setTitles] = useState<ArticleTitle[]>([]);
 
     const [SelectTabValue, setSelectTabValue] = useState(0);
     const [FollowingDisplay, setFollowingDisplay] = useState('block');
@@ -36,11 +37,6 @@ export const UserDetailPage: React.FC = () => {
         getFollowers(id, (data) => {
             console.log(data);
             setFollowers(data.data);
-        })
-
-        getUserTitles(id, (data) => {
-            console.log(data);
-            setTitles(data.data);
         })
     }, [id]);
 
@@ -68,11 +64,6 @@ export const UserDetailPage: React.FC = () => {
         }
 
     }, [SelectTabValue]);
-
-    const ArticleClick = (id: number): void => {
-        history.push(getArticleDetailUrl(id));
-        console.log("card clicked : " + id)
-    };
 
     const UpdateFollowFlag =
         (id: number,
@@ -139,9 +130,18 @@ export const UserDetailPage: React.FC = () => {
         });
         console.log("Mail Click : ");
     }
+
     const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
         setSelectTabValue(newValue);
     };
+
+    const fetchTitleFunc = (
+        page: number,
+        resolve: (data: IPagedArticleTitle) => void,
+        reject?: (data: Error) => void,
+    ): Promise<IPagedArticleTitle> => {
+        return getUserTitles(id, page, resolve, reject);
+    }
 
     return (
         <div>
@@ -190,16 +190,11 @@ export const UserDetailPage: React.FC = () => {
             <Divider />
             <Box component="div" display={TitlesDisplay}>
                 <h1>文章:</h1>
-                {
-                    Titles.map((a, index) => {
-                        return <TitleCard key={index}
-                            id={a.id}
-                            title={a.title}
-                            author={a.authorName}
-                            authorIcon={a.authorIcon}
-                            textClick={() => { ArticleClick(a.id) }} />
-                    })
-                }
+                <Titles
+                    titles={titles}
+                    fetch={fetchTitleFunc}
+                    onFetched={setTitles}
+                />
             </Box>
         </div>
     );
