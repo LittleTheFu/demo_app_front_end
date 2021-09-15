@@ -33,9 +33,6 @@ export const TemporaryDrawer: React.FC = () => {
         history.push(getLoginUrl());
     };
 
-    const peopleClick = (): void => {
-    };
-
     const friendClick = (): void => {
         history.push(getFriendUrl());
     };
@@ -63,9 +60,6 @@ export const TemporaryDrawer: React.FC = () => {
 
     const allClick = (): void => {
         history.push(getAllArticleUrl());
-    };
-
-    const projectClick = (): void => {
     };
 
     return (

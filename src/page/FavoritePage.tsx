@@ -1,6 +1,4 @@
-import { Pagination } from "@material-ui/lab";
-import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useState } from "react";
 import { ArticleTitle, getBookmarkArticles } from "../common/service";
 import { Titles } from "../component/Titles";
 

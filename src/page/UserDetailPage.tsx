@@ -4,7 +4,10 @@ import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { getUserDetailPageUrl, getWriteNewMailUrl } from "../common/UrlHelper";
 import { FollowerCard } from "../component/FollowerCard";
-import { ArticleTitle, followUser, getFollowers, getFollowings, getUserById, getUserTitles, IPagedArticleTitle, unfollowUser, UserDetail } from "../common/service";
+import {
+    ArticleTitle, followUser, getFollowers, getFollowings,
+    getUserById, getUserTitles, unfollowUser, UserDetail
+} from "../common/service";
 import { UserHead } from "../component/UserHead";
 import { Titles } from "../component/Titles";
 

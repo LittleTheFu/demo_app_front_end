@@ -50,7 +50,7 @@ export const Titles: React.FC<TitlesProps> = (props: TitlesProps) => {
 
             console.log(data);
         })
-    }, [])
+    }, [fetch, onFetched])
 
     return (
         <div>

@@ -45,7 +45,7 @@ export const FollowerCard: React.FC<FollowerCardProps> = (props: FollowerCardPro
     const classes = useStyles({});
 
     const { user, followClick, unfollowClick, avatarClick } = props;
-    const { icon, id, name, followed } = user;
+    const { icon, name, followed } = user;
 
     return (
         <Card>

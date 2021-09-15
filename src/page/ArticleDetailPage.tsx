@@ -198,7 +198,7 @@ export const ArticleDetail: React.FC = () => {
             console.log('comments:');
             console.log(comments);
         })
-    }, [commentOrderStatus]);
+    }, [id, commentOrderStatus]);
 
     function handleSubmit(): void {
         // event.preventDefault();
