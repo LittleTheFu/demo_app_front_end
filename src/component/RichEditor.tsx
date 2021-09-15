@@ -1,8 +1,8 @@
-import React, { createRef, ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
+import React, { ReactElement, useCallback, useEffect, useMemo, useState } from 'react'
 import { createEditor, Descendant, Editor, Transforms } from 'slate'
 import { Slate, Editable, withReact, ReactEditor } from 'slate-react'
 import { BaseEditor } from 'slate'
-import { IconButton } from '@material-ui/core'
+import { Box, IconButton } from '@material-ui/core'
 import { Backup, CloudDownload, CropOriginal, FormatBold, FormatItalic, FormatUnderlined } from '@material-ui/icons'
 import { uploadImage } from '../common/service'
 
@@ -37,46 +37,9 @@ interface EditCardProps {
 
 export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
     const [returnUrl, setReturnUrl] = useState('');
-
-    const myRef = createRef();
-    // const editor = createEditor();
+    
     const editor = useMemo(() => withReact(createEditor()), []);
     const renderLeaf = useCallback(props => <Leaf {...props} />, []);
-    // Add the initial value when setting up our state.
-    // const [value, setValue] = useState<Descendant[]>([
-    //     {
-    //         type: 'paragraph',
-    //         children: [{
-    //             text: 'A line of text in a paragraph.',
-    //             bold: false,
-    //             underline: false,
-    //             italic: false,
-    //         }],
-    //     },
-    //     {
-    //         type: 'image',
-    //         url: 'https://material-ui.com/static/hiring-toc-light.png',
-    //         children: [{
-    //             text: '',
-    //         }],
-    //     },
-    // ])
-    // const [value, setValue] = useState<Descendant[]>(props.initValue);
-    // console.log('props.initValue');
-    // console.log(props.initValue);
-
-    // useEffect(() => {
-    // const str = JSON.stringify(value);
-    // props.onContentChange(str);
-
-    // console.log('value chaged:');
-    // console.log(value);
-    // }, [value]);
-
-    // useEffect(() => {
-    //     setValue(props.initValue);
-    // }, [props.initValue]);
-
     useEffect(() => {
         if (returnUrl === '') {
             return;
@@ -197,6 +160,10 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
         console.log('btn click');
     }
 
+    const getToolDisplayFlag = (): string => {
+        return props.readonly ? 'none' : 'block';
+    }
+
     const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>): void => {
         if (!e.target.files || e.target.files.length === 0) {
             // setSelectedFile(undefined);
@@ -260,42 +227,43 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
             // onChange={newValue => setValue(newValue)}
             onChange={newValue => props.onContentChange(newValue)}
         >
-            <IconButton onClick={() => { btnClick(editor) }} >
-                <FormatBold />
-            </IconButton>
+            <Box component="div" display={getToolDisplayFlag()}>
+                <IconButton onClick={() => { btnClick(editor) }} >
+                    <FormatBold />
+                </IconButton>
 
-            <IconButton onClick={() => { underLineBtnClick(editor) }}>
-                <FormatUnderlined />
-            </IconButton>
+                <IconButton onClick={() => { underLineBtnClick(editor) }}>
+                    <FormatUnderlined />
+                </IconButton>
 
-            <IconButton onClick={() => { italicBtnClick(editor) }}>
-                <FormatItalic />
-            </IconButton>
+                <IconButton onClick={() => { italicBtnClick(editor) }}>
+                    <FormatItalic />
+                </IconButton>
 
-            <IconButton component="label"
-            // onClick={() => { italicBtnClick(editor) }}
-            >
-                <input
-                    accept="image/*"
-                    type="file"
-                    onClick={
-                        (event) => {
-                            event.currentTarget.value = '';
-                        }}
-                    onChange={onSelectFile}
-                    style={{ display: 'none' }}
-                />
-                <CropOriginal />
-            </IconButton>
+                <IconButton component="label"
+                // onClick={() => { italicBtnClick(editor) }}
+                >
+                    <input
+                        accept="image/*"
+                        type="file"
+                        onClick={
+                            (event) => {
+                                event.currentTarget.value = '';
+                            }}
+                        onChange={onSelectFile}
+                        style={{ display: 'none' }}
+                    />
+                    <CropOriginal />
+                </IconButton>
 
-            <IconButton onClick={() => { saveClick() }}>
-                <Backup />
-            </IconButton>
+                <IconButton onClick={() => { saveClick() }}>
+                    <Backup />
+                </IconButton>
 
-            <IconButton onClick={() => { loadClick() }}>
-                <CloudDownload />
-            </IconButton>
-
+                <IconButton onClick={() => { loadClick() }}>
+                    <CloudDownload />
+                </IconButton>
+            </Box>
             <Editable
                 readOnly={props.readonly}
                 renderElement={renderElement}
