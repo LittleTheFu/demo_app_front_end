@@ -21,6 +21,12 @@ export class TokenData {
     }
 }
 
+export interface INullData {
+
+};
+
+export type ISimpleData = IBaseData<INullData>;
+
 export type IAccessData = IBaseData<TokenData>;
 
 export class RetMsgObj {
@@ -155,9 +161,9 @@ export const getArticleById = (
 const thumbCommentUrl = 'http://localhost:8080/article/comment_thumb/'
 export const thumbComment = (
     id: number,
-    resolve: (data: BaseData) => void,
+    resolve: (data: ISimpleData) => void,
     reject?: (data: Error) => void,
-): Promise<BaseData> => {
+): Promise<ISimpleData> => {
     const authHead = getTokenString();
     return rawObjectPut(thumbCommentUrl + id, {}, resolve, { 'Authorization': authHead }, reject);
 };
@@ -165,9 +171,9 @@ export const thumbComment = (
 const unThumbCommentUrl = 'http://localhost:8080/article/comment_unthumb/'
 export const unThumbComment = (
     id: number,
-    resolve: (data: BaseData) => void,
+    resolve: (data: ISimpleData) => void,
     reject?: (data: Error) => void,
-): Promise<BaseData> => {
+): Promise<ISimpleData> => {
     const authHead = getTokenString();
     return rawObjectPut(unThumbCommentUrl + id, {}, resolve, { 'Authorization': authHead }, reject);
 };
@@ -307,9 +313,9 @@ export type IChangeIconResponseData = IBaseData<ChangeIconResponse>;
 const updateNameUrl = 'http://localhost:8080/user/change_name';
 export const updateName = (
     name: string,
-    resolve: (data: BaseData) => void,
+    resolve: (data: ISimpleData) => void,
     reject?: (data: Error) => void,
-): Promise<BaseData> => {
+): Promise<ISimpleData> => {
     const authHead = getTokenString();
     return rawObjectPut(updateNameUrl, { name: name }, resolve, { 'Authorization': authHead }, reject);
 };
@@ -355,9 +361,9 @@ const deleteArticlTageUrl = 'http://localhost:8080/article/delete_article_tag';
 export const deleteArticleTag = (
     id: number,
     tag: string,
-    resolve: (data: BaseData) => void,
+    resolve: (data: ISimpleData) => void,
     reject?: (data: Error) => void,
-): Promise<BaseData> => {
+): Promise<ISimpleData> => {
     const authHead = getTokenString();
     return rawObjectDelete(deleteArticlTageUrl + '?id=' + id + '&tag=' + tag,
         resolve, { 'Authorization': authHead }, reject);
@@ -367,9 +373,9 @@ const addArticlTageUrl = 'http://localhost:8080/article/add_article_tag/';
 export const addArticleTag = (
     id: number,
     tag: string,
-    resolve: (data: BaseData) => void,
+    resolve: (data: ISimpleData) => void,
     reject?: (data: Error) => void,
-): Promise<BaseData> => {
+): Promise<ISimpleData> => {
     const authHead = getTokenString();
     return rawObjectPut(addArticlTageUrl + id, { tag: tag },
         resolve, { 'Authorization': authHead }, reject);
@@ -379,9 +385,9 @@ export const addArticleTag = (
 const deleteArticleUrl = 'http://localhost:8080/article/delete/';
 export const deleteArticle = (
     id: number,
-    resolve: (data: BaseData) => void,
+    resolve: (data: ISimpleData) => void,
     reject?: (data: Error) => void,
-): Promise<BaseData> => {
+): Promise<ISimpleData> => {
     const authHead = getTokenString();
     return rawObjectDelete(deleteArticleUrl + id, resolve, { 'Authorization': authHead }, reject);
 };
@@ -391,9 +397,9 @@ export const updateArticle = (
     id: number,
     title: string,
     content: string,
-    resolve: (data: BaseData) => void,
+    resolve: (data: ISimpleData) => void,
     reject?: (data: Error) => void,
-): Promise<BaseData> => {
+): Promise<ISimpleData> => {
     const authHead = getTokenString();
     return rawObjectPut(updateArticleUrl + id, { id: id, title: title, content: content }, resolve, { 'Authorization': authHead }, reject);
 };
@@ -424,9 +430,9 @@ const createMailUrl = 'http://localhost:8080/mail/create_mail';
 export const createMail = (
     mailToId: number,
     content: string,
-    resolve: (data: BaseData) => void,
+    resolve: (data: ISimpleData) => void,
     reject?: (data: Error) => void,
-): Promise<BaseData> => {
+): Promise<ISimpleData> => {
     const authHead = getTokenString();
     return rawObjectPost(createMailUrl, { mailToId: mailToId, content: content }, resolve, { 'Authorization': authHead }, reject);
 };
@@ -454,9 +460,9 @@ export const getMails = (
 const deleteMailUrl = 'http://localhost:8080/mail/';
 export const deleteMail = (
     id: number,
-    resolve: (data: BaseData) => void,
+    resolve: (data: ISimpleData) => void,
     reject?: (data: Error) => void,
-): Promise<BaseData> => {
+): Promise<ISimpleData> => {
     const authHead = getTokenString();
     return rawObjectDelete(deleteMailUrl + id, resolve, { 'Authorization': authHead }, reject);
 };
@@ -495,12 +501,13 @@ export const getUserTitles = (
 const titlesTagUrl = 'http://localhost:8080/article/get_titles_by_tag';
 export const getTitlesBytag = (
     tag: string,
-    resolve: (data: ArticleTitleResponseData) => void,
+    page: number,
+    resolve: (data: IPagedArticleTitle) => void,
     reject?: (data: Error) => void,
-): Promise<ArticleTitleResponseData> => {
+): Promise<IPagedArticleTitle> => {
     const authHead = getTokenString();
     console.log(authHead);
-    return rawObjectGet(titlesTagUrl + '?tag=' + tag, resolve, { 'Authorization': authHead }, reject);
+    return rawObjectGet(titlesTagUrl + '?tag=' + tag + '&page=' + page, resolve, { 'Authorization': authHead }, reject);
 };
 
 export type IPagedArticleTitle = IBaseData<IPageWrapper<ArticleTitle[]>>;
@@ -519,9 +526,9 @@ export const getHistory = (
 const bookmarkArticleUrl = 'http://localhost:8080/article/bookmark/'
 export const bookmarkArticle = (
     id: number,
-    resolve: (data: BaseData) => void,
+    resolve: (data: ISimpleData) => void,
     reject?: (data: Error) => void,
-): Promise<BaseData> => {
+): Promise<ISimpleData> => {
     const authHead = getTokenString();
     return rawObjectPut(bookmarkArticleUrl + id, {}, resolve, { 'Authorization': authHead }, reject);
 };
@@ -529,9 +536,9 @@ export const bookmarkArticle = (
 const unBookmarkArticleUrl = 'http://localhost:8080/article/unbookmark/'
 export const unBookmarkArticle = (
     id: number,
-    resolve: (data: BaseData) => void,
+    resolve: (data: ISimpleData) => void,
     reject?: (data: Error) => void,
-): Promise<BaseData> => {
+): Promise<ISimpleData> => {
     const authHead = getTokenString();
     return rawObjectPut(unBookmarkArticleUrl + id, {}, resolve, { 'Authorization': authHead }, reject);
 };

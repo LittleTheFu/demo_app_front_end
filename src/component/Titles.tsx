@@ -48,9 +48,10 @@ export const Titles: React.FC<TitlesProps> = (props: TitlesProps) => {
             setPageNum(data.data.pageNum);
             setPages(data.data.pages);
 
+            console.log('titles useeffect');
             console.log(data);
         })
-    }, [fetch, onFetched])
+    }, [])
 
     return (
         <div>
