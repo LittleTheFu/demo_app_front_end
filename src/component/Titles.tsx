@@ -1,7 +1,7 @@
 import { Pagination } from "@material-ui/lab";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { ArticleTitle, IPagedArticleTitle } from "../common/service";
+import { ArticleTitle, IPagedArticleTitle, IPageWrapper } from "../common/service";
 import { getArticleDetailUrl } from "../common/UrlHelper";
 import { TitleCard } from "../component/TitleCard";
 
@@ -11,7 +11,7 @@ interface TitlesProps {
         page: number,
         resolve: (data: IPagedArticleTitle) => void,
         reject?: (data: Error) => void,
-    ) => Promise<IPagedArticleTitle>;
+    ) => Promise<IPageWrapper<ArticleTitle[]>>;
     onFetched: (fetchedTitles: ArticleTitle[]) => void;
 }
 

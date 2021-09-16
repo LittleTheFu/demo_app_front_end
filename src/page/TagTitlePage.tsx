@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { ArticleTitle, getTitlesBytag, IPagedArticleTitle } from "../common/service";
+import { ArticleTitle, getTitlesBytag, IPagedArticleTitle, IPageWrapper } from "../common/service";
 import { getArticleDetailUrl } from "../common/UrlHelper";
 import { TitleCard } from "../component/TitleCard";
 import { Titles } from "../component/Titles";
@@ -13,7 +13,7 @@ export const TagTitlePage: React.FC = () => {
         page: number,
         resolve: (data: IPagedArticleTitle) => void,
         reject?: (data: Error) => void,
-    ): Promise<IPagedArticleTitle> => {
+    ): Promise<IPageWrapper<ArticleTitle[]>> => {
         return getTitlesBytag(tag, page, resolve, reject);
     }
 

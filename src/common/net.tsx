@@ -1,9 +1,11 @@
 import axios from 'axios';
+import { IBaseData } from './service';
+
 
 export function fileObjectPost<T>(
     url: string,
     data: FormData,
-    resolve: (data: T) => void,
+    resolve: (responseData: T) => void,
     headerContent: object = {},
 ): Promise<T> {
     return axios
@@ -24,7 +26,7 @@ export function fileObjectPost<T>(
 
 export function rawObjectGet<T>(
     url: string,
-    resolve: (data: T) => void,
+    resolve: (data: IBaseData<T>) => void,
     headerContent: object = {},
     reject?: (error: Error) => void,
 ): Promise<T> {
@@ -36,11 +38,21 @@ export function rawObjectGet<T>(
             },
         })
         .then(response => {
-            const { data } = response;
-            // console.log(data);
+            const data = response.data as IBaseData<T>;
+            
+            if(!data) {
+                console.log('!!!!!!!!!!!!!!!!! no response data !!!!!!!!!!!!!!!!!');
+            }
+
+            console.log('before resolve data');
+            console.log(data.code);
+            console.log(data.message);
             resolve(data);
+            console.log('end resolve data');
         })
         .catch(err => {
+            console.log(err);
+            
             if (err.response) {
 
             } else if (err.request) {

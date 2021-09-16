@@ -1,15 +1,15 @@
 import { getTokenString } from './common';
 import { rawObjectPost, rawObjectGet, rawObjectPut, fileObjectPost, rawObjectDelete } from './net';
 
-export class BaseData {
-    code: number;
-    message: string;
+// export class BaseData {
+//     code: number;
+//     message: string;
 
-    constructor() {
-        this.code = 0;
-        this.message = '';
-    }
-}
+//     constructor() {
+//         this.code = 0;
+//         this.message = '';
+//     }
+// }
 
 export class TokenData {
     token: string;
@@ -58,7 +58,7 @@ const greetingUrl = 'http://localhost:8080/greeting';
 export const getGreeting = (
     resolve: (data: IAccessData) => void,
     reject?: (data: Error) => void,
-): Promise<IAccessData> => {
+): Promise<TokenData> => {
     const authHead = getTokenString();
     console.log(authHead);
     return rawObjectGet(greetingUrl, resolve, { 'Authorization': authHead }, reject);
@@ -139,7 +139,7 @@ export const getAllTitles = (
     page: number,
     resolve: (data: IPagedArticleTitle) => void,
     reject?: (data: Error) => void,
-): Promise<IPagedArticleTitle> => {
+): Promise<IPageWrapper<ArticleTitle[]>> => {
     const authHead = getTokenString();
     return rawObjectGet(allArticleUrl + '?page=' + page, resolve, { 'Authorization': authHead }, (data)=>{
         console.log(data);
@@ -153,7 +153,7 @@ export const getArticleById = (
     id: string,
     resolve: (data: IArticleData) => void,
     reject?: (data: Error) => void,
-): Promise<IArticleData> => {
+): Promise<Article> => {
     const authHead = getTokenString();
     return rawObjectGet(getArticleUrl + id, resolve, { 'Authorization': authHead }, reject);
 };
@@ -219,7 +219,7 @@ export const getUserById = (
     id: string,
     resolve: (data: IUserData) => void,
     reject?: (data: Error) => void,
-): Promise<IUserData> => {
+): Promise<UserDetail> => {
     const authHead = getTokenString();
     return rawObjectGet(getUserDetailUrl + id, resolve, { 'Authorization': authHead }, reject);
 };
@@ -227,7 +227,7 @@ export const getUserById = (
 export const getCurrentUser = (
     resolve: (data: IUserData) => void,
     reject?: (data: Error) => void,
-): Promise<IUserData> => {
+): Promise<UserDetail> => {
     const authHead = getTokenString();
     return rawObjectGet(getUserDetailUrl, resolve, { 'Authorization': authHead }, reject);
 };
@@ -293,7 +293,7 @@ export const getArticleComments = (
     sortType: string,
     resolve: (data: ICommentsData) => void,
     reject?: (data: Error) => void,
-): Promise<ICommentsData> => {
+): Promise<IPageWrapper<ArticleComment[]>> => {
     const authHead = getTokenString();
     return rawObjectGet(getArticleCommentsUrl + id +
         '?sort=' + sortType +
@@ -411,7 +411,7 @@ export const getFollowings = (
     id: string,
     resolve: (data: IFollowersData) => void,
     reject?: (data: Error) => void,
-): Promise<IFollowersData> => {
+): Promise<UserDetail[]> => {
     const authHead = getTokenString();
     return rawObjectGet(getFollowingsUrl + id, resolve, { 'Authorization': authHead }, reject);
 };
@@ -421,7 +421,7 @@ export const getFollowers = (
     id: string,
     resolve: (data: IFollowersData) => void,
     reject?: (data: Error) => void,
-): Promise<IFollowersData> => {
+): Promise<UserDetail[]> => {
     const authHead = getTokenString();
     return rawObjectGet(getFollowersUrl + id, resolve, { 'Authorization': authHead }, reject);
 };
@@ -452,7 +452,7 @@ const getMailsUrl = 'http://localhost:8080/mail/get_mails';
 export const getMails = (
     resolve: (data: IMailsResponseData) => void,
     reject?: (data: Error) => void,
-): Promise<IMailsResponseData> => {
+): Promise<Mail[]> => {
     const authHead = getTokenString();
     return rawObjectGet(getMailsUrl, resolve, { 'Authorization': authHead }, reject);
 };
@@ -475,14 +475,14 @@ export interface ArticleTitle {
     authorId: number;
 }
 
-export class ArticleTitleResponseData extends BaseData {
-    data: ArticleTitle[];
+// export class ArticleTitleResponseData extends BaseData {
+//     data: ArticleTitle[];
 
-    constructor() {
-        super();
-        this.data = [];
-    }
-}
+//     constructor() {
+//         super();
+//         this.data = [];
+//     }
+// }
 
 const userTitlesUrl = 'http://localhost:8080/article/get_titles_by_user/';
 export const getUserTitles = (
@@ -490,7 +490,7 @@ export const getUserTitles = (
     (page: number,
         resolve: (data: IPagedArticleTitle) => void,
         reject?: (data: Error) => void,
-    ): Promise<IPagedArticleTitle> => {
+    ): Promise<IPageWrapper<ArticleTitle[]>> => {
         const authHead = getTokenString();
         return rawObjectGet(userTitlesUrl + id + '?page=' + page,
             resolve,
@@ -504,7 +504,7 @@ export const getTitlesBytag = (
     page: number,
     resolve: (data: IPagedArticleTitle) => void,
     reject?: (data: Error) => void,
-): Promise<IPagedArticleTitle> => {
+): Promise<IPageWrapper<ArticleTitle[]>> => {
     const authHead = getTokenString();
     console.log(authHead);
     return rawObjectGet(titlesTagUrl + '?tag=' + tag + '&page=' + page, resolve, { 'Authorization': authHead }, reject);
@@ -517,7 +517,7 @@ export const getHistory = (
     page: number,
     resolve: (data: IPagedArticleTitle) => void,
     reject?: (data: Error) => void,
-): Promise<IPagedArticleTitle> => {
+): Promise<IPageWrapper<ArticleTitle[]>> => {
     const authHead = getTokenString();
     console.log(authHead);
     return rawObjectGet(historyUrl + '?page=' + page, resolve, { 'Authorization': authHead }, reject);
@@ -548,7 +548,7 @@ export const getBookmarkArticles = (
     page: number,
     resolve: (data: IPagedArticleTitle) => void,
     reject?: (data: Error) => void,
-): Promise<IPagedArticleTitle> => {
+): Promise<IPageWrapper<ArticleTitle[]>> => {
     const authHead = getTokenString();
     console.log(authHead);
     return rawObjectGet(allBookmarkArticleUrl + '?page=' + page, resolve, { 'Authorization': authHead }, reject);
