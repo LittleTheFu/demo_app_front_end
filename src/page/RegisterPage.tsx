@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { postRegister } from '../common/service';
+import { ISimpleData, postRegister } from '../common/service';
 import { useHistory, Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import { RetMsgObj } from '../common/service';
@@ -55,7 +55,7 @@ export const RegisterPage: React.FC = () => {
     const history = useHistory();
     const classes = useStyles({});
 
-    const resolveData = (data: RetMsgObj): void => {
+    const resolveData = (data: ISimpleData): void => {
         // openHint(dispatch, data.msg);
         // dispatch({ type: OPEN_HINT, payload: { hintMsg: data.msg } });
         console.log(data);

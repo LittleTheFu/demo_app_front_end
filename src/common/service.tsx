@@ -22,24 +22,23 @@ export class TokenData {
 }
 
 export interface INullData {
-
 };
 
 export type ISimpleData = IBaseData<INullData>;
 
 export type IAccessData = IBaseData<TokenData>;
 
-export class RetMsgObj {
-    msg: string | undefined;
+export interface RetMsgObj {
+    msg: string;
 }
 
 const registerUrl = 'http://localhost:8080/account/register';
 export const postRegister = (
     email: string,
     password: string,
-    resolve: (data: RetMsgObj) => void,
+    resolve: (data:ISimpleData ) => void,
     reject?: (data: Error) => void,
-): Promise<RetMsgObj> => {
+): Promise<INullData> => {
     return rawObjectPost(registerUrl, { password: password, email: email }, resolve, {}, reject);
 };
 
@@ -49,7 +48,7 @@ export const postLogin = (
     password: string,
     resolve: (data: IAccessData) => void,
     reject?: (data: Error) => void,
-): Promise<IAccessData> => {
+): Promise<TokenData> => {
     return rawObjectPost(loginUrl, { email: email, password: password }, resolve, {}, reject);
 };
 
@@ -163,7 +162,7 @@ export const thumbComment = (
     id: number,
     resolve: (data: ISimpleData) => void,
     reject?: (data: Error) => void,
-): Promise<ISimpleData> => {
+): Promise<INullData> => {
     const authHead = getTokenString();
     return rawObjectPut(thumbCommentUrl + id, {}, resolve, { 'Authorization': authHead }, reject);
 };
@@ -173,7 +172,7 @@ export const unThumbComment = (
     id: number,
     resolve: (data: ISimpleData) => void,
     reject?: (data: Error) => void,
-): Promise<ISimpleData> => {
+): Promise<INullData> => {
     const authHead = getTokenString();
     return rawObjectPut(unThumbCommentUrl + id, {}, resolve, { 'Authorization': authHead }, reject);
 };
@@ -183,7 +182,7 @@ export const thumbArticle = (
     id: number,
     resolve: (data: IArticleData) => void,
     reject?: (data: Error) => void,
-): Promise<IArticleData> => {
+): Promise<Article> => {
     const authHead = getTokenString();
     return rawObjectPut(thumbArticleUrl + id, {}, resolve, { 'Authorization': authHead }, reject);
 };
@@ -193,7 +192,7 @@ export const unthumbArticle = (
     id: number,
     resolve: (data: IArticleData) => void,
     reject?: (data: Error) => void,
-): Promise<IArticleData> => {
+): Promise<Article> => {
     const authHead = getTokenString();
     return rawObjectPut(unthumbArticleUrl + id, {}, resolve, { 'Authorization': authHead }, reject);
 };
@@ -243,7 +242,7 @@ export const followUser = (
     id: number,
     resolve: (data: IFollowResponseData) => void,
     reject?: (data: Error) => void,
-): Promise<IFollowResponseData> => {
+): Promise<FollowResponse> => {
     const authHead = getTokenString();
     return rawObjectPut(followUserUrl + id, {}, resolve, { 'Authorization': authHead }, reject);
 };
@@ -254,7 +253,7 @@ export const unfollowUser = (
     id: number,
     resolve: (data: IFollowResponseData) => void,
     reject?: (data: Error) => void,
-): Promise<IFollowResponseData> => {
+): Promise<FollowResponse> => {
     const authHead = getTokenString();
     return rawObjectPut(unfollowUserUrl + id, {}, resolve, { 'Authorization': authHead }, reject);
 };
@@ -267,7 +266,7 @@ export const createComment = (
     content: string,
     resolve: (data: IOneCommentData) => void,
     reject?: (data: Error) => void,
-): Promise<IOneCommentData> => {
+): Promise<ArticleComment> => {
     const authHead = getTokenString();
     return rawObjectPut(createCommentUrl + id, { content: content }, resolve, { 'Authorization': authHead }, reject);
 };
@@ -315,14 +314,14 @@ export const updateName = (
     name: string,
     resolve: (data: ISimpleData) => void,
     reject?: (data: Error) => void,
-): Promise<ISimpleData> => {
+): Promise<INullData> => {
     const authHead = getTokenString();
     return rawObjectPut(updateNameUrl, { name: name }, resolve, { 'Authorization': authHead }, reject);
 };
 
 const uploadIconUrl = 'http://localhost:8080/user/change_icon';
 export const uploadIcon = (data: FormData, resolve: (data: IChangeIconResponseData) => void)
-    : Promise<IChangeIconResponseData> => {
+    : Promise<ChangeIconResponse> => {
     const authHead = getTokenString();
 
     return fileObjectPost(uploadIconUrl, data, resolve, {
@@ -332,7 +331,7 @@ export const uploadIcon = (data: FormData, resolve: (data: IChangeIconResponseDa
 
 const uploadImageUrl = 'http://localhost:8080/file/upload';
 export const uploadImage = (data: FormData, resolve: (data: IChangeIconResponseData) => void)
-    : Promise<IChangeIconResponseData> => {
+    : Promise<ChangeIconResponse> => {
     const authHead = getTokenString();
 
     return fileObjectPost(uploadImageUrl, data, resolve, {
@@ -352,7 +351,7 @@ export const createArticle = (
     content: string,
     resolve: (data: ICreateArticleResponseData) => void,
     reject?: (data: Error) => void,
-): Promise<ICreateArticleResponseData> => {
+): Promise<CreateArticleResponse> => {
     const authHead = getTokenString();
     return rawObjectPut(createArticleUrl, { title: title, content: content }, resolve, { 'Authorization': authHead }, reject);
 };
@@ -363,7 +362,7 @@ export const deleteArticleTag = (
     tag: string,
     resolve: (data: ISimpleData) => void,
     reject?: (data: Error) => void,
-): Promise<ISimpleData> => {
+): Promise<INullData> => {
     const authHead = getTokenString();
     return rawObjectDelete(deleteArticlTageUrl + '?id=' + id + '&tag=' + tag,
         resolve, { 'Authorization': authHead }, reject);
@@ -375,7 +374,7 @@ export const addArticleTag = (
     tag: string,
     resolve: (data: ISimpleData) => void,
     reject?: (data: Error) => void,
-): Promise<ISimpleData> => {
+): Promise<INullData> => {
     const authHead = getTokenString();
     return rawObjectPut(addArticlTageUrl + id, { tag: tag },
         resolve, { 'Authorization': authHead }, reject);
@@ -387,7 +386,7 @@ export const deleteArticle = (
     id: number,
     resolve: (data: ISimpleData) => void,
     reject?: (data: Error) => void,
-): Promise<ISimpleData> => {
+): Promise<INullData> => {
     const authHead = getTokenString();
     return rawObjectDelete(deleteArticleUrl + id, resolve, { 'Authorization': authHead }, reject);
 };
@@ -399,7 +398,7 @@ export const updateArticle = (
     content: string,
     resolve: (data: ISimpleData) => void,
     reject?: (data: Error) => void,
-): Promise<ISimpleData> => {
+): Promise<INullData> => {
     const authHead = getTokenString();
     return rawObjectPut(updateArticleUrl + id, { id: id, title: title, content: content }, resolve, { 'Authorization': authHead }, reject);
 };
@@ -432,7 +431,7 @@ export const createMail = (
     content: string,
     resolve: (data: ISimpleData) => void,
     reject?: (data: Error) => void,
-): Promise<ISimpleData> => {
+): Promise<INullData> => {
     const authHead = getTokenString();
     return rawObjectPost(createMailUrl, { mailToId: mailToId, content: content }, resolve, { 'Authorization': authHead }, reject);
 };
@@ -462,7 +461,7 @@ export const deleteMail = (
     id: number,
     resolve: (data: ISimpleData) => void,
     reject?: (data: Error) => void,
-): Promise<ISimpleData> => {
+): Promise<INullData> => {
     const authHead = getTokenString();
     return rawObjectDelete(deleteMailUrl + id, resolve, { 'Authorization': authHead }, reject);
 };
@@ -528,7 +527,7 @@ export const bookmarkArticle = (
     id: number,
     resolve: (data: ISimpleData) => void,
     reject?: (data: Error) => void,
-): Promise<ISimpleData> => {
+): Promise<INullData> => {
     const authHead = getTokenString();
     return rawObjectPut(bookmarkArticleUrl + id, {}, resolve, { 'Authorization': authHead }, reject);
 };
@@ -538,7 +537,7 @@ export const unBookmarkArticle = (
     id: number,
     resolve: (data: ISimpleData) => void,
     reject?: (data: Error) => void,
-): Promise<ISimpleData> => {
+): Promise<INullData> => {
     const authHead = getTokenString();
     return rawObjectPut(unBookmarkArticleUrl + id, {}, resolve, { 'Authorization': authHead }, reject);
 };
