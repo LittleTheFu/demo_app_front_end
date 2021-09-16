@@ -3,11 +3,11 @@ import { rawObjectPost, rawObjectGet, rawObjectPut, fileObjectPost, rawObjectDel
 
 export class BaseData {
     code: number;
-    token: string;
+    message: string;
 
     constructor() {
         this.code = 0;
-        this.token = '';
+        this.message = '';
     }
 }
 
@@ -114,7 +114,7 @@ export interface PageWrapper<T> {
 //////////////////////////////////////////////////
 export interface IBaseData<T> {
     code: number;
-    token: string;
+    message: string;
 
     data: T;
 }
@@ -135,7 +135,9 @@ export const getAllTitles = (
     reject?: (data: Error) => void,
 ): Promise<IPagedArticleTitle> => {
     const authHead = getTokenString();
-    return rawObjectGet(allArticleUrl + '?page=' + page, resolve, { 'Authorization': authHead }, reject);
+    return rawObjectGet(allArticleUrl + '?page=' + page, resolve, { 'Authorization': authHead }, (data)=>{
+        console.log(data);
+    });
 };
 
 export type IArticleData = IBaseData<Article>;
