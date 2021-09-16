@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { IBaseData } from './service';
-
+import { store } from '../reducer/rootReducer';
+import { OPEN_HINT } from '../reducer/system/types';
 
 export function fileObjectPost<T>(
     url: string,
@@ -39,20 +40,13 @@ export function rawObjectGet<T>(
         })
         .then(response => {
             const data = response.data as IBaseData<T>;
-            
-            if(!data) {
-                console.log('!!!!!!!!!!!!!!!!! no response data !!!!!!!!!!!!!!!!!');
-            }
 
-            console.log('before resolve data');
-            console.log(data.code);
-            console.log(data.message);
+            store.dispatch({ type: OPEN_HINT, payload: { hintMsg: data.message } });
             resolve(data);
-            console.log('end resolve data');
         })
         .catch(err => {
             console.log(err);
-            
+
             if (err.response) {
 
             } else if (err.request) {

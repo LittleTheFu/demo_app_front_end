@@ -1,27 +1,45 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { MainFrame } from './MainFrame';
 import { Login } from './page/LoginPage';
-import { Provider } from 'react-redux';
-import { store } from './reducer/rootReducer';
+import { Provider, useDispatch, useSelector } from 'react-redux';
+import { selectHintMsg, selectHintState, store } from './reducer/rootReducer';
 import { RegisterPage } from './page/RegisterPage';
+import { Snackbar } from '@material-ui/core';
+import { CLOSE_HINT, SystemActionTypes } from './reducer/system/types';
+import { Dispatch } from 'react';
 
 export default function App() {
+  const hintState = useSelector(selectHintState);
+  const hintMsg = useSelector(selectHintMsg);
+
+  const dispatch = useDispatch<Dispatch<SystemActionTypes>>();
 
   return (
-    <Provider store={store}>
-    <Router>
-      <Switch>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path='/register'>
-          <RegisterPage />
-        </Route>
-        <Route path="/main">
-          <MainFrame />
-        </Route>
-      </Switch>
-    </Router>
-    </Provider>
-  );
+    <div>
+      <Snackbar
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        open={hintState}
+        autoHideDuration={2000}
+        onClose={(): void => {
+          dispatch({ type: CLOSE_HINT });
+        }}
+        message={hintMsg}
+      />
+      <Router>
+        <Switch>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path='/register'>
+            <RegisterPage />
+          </Route>
+          <Route path="/main">
+            <MainFrame />
+          </Route>
+        </Switch>
+      </Router>
+    </div>);
 }
