@@ -37,7 +37,7 @@ interface EditCardProps {
 
 export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
     const [returnUrl, setReturnUrl] = useState('');
-    
+
     const editor = useMemo(() => withReact(createEditor()), []);
     const renderLeaf = useCallback(props => <Leaf {...props} />, []);
     useEffect(() => {
@@ -77,6 +77,7 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
             <div {...props.attributes}>
                 <div contentEditable={false}>
                     <img
+                        alt='image node'
                         src={props.element.url}
                     />
                 </div>

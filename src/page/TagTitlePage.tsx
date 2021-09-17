@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 import { ArticleTitle, getTitlesBytag, IPagedArticleTitle, IPageWrapper } from "../common/service";
-import { getArticleDetailUrl } from "../common/UrlHelper";
-import { TitleCard } from "../component/TitleCard";
 import { Titles } from "../component/Titles";
 
 export const TagTitlePage: React.FC = () => {

@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { MainFrame } from './MainFrame';
 import { Login } from './page/LoginPage';
-import { Provider, useDispatch, useSelector } from 'react-redux';
-import { selectHintMsg, selectHintState, store } from './reducer/rootReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectHintMsg, selectHintState } from './reducer/rootReducer';
 import { RegisterPage } from './page/RegisterPage';
 import { Snackbar } from '@material-ui/core';
 import { CLOSE_HINT, SystemActionTypes } from './reducer/system/types';
