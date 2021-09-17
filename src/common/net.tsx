@@ -66,16 +66,6 @@ export function rawObjectGet<T>(
             runActionByStateCode(basedata, resolve, reject);
         })
         .catch(err => {
-            console.log(err);
-
-            if (err.response) {
-
-            } else if (err.request) {
-
-            } else {
-
-            }
-
             return err;
         });
 }
@@ -98,14 +88,6 @@ export function rawObjectDelete<T>(
             runActionByStateCode(basedata, resolve, reject);
         })
         .catch(err => {
-            if (err.response) {
-
-            } else if (err.request) {
-
-            } else {
-
-            }
-
             return err;
         });
 }
@@ -130,14 +112,6 @@ export function rawObjectPut<T>(
             runActionByStateCode(basedata, resolve, reject);
         })
         .catch(err => {
-            if (err.response) {
-
-            } else if (err.request) {
-
-            } else {
-
-            }
-
             return err;
         });
 }
@@ -161,12 +135,6 @@ export function rawObjectPost<T>(
             runActionByStateCode(basedata, resolve, reject);
         })
         .catch(err => {
-            if (err.response) {
-
-            } else if (err.request) {
-            } else {
-            }
-
             return err;
         });
 }
