@@ -164,9 +164,13 @@ export const ArticleDetail: React.FC = () => {
     }
 
     const TagDeleteClick = (tag: string): void => {
-        deleteArticleTag(article.id, tag, (data) => {
-            console.log(data);
-        });
+        deleteArticleTag(article.id,
+            tag, (data) => {
+                console.log(data);
+            },
+            (code, message) => {
+                console.log('error : ' + code + ' ' + message);
+            });
         console.log('tag delete clicked : ' + tag);
     }
 

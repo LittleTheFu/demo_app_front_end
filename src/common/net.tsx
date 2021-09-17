@@ -3,6 +3,28 @@ import { IBaseData } from './service';
 import { store } from '../reducer/rootReducer';
 import { OPEN_HINT } from '../reducer/system/types';
 
+const STATE_CODE_OK = 200;
+
+function runActionByStateCode<T>(
+    baseData: IBaseData<T>,
+    resolve: (data: IBaseData<T>) => void,
+    reject?: (code: number, message: string) => void): void {
+
+    const { code, message } = baseData;
+
+    if (code === STATE_CODE_OK) {
+        resolve(baseData);
+    }
+    else {
+        if (reject) {
+            reject(code, message);
+        }
+        else {
+            store.dispatch({ type: OPEN_HINT, payload: { hintMsg: message } });
+        }
+    }
+}
+
 export function fileObjectPost<T>(
     url: string,
     data: FormData,
@@ -16,12 +38,10 @@ export function fileObjectPost<T>(
             },
         })
         .then(response => {
-            const data = response.data as IBaseData<T>;
+            const basedata = response.data as IBaseData<T>;
+            runActionByStateCode(basedata, resolve);
 
-            store.dispatch({ type: OPEN_HINT, payload: { hintMsg: data.message } });
-            resolve(data);
-
-            return data;
+            return basedata;
         })
         .catch(err => {
             return err;
@@ -32,7 +52,7 @@ export function rawObjectGet<T>(
     url: string,
     resolve: (data: IBaseData<T>) => void,
     headerContent: object = {},
-    reject?: (error: Error) => void,
+    reject?: (code: number, message: string) => void,
 ): Promise<T> {
     return axios
         .get(url, {
@@ -42,10 +62,8 @@ export function rawObjectGet<T>(
             },
         })
         .then(response => {
-            const data = response.data as IBaseData<T>;
-
-            store.dispatch({ type: OPEN_HINT, payload: { hintMsg: data.message } });
-            resolve(data);
+            const basedata = response.data as IBaseData<T>;
+            runActionByStateCode(basedata, resolve, reject);
         })
         .catch(err => {
             console.log(err);
@@ -66,7 +84,7 @@ export function rawObjectDelete<T>(
     url: string,
     resolve: (data: IBaseData<T>) => void,
     headerContent: object = {},
-    reject?: (error: Error) => void,
+    reject?: (code: number, message: string) => void,
 ): Promise<T> {
     return axios
         .delete(url, {
@@ -76,10 +94,8 @@ export function rawObjectDelete<T>(
             },
         })
         .then(response => {
-            const data = response.data as IBaseData<T>;
-
-            store.dispatch({ type: OPEN_HINT, payload: { hintMsg: data.message } });
-            resolve(data);
+            const basedata = response.data as IBaseData<T>;
+            runActionByStateCode(basedata, resolve, reject);
         })
         .catch(err => {
             if (err.response) {
@@ -100,7 +116,7 @@ export function rawObjectPut<T>(
     data: object,
     resolve: (data: IBaseData<T>) => void,
     headerContent: object = {},
-    reject?: (error: Error) => void,
+    reject?: (code: number, message: string) => void,
 ): Promise<T> {
     return axios
         .put(url, JSON.stringify(data), {
@@ -110,10 +126,8 @@ export function rawObjectPut<T>(
             },
         })
         .then(response => {
-            const data = response.data as IBaseData<T>;
-
-            store.dispatch({ type: OPEN_HINT, payload: { hintMsg: data.message } });
-            resolve(data);
+            const basedata = response.data as IBaseData<T>;
+            runActionByStateCode(basedata, resolve, reject);
         })
         .catch(err => {
             if (err.response) {
@@ -133,7 +147,7 @@ export function rawObjectPost<T>(
     data: object,
     resolve: (data: IBaseData<T>) => void,
     headerContent: object = {},
-    reject?: (error: Error) => void,
+    reject?: (code: number, message: string) => void,
 ): Promise<T> {
     return axios
         .post(url, JSON.stringify(data), {
@@ -143,14 +157,12 @@ export function rawObjectPost<T>(
             },
         })
         .then(response => {
-            const data = response.data as IBaseData<T>;
-
-            store.dispatch({ type: OPEN_HINT, payload: { hintMsg: data.message } });
-            resolve(data);
+            const basedata = response.data as IBaseData<T>;
+            runActionByStateCode(basedata, resolve, reject);
         })
         .catch(err => {
             if (err.response) {
-               
+
             } else if (err.request) {
             } else {
             }

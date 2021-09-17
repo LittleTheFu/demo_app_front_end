@@ -12,7 +12,7 @@ export const TagTitlePage: React.FC = () => {
     const fetchFunc = (
         page: number,
         resolve: (data: IPagedArticleTitle) => void,
-        reject?: (data: Error) => void,
+        reject?: (code: number, message: string) => void,
     ): Promise<IPageWrapper<ArticleTitle[]>> => {
         return getTitlesBytag(tag, page, resolve, reject);
     }

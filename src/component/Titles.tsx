@@ -10,7 +10,7 @@ interface TitlesProps {
     fetch: (
         page: number,
         resolve: (data: IPagedArticleTitle) => void,
-        reject?: (data: Error) => void,
+        reject?: (code: number, message: string) => void,
     ) => Promise<IPageWrapper<ArticleTitle[]>>;
     onFetched: (fetchedTitles: ArticleTitle[]) => void;
 }
