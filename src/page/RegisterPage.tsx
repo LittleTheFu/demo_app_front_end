@@ -5,7 +5,6 @@ import Button from '@material-ui/core/Button';
 import { ISimpleData, postRegister } from '../common/service';
 import { useHistory, Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
-import { RetMsgObj } from '../common/service';
 import { validate } from 'email-validator';
 import {
     isValidPassowrd,
