@@ -26,11 +26,22 @@ export interface INullData {
 
 export type ISimpleData = IBaseData<INullData>;
 
+export type ISimpleStringData = IBaseData<string>;
+
 export type IAccessData = IBaseData<TokenData>;
 
 export interface RetMsgObj {
     msg: string;
 }
+
+const wantResetPasswordUrl = 'http://localhost:8080/account/want_reset_password';
+export const wantResetPassword = (
+    email: string,
+    resolve: (data:ISimpleStringData ) => void,
+    reject?: (code: number, message: string) => void,
+): Promise<string> => {
+    return rawObjectPost(wantResetPasswordUrl, { email: email }, resolve, {}, reject);
+};
 
 const registerUrl = 'http://localhost:8080/account/register';
 export const postRegister = (
