@@ -8,6 +8,7 @@ import { Snackbar } from '@material-ui/core';
 import { CLOSE_HINT, SystemActionTypes } from './reducer/system/types';
 import { Dispatch } from 'react';
 import { ForgetPasswordPage } from './page/ForgetPasswordPage';
+import { ResetPasswordPage } from './page/ResetPasswordPage';
 
 export default function App() {
   const hintState = useSelector(selectHintState);
@@ -39,6 +40,9 @@ export default function App() {
           </Route>
           <Route path='/forget_password'>
             <ForgetPasswordPage />
+          </Route>
+          <Route path='/reset'>
+            <ResetPasswordPage />
           </Route>
           <Route path="/main">
             <MainFrame />
