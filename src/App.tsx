@@ -41,7 +41,7 @@ export default function App() {
           <Route path='/forget_password'>
             <ForgetPasswordPage />
           </Route>
-          <Route path='/reset'>
+          <Route path={'/reset/:code'}>
             <ResetPasswordPage />
           </Route>
           <Route path="/main">

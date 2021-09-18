@@ -60,11 +60,17 @@ export const ForgetPasswordPage: React.FC = () => {
                     submit
                 </Button>
 
+                <h3>
+                    you should click this address in your email,
+                    it is rendered here just for debug
+                </h3>
+
                 <Link href={address}>
                     <h3>
                         {address}
                     </h3>
                 </Link>
+
 
             </Container>
 

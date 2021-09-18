@@ -37,17 +37,33 @@ export interface RetMsgObj {
 const wantResetPasswordUrl = 'http://localhost:8080/account/want_reset_password';
 export const wantResetPassword = (
     email: string,
-    resolve: (data:ISimpleStringData ) => void,
+    resolve: (data: ISimpleStringData) => void,
     reject?: (code: number, message: string) => void,
 ): Promise<string> => {
     return rawObjectPost(wantResetPasswordUrl, { email: email }, resolve, {}, reject);
+};
+
+const resetPasswordUrl = 'http://localhost:8080/account/reset_password';
+export const resetPassword = (
+    email: string,
+    password: string,
+    code: string,
+    resolve: (data: ISimpleData) => void,
+    reject?: (code: number, message: string) => void,
+): Promise<INullData> => {
+    return rawObjectPost(
+        resetPasswordUrl,
+        { email: email, password: password, code: code },
+        resolve,
+        {},
+        reject);
 };
 
 const registerUrl = 'http://localhost:8080/account/register';
 export const postRegister = (
     email: string,
     password: string,
-    resolve: (data:ISimpleData ) => void,
+    resolve: (data: ISimpleData) => void,
     reject?: (code: number, message: string) => void,
 ): Promise<INullData> => {
     return rawObjectPost(registerUrl, { password: password, email: email }, resolve, {}, reject);
@@ -151,7 +167,7 @@ export const getAllTitles = (
     reject?: (code: number, message: string) => void,
 ): Promise<IPageWrapper<ArticleTitle[]>> => {
     const authHead = getTokenString();
-    return rawObjectGet(allArticleUrl + '?page=' + page, resolve, { 'Authorization': authHead }, (data)=>{
+    return rawObjectGet(allArticleUrl + '?page=' + page, resolve, { 'Authorization': authHead }, (data) => {
         console.log(data);
     });
 };
