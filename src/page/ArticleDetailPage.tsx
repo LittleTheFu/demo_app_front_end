@@ -28,6 +28,7 @@ export const ArticleDetail: React.FC = () => {
     const [editFlag, setEditFlag] = useState(false);
     const [shareDialogOpen, setShareDialogOpen] = useState(false);
     const [newTag, setNewTag] = useState('');
+    const [tags, setTags] = useState<string[]>([]);
 
     const [richContent, setRichContent] = useState<Descendant[]>([]);
 
@@ -166,16 +167,17 @@ export const ArticleDetail: React.FC = () => {
     const TagDeleteClick = (tag: string): void => {
         deleteArticleTag(article.id,
             tag, (data) => {
-                console.log(data);
-            },
-            (code, message) => {
-                console.log('error : ' + code + ' ' + message);
+                const newTags = tags.filter((t)=>{
+                    return t != tag;
+                });
+                setTags(newTags);
             });
-        console.log('tag delete clicked : ' + tag);
     }
 
     const TagAddClick = (tag: string): void => {
         addArticleTag(article.id, tag, (data) => {
+            const newTags = [...tags, tag];
+            setTags(newTags);
             console.log(data);
         });
     }
@@ -183,12 +185,13 @@ export const ArticleDetail: React.FC = () => {
     useEffect(() => {
 
         getArticleById(id, article => {
-            console.log(article);
             setArticle(article.data);
 
             const parsedObject = JSON.parse(article.data.content);
             setRichContent(parsedObject);
-            console.log(parsedObject);
+
+            setTags(article.data.tags);
+            console.log(article);
         });
 
     }, [id]);
@@ -251,7 +254,7 @@ export const ArticleDetail: React.FC = () => {
             }
 
             {
-                article.tags.map((tag, index) => {
+                tags.map((tag, index) => {
                     return <Chip
                         key={index}
                         label={tag}
