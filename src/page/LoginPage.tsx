@@ -1,4 +1,4 @@
-import React, { Dispatch, useState } from 'react';
+import React, { Dispatch, useEffect, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
@@ -6,9 +6,10 @@ import { useHistory, Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import { IAccessData, getCurrentUser, getGreeting, postLogin } from '../common/service';
 import { getCurrentUserId, setToken, setTokenHead } from '../common/common';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { SET_CURRENT_USER, SystemActionTypes, UPDATE_LOGIN_STATE } from '../reducer/system/types';
 import { getAllArticleUrl } from '../common/UrlHelper';
+import { selectLoginState } from '../reducer/rootReducer';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -36,12 +37,19 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const Login: React.FC = () => {
     const dispatch = useDispatch<Dispatch<SystemActionTypes>>();
+    const isLogin = useSelector(selectLoginState);
 
     const [username, setUser] = useState('');
     const [password, setPassword] = useState('');
 
     const history = useHistory();
     const classes = useStyles({});
+
+    useEffect(() => {
+        if (isLogin) {
+            history.push(getAllArticleUrl());
+        }
+    }, [isLogin]);
 
     const resolveData = (accessData: IAccessData): void => {
         console.log(accessData);
@@ -55,7 +63,6 @@ export const Login: React.FC = () => {
 
         getCurrentUser((data) => {
             console.log('set avatar!!!!! ' + data.data.icon);
-            history.push(getAllArticleUrl());
             dispatch({
                 type: SET_CURRENT_USER,
                 payload: {
