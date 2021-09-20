@@ -1,4 +1,7 @@
 // src/store/system/types.ts
+export interface LoginState {
+    isLogin: boolean;
+}
 
 export interface AvatarState {
     name: string;
@@ -30,6 +33,7 @@ export interface MailState {
 ///////////////////
 
 export interface AllState extends
+    LoginState,
     AvatarState,
     HintState,
     MaskState,
@@ -85,6 +89,14 @@ interface CloseDrawerAction {
     type: typeof CLOSE_DRAWER;
 }
 
+export const UPDATE_LOGIN_STATE = 'UPDATE_LOGIN_STATE';
+interface UpdateLoginStateAction {
+    type: typeof UPDATE_LOGIN_STATE;
+    payload: {
+        isLogin: boolean;
+    };
+}
+
 export const UPDATE_PLAY_STATE = 'UPDATE_PLAY_STATE';
 interface UpdatePlayStateAction {
     type: typeof UPDATE_PLAY_STATE;
@@ -126,6 +138,7 @@ export type SystemActionTypes =
     | CloseMaskAction
     | OpenDrawerAction
     | CloseDrawerAction
+    | UpdateLoginStateAction
     | UpdatePlayStateAction
     | UpdateUnreadMailCountAction
     | IncreaseUnreadMailCountAction

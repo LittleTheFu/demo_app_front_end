@@ -16,9 +16,12 @@ import {
     SET_CURRENT_USER,
     SET_CURRENT_USER_NAME,
     SET_CURRENT_USER_ICON,
+    UPDATE_LOGIN_STATE,
 } from './types';
 
 const initialState: AllState = {
+    isLogin: false,
+
     name: 'name',
     icon: 'http://101.132.41.44:9000/mall/20210821/213.jpg',
 
@@ -90,6 +93,11 @@ export function systemReducer(state = initialState, action: SystemActionTypes): 
                 showBannedMask: false,
             };
         }
+        case UPDATE_LOGIN_STATE:
+            return {
+                ...state,
+                ...action.payload,
+            }
         case OPEN_DRAWER: {
             return {
                 ...state,

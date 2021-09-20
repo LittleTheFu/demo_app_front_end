@@ -7,7 +7,7 @@ import Container from '@material-ui/core/Container';
 import { IAccessData, getCurrentUser, getGreeting, postLogin } from '../common/service';
 import { getCurrentUserId, setToken, setTokenHead } from '../common/common';
 import { useDispatch } from 'react-redux';
-import { SET_CURRENT_USER, SystemActionTypes } from '../reducer/system/types';
+import { SET_CURRENT_USER, SystemActionTypes, UPDATE_LOGIN_STATE } from '../reducer/system/types';
 import { getAllArticleUrl } from '../common/UrlHelper';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -61,6 +61,13 @@ export const Login: React.FC = () => {
                 payload: {
                     name: data.data.name,
                     icon: data.data.icon
+                }
+            });
+
+            dispatch({
+                type: UPDATE_LOGIN_STATE,
+                payload: {
+                    isLogin: true
                 }
             });
         });
