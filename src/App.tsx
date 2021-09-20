@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import { MainFrame } from './MainFrame';
 import { Login } from './page/LoginPage';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,7 +6,7 @@ import { selectHintMsg, selectHintState } from './reducer/rootReducer';
 import { RegisterPage } from './page/RegisterPage';
 import { Snackbar } from '@material-ui/core';
 import { CLOSE_HINT, SystemActionTypes } from './reducer/system/types';
-import { Dispatch } from 'react';
+import { Dispatch, ReactNode } from 'react';
 import { ForgetPasswordPage } from './page/ForgetPasswordPage';
 import { ResetPasswordPage } from './page/ResetPasswordPage';
 
@@ -15,6 +15,30 @@ export default function App() {
   const hintMsg = useSelector(selectHintMsg);
 
   const dispatch = useDispatch<Dispatch<SystemActionTypes>>();
+
+  interface PrivateRouteProps {
+    children: ReactNode;
+    path: string;
+  }
+
+  const PrivateRoute = ({ children, ...rest }: PrivateRouteProps): JSX.Element => {
+    return (
+      <Route
+        {...rest}
+        render={(): React.ReactNode =>
+          false ? (
+            children
+          ) : (
+            <Redirect
+              to={{
+                pathname: '/login',
+              }}
+            />
+          )
+        }
+      />
+    );
+  };
 
   return (
     <div>
@@ -44,9 +68,9 @@ export default function App() {
           <Route path={'/reset/:code'}>
             <ResetPasswordPage />
           </Route>
-          <Route path="/main">
+          <PrivateRoute path="/main">
             <MainFrame />
-          </Route>
+          </PrivateRoute>
         </Switch>
       </Router>
     </div>);
