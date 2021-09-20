@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { Redirect, Route } from "react-router-dom";
+import { getLoginUrl } from "../common/UrlHelper";
 
 export interface PrivateRouteProps {
     children: ReactNode;
@@ -16,7 +17,7 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({ children, ...rest }:
                 ) : (
                     <Redirect
                         to={{
-                            pathname: '/login',
+                            pathname: getLoginUrl(),
                         }}
                     />
                 )
