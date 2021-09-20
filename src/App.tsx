@@ -6,9 +6,10 @@ import { selectHintMsg, selectHintState } from './reducer/rootReducer';
 import { RegisterPage } from './page/RegisterPage';
 import { Snackbar } from '@material-ui/core';
 import { CLOSE_HINT, SystemActionTypes } from './reducer/system/types';
-import { Dispatch, ReactNode } from 'react';
+import { Dispatch } from 'react';
 import { ForgetPasswordPage } from './page/ForgetPasswordPage';
 import { ResetPasswordPage } from './page/ResetPasswordPage';
+import { PrivateRoute } from './component/PrivateRouter';
 
 export default function App() {
   const hintState = useSelector(selectHintState);
@@ -16,30 +17,7 @@ export default function App() {
 
   const dispatch = useDispatch<Dispatch<SystemActionTypes>>();
 
-  interface PrivateRouteProps {
-    children: ReactNode;
-    path: string;
-  }
-
-  const PrivateRoute = ({ children, ...rest }: PrivateRouteProps): JSX.Element => {
-    return (
-      <Route
-        {...rest}
-        render={(): React.ReactNode =>
-          false ? (
-            children
-          ) : (
-            <Redirect
-              to={{
-                pathname: '/login',
-              }}
-            />
-          )
-        }
-      />
-    );
-  };
-
+  
   return (
     <div>
       <Snackbar
