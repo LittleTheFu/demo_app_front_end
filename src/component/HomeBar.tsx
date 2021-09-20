@@ -2,11 +2,10 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import HomeIcon from '@material-ui/icons/Home';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { useHistory } from 'react-router-dom';
-import { AccountBox, AddBox, Bookmark, Mail, People, Restore } from '@material-ui/icons';
+import { AccountBox, AddBox, Bookmark, Mail, People, Restore, ExitToApp } from '@material-ui/icons';
 import { getAllArticleUrl, getFavoriteUrl, getFriendUrl, getHistoryUrl, getLoginUrl, getMailUrl, getNewArticleUrl, getProfileUrl } from '../common/UrlHelper';
 import { OPEN_DRAWER, SystemActionTypes } from '../reducer/system/types';
 import { useDispatch } from 'react-redux';
@@ -32,7 +31,7 @@ export default function HomeBar() {
     const classes = useStyles();
     const history = useHistory();
 
-    const loginClick = (): void => {
+    const logoutClick = (): void => {
         history.push(getLoginUrl());
         console.log("login clicked")
     };
@@ -107,7 +106,9 @@ export default function HomeBar() {
                     <IconButton edge="start" onClick={favoriteClick} className={classes.menuButton} color="inherit" aria-label="menu">
                         <Bookmark />
                     </IconButton>
-                    <Button color="inherit" onClick={loginClick}>Login</Button>
+                    <IconButton edge="start" onClick={logoutClick} className={classes.menuButton} color="inherit" aria-label="menu">
+                        <ExitToApp />
+                    </IconButton>
                 </Toolbar>
             </AppBar>
         </div>
