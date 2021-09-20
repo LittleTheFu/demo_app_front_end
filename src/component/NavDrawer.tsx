@@ -9,7 +9,7 @@ import { UserHead } from './UserHead';
 import { NavListIconButton } from './NavListIconButton';
 import { selectNameState, selectDrawerState, selectIconState } from '../reducer/rootReducer';
 import { closeDrawer } from '../reducer/system/functions';
-import { SystemActionTypes } from '../reducer/system/types';
+import { SystemActionTypes, UPDATE_LOGIN_STATE } from '../reducer/system/types';
 import { useSelector, useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 import HomeIcon from '@material-ui/icons/Home';
@@ -30,7 +30,13 @@ export const TemporaryDrawer: React.FC = () => {
     const history = useHistory();
 
     const logoutClick = (): void => {
-        history.push(getLoginUrl());
+        dispatch({
+            type: UPDATE_LOGIN_STATE,
+            payload: {
+                isLogin: false
+            }
+        });
+        // history.push(getLoginUrl());
     };
 
     const friendClick = (): void => {

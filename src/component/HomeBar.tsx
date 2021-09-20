@@ -7,7 +7,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { useHistory } from 'react-router-dom';
 import { AccountBox, AddBox, Bookmark, Mail, People, Restore, ExitToApp } from '@material-ui/icons';
 import { getAllArticleUrl, getFavoriteUrl, getFriendUrl, getHistoryUrl, getLoginUrl, getMailUrl, getNewArticleUrl, getProfileUrl } from '../common/UrlHelper';
-import { OPEN_DRAWER, SystemActionTypes } from '../reducer/system/types';
+import { OPEN_DRAWER, SystemActionTypes, UPDATE_LOGIN_STATE } from '../reducer/system/types';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'react';
 
@@ -32,8 +32,14 @@ export default function HomeBar() {
     const history = useHistory();
 
     const logoutClick = (): void => {
-        history.push(getLoginUrl());
-        console.log("login clicked")
+        dispatch({
+            type: UPDATE_LOGIN_STATE,
+            payload: {
+                isLogin: false
+            }
+        });
+        // history.push(getLoginUrl());
+        // console.log("login clicked");
     };
 
     const menuClick = (): void => {
