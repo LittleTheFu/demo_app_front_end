@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { addArticleTag, Article, ArticleComment, bookmarkArticle, createArticle, createComment, deleteArticle, deleteArticleTag, getArticleById, getArticleComments, thumbArticle, thumbComment, unBookmarkArticle, unthumbArticle, unThumbComment, updateArticle } from "../common/service";
 import { useHistory, useLocation, useParams } from 'react-router-dom';
-import { Button, Chip, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, FormControl, MenuItem, Select, TextField } from '@material-ui/core';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, FormControl, MenuItem, Select, TextField } from '@material-ui/core';
 import { CommentCard } from '../component/CommentCard';
 import { EditCard } from '../component/EditCard';
 import { ArticleCard } from '../component/ArticleCard';
@@ -10,6 +10,7 @@ import { getAllArticleUrl, getSharedUrl, getTagTitleUrl, getUserUrl } from '../c
 import { RichEditor } from '../component/RichEditor';
 import { Descendant } from 'slate';
 import { Pagination } from '@material-ui/lab';
+import { TagGroup } from '../component/TagGroup';
 
 const useStyles = makeStyles({
     root: {
@@ -167,7 +168,7 @@ export const ArticleDetail: React.FC = () => {
     const TagDeleteClick = (tag: string): void => {
         deleteArticleTag(article.id,
             tag, (data) => {
-                const newTags = tags.filter((t)=>{
+                const newTags = tags.filter((t) => {
                     return t != tag;
                 });
                 setTags(newTags);
@@ -253,20 +254,11 @@ export const ArticleDetail: React.FC = () => {
                     bookmarded={article.bookmarked} />
             }
 
-            {
-                tags.map((tag, index) => {
-                    return <Chip
-                        key={index}
-                        label={tag}
-                        clickable color="primary"
-                        variant="outlined"
-                        onClick={() => { TagClick(tag) }}
-                        onDelete={article.editable ?
-                            () => { TagDeleteClick(tag) } :
-                            undefined}
-                    />
-                })
-            }
+            <TagGroup
+                tags={tags}
+                TagClick={TagClick}
+                TagDeleteClick={article.editable ? TagDeleteClick : undefined}
+            />
 
             <Divider />
             <TextField id="tag" onChange={(e): void => setNewTag(e.target.value)} />
