@@ -9,7 +9,7 @@ import { getCurrentUserId, setToken, setTokenHead } from '../common/common';
 import { useDispatch, useSelector } from 'react-redux';
 import { SET_CURRENT_USER, SystemActionTypes, UPDATE_LOGIN_STATE } from '../reducer/system/types';
 import { getAllArticleUrl } from '../common/UrlHelper';
-import { selectLoginState } from '../reducer/rootReducer';
+import { enableLoginFlag, selectLoginState, store, useAppDispatch, useAppSelector } from '../reducer/rootReducer';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -36,8 +36,11 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const Login: React.FC = () => {
-    const dispatch = useDispatch<Dispatch<SystemActionTypes>>();
-    const isLogin = useSelector(selectLoginState);
+    // const dispatch = useDispatch<ThunkDispatch<AppState, unknown, SystemActionTypes>>();
+    // const isLogin = useSelector(selectLoginState);
+
+    // const isLogin = useAppSelector(selectLoginState)
+    const dispatch = useAppDispatch();
 
     const [username, setUser] = useState('');
     const [password, setPassword] = useState('');
@@ -45,11 +48,11 @@ export const Login: React.FC = () => {
     const history = useHistory();
     const classes = useStyles({});
 
-    useEffect(() => {
-        if (isLogin) {
-            history.push(getAllArticleUrl());
-        }
-    }, [isLogin]);
+    // useEffect(() => {
+    //     if (isLogin) {
+    //         history.push(getAllArticleUrl());
+    //     }
+    // }, [isLogin]);
 
     const resolveData = (accessData: IAccessData): void => {
         console.log(accessData);
@@ -71,11 +74,17 @@ export const Login: React.FC = () => {
                 }
             });
 
-            dispatch({
-                type: UPDATE_LOGIN_STATE,
-                payload: {
-                    isLogin: true
-                }
+            // dispatch({
+            //     type: UPDATE_LOGIN_STATE,
+            //     payload: {
+            //         isLogin: true
+            //     }
+            // });
+            // dispatch as ThunkDispatch<State, unknown, AnyAction>
+            dispatch(enableLoginFlag()).then(()=>{
+                console.log('jump begin');
+                history.push(getAllArticleUrl());
+                console.log('jump end');
             });
         });
     };

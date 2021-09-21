@@ -36,6 +36,7 @@ export const getProfileUrl = (): string => {
 }
 
 export const getAllArticleUrl = (): string => {
+    console.log('getAllArticleUrl');
     return '/main/articles';
 }
 

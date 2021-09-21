@@ -1,14 +1,16 @@
 // src/store/index.ts
 
 import { systemReducer } from './system/reducers';
-import { combineReducers, createStore } from 'redux';
+import { combineReducers, createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk, { ThunkDispatch } from 'redux-thunk';
+import { UPDATE_LOGIN_STATE } from './system/types';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { AnyAction } from 'redux';
 
 const rootReducer = combineReducers({
     system: systemReducer,
 });
-
-export type RootState = ReturnType<typeof rootReducer>;
 
 export const selectNameState = (state: RootState): string => {
     return state.system.name;
@@ -38,4 +40,28 @@ export const selectDrawerState = (state: RootState): boolean => {
     return state.system.drawerOpen;
 };
 
-export const store = createStore(rootReducer, composeWithDevTools());
+export const store = createStore(
+    rootReducer,
+    composeWithDevTools(applyMiddleware(thunk))
+);
+
+
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
+
+export const useAppDispatch = () =>
+    useDispatch<AppDispatch>() as ThunkDispatch<RootState, void, AnyAction>
+
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
+
+//thunk action
+//###############################################################
+export const enableLoginFlag = () => (dispatch: AppDispatch) => {
+    dispatch({
+        type: UPDATE_LOGIN_STATE,
+        payload: {
+            isLogin: true
+        }
+    });
+    return Promise.resolve();
+};
