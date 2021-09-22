@@ -1,5 +1,5 @@
-import React from 'react';
-import { IconButton, SvgIconTypeMap } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Box, IconButton, SvgIconTypeMap } from '@material-ui/core';
 import { OverridableComponent } from '@material-ui/core/OverridableComponent';
 
 interface CommonButtonProps {
@@ -11,9 +11,9 @@ interface CommonButtonProps {
 
 export const CommonButton: React.FC<CommonButtonProps> = (props: CommonButtonProps) => {
     const { clickAction, visible, count } = props;
+
     return (
-        { visible }
-            ?
+        <Box component="div" display={visible ? 'block' : 'none'}>
             <IconButton
                 onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
                     e.stopPropagation();
@@ -25,7 +25,6 @@ export const CommonButton: React.FC<CommonButtonProps> = (props: CommonButtonPro
                 <props.IconComponent />
                 {count}
             </IconButton>
-            :
-            <div></div>
+        </Box>
     );
 };
