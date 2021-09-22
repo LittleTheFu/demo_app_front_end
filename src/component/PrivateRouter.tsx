@@ -3,7 +3,7 @@ import { Redirect, Route } from "react-router-dom";
 import { getLoginUrl } from "../common/UrlHelper";
 
 export interface PrivateRouteProps {
-    flag: boolean;
+    flag: () => boolean;
     children: ReactNode;
     path: string;
 }
@@ -13,7 +13,7 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({ flag, children, ...r
         <Route
             {...rest}
             render={(): React.ReactNode =>
-                flag ? (
+                flag() ? (
                     children
                 ) : (
                     <Redirect

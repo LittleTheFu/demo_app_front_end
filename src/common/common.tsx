@@ -1,32 +1,72 @@
 import { TokenData } from "./service";
 import { validate } from 'email-validator';
 import jwt_decode from "jwt-decode";
+import cookie from 'react-cookies';
 
-// export let globalValue: object = {};
+const TOKEN = 'TOKEN';
+const TOKEN_HEAD = 'TOKEN_HEAD';
+const LOGIN_FLAG = 'LOGIN_FLAG';
+const USER_NAME_COOKIE = 'USER_NAME_COOKIE';
+const USER_ICON_COOKIE = 'USER_ICON_COOKIE';
 
-// export const setGlobal = (v: object) : void => {
-//     globalValue = v;
-// }
+const COOKIE_OPTION = {
+    path: '/',
+    maxAge: 3600,
+};
 
-// export const getGlobal = (): object => {
-//     return globalValue;
-// }
- 
+export const setLoginFlag = (flag: boolean): void => {
+    const strFlag = flag ? '1' : '0';
+    cookie.save(LOGIN_FLAG, strFlag, COOKIE_OPTION);
+}
+
+export const getLoginFlag = (): boolean => {
+    console.log('GET LOGIN FLAG');
+
+    let strFlag = '0';
+    strFlag = cookie.load(LOGIN_FLAG);
+
+    return strFlag === '1';
+}
+
+export const setUserNameIntoCookie = (name: string): void => {
+    cookie.save(USER_NAME_COOKIE, name, COOKIE_OPTION);
+}
+
+export const getUserNameFromCookie = (): string => {
+    let name = '';
+    name = cookie.load(USER_NAME_COOKIE);
+
+    return name;
+}
+
+export const setUserIconIntoCookie = (icon: string): void => {
+    cookie.save(USER_ICON_COOKIE, icon, COOKIE_OPTION);
+}
+
+export const getUserIconFromCookie = (): string => {
+    let icon = '';
+    icon = cookie.load(USER_ICON_COOKIE);
+
+    return icon;
+}
+
 export const setToken = (token: string): void => {
-    sessionStorage.setItem('token', token);
+    cookie.save(TOKEN, token, COOKIE_OPTION);
 };
 
 export const getToken = (): string => {
-    return sessionStorage.getItem('token') || '';
+    return cookie.load(TOKEN);
 };
 
 export const setTokenHead = (head: string): void => {
-    sessionStorage.setItem('tokenHead', head);
+    cookie.save(TOKEN_HEAD, head, COOKIE_OPTION);
 };
 
 export const getTokenHead = (): string => {
-    return sessionStorage.getItem('tokenHead') || '';
+    return cookie.load(TOKEN_HEAD);
 };
+
+
 
 
 interface DecodedType {

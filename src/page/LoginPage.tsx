@@ -5,7 +5,7 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { useHistory, Link } from 'react-router-dom';
 import Container from '@material-ui/core/Container';
 import { IAccessData, getCurrentUser, getGreeting, postLogin } from '../common/service';
-import { getCurrentUserId, setToken, setTokenHead } from '../common/common';
+import { getCurrentUserId, setLoginFlag, setToken, setTokenHead, setUserIconIntoCookie, setUserNameIntoCookie } from '../common/common';
 import { useDispatch, useSelector } from 'react-redux';
 import { SET_CURRENT_USER, SystemActionTypes, UPDATE_LOGIN_STATE } from '../reducer/system/types';
 import { getAllArticleUrl } from '../common/UrlHelper';
@@ -66,6 +66,10 @@ export const Login: React.FC = () => {
 
         getCurrentUser((data) => {
             console.log('set avatar!!!!! ' + data.data.icon);
+
+            setUserNameIntoCookie(data.data.name);
+            setUserIconIntoCookie(data.data.icon);
+            
             dispatch({
                 type: SET_CURRENT_USER,
                 payload: {
@@ -81,11 +85,15 @@ export const Login: React.FC = () => {
             //     }
             // });
             // dispatch as ThunkDispatch<State, unknown, AnyAction>
-            dispatch(enableLoginFlag()).then(()=>{
-                console.log('jump begin');
-                history.push(getAllArticleUrl());
-                console.log('jump end');
-            });
+            // dispatch(enableLoginFlag()).then(()=>{
+            //     setLoginFlag(true);
+
+            //     console.log('jump begin');
+            //     history.push(getAllArticleUrl());
+            //     console.log('jump end');
+            // });
+            setLoginFlag(true);
+            history.push(getAllArticleUrl());
         });
     };
 

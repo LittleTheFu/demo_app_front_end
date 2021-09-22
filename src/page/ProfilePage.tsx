@@ -7,7 +7,7 @@ import { SET_CURRENT_USER_ICON, SET_CURRENT_USER_NAME, SystemActionTypes } from 
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getUserDetailPageUrl } from "../common/UrlHelper";
-import { getCurrentUserId } from "../common/common";
+import { getCurrentUserId, setUserIconIntoCookie, setUserNameIntoCookie } from "../common/common";
 
 export const ProfilePage: React.FC = () => {
     const history = useHistory();
@@ -75,12 +75,15 @@ export const ProfilePage: React.FC = () => {
         uploadIcon(formData, (data) => {
             console.log('上传成功 pre:');
             console.log(data);
+
             dispatch({
                 type: SET_CURRENT_USER_ICON,
                 payload: {
                     icon: data.data.url,
                 }
             });
+
+            setUserIconIntoCookie(data.data.url);
             console.log('上传成功 post:');
             console.log(data);
         })
@@ -94,12 +97,15 @@ export const ProfilePage: React.FC = () => {
     const applyClick = (): void => {
         updateName(userName, (data) => {
             setUserDetail({ ...userDetail, name: userName });
+
             dispatch({
                 type: SET_CURRENT_USER_NAME,
                 payload: {
                     name: userName,
                 }
             });
+            setUserNameIntoCookie(userName);
+
             console.log(data);
         })
         console.log('apply click');

@@ -15,6 +15,7 @@ import { Dispatch } from 'redux';
 import HomeIcon from '@material-ui/icons/Home';
 import { AccountBox, AddBox, Bookmark, Mail, People, Restore } from '@material-ui/icons';
 import { getAllArticleUrl, getFavoriteUrl, getFriendUrl, getHistoryUrl, getLoginUrl, getMailUrl, getNewArticleUrl, getProfileUrl } from '../common/UrlHelper';
+import { setLoginFlag } from '../common/common';
 
 
 
@@ -30,13 +31,14 @@ export const TemporaryDrawer: React.FC = () => {
     const history = useHistory();
 
     const logoutClick = (): void => {
-        dispatch({
-            type: UPDATE_LOGIN_STATE,
-            payload: {
-                isLogin: false
-            }
-        });
-        // history.push(getLoginUrl());
+        // dispatch({
+        //     type: UPDATE_LOGIN_STATE,
+        //     payload: {
+        //         isLogin: false
+        //     }
+        // });
+        setLoginFlag(false);
+        history.push(getLoginUrl());
     };
 
     const friendClick = (): void => {

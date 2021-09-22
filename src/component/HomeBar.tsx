@@ -10,6 +10,7 @@ import { getAllArticleUrl, getFavoriteUrl, getFriendUrl, getHistoryUrl, getLogin
 import { OPEN_DRAWER, SystemActionTypes, UPDATE_LOGIN_STATE } from '../reducer/system/types';
 import { useDispatch } from 'react-redux';
 import { Dispatch } from 'react';
+import { setLoginFlag } from '../common/common';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -32,14 +33,14 @@ export default function HomeBar() {
     const history = useHistory();
 
     const logoutClick = (): void => {
-        dispatch({
-            type: UPDATE_LOGIN_STATE,
-            payload: {
-                isLogin: false
-            }
-        });
-        // history.push(getLoginUrl());
-        // console.log("login clicked");
+        setLoginFlag(false);
+        history.push(getLoginUrl());
+        // dispatch({
+        //     type: UPDATE_LOGIN_STATE,
+        //     payload: {
+        //         isLogin: false
+        //     }
+        // });
     };
 
     const menuClick = (): void => {

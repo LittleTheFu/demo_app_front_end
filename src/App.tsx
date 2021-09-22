@@ -5,20 +5,30 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectHintMsg, selectHintState, selectLoginState } from './reducer/rootReducer';
 import { RegisterPage } from './page/RegisterPage';
 import { Snackbar } from '@material-ui/core';
-import { CLOSE_HINT, SystemActionTypes } from './reducer/system/types';
-import { Dispatch } from 'react';
+import { CLOSE_HINT, SET_CURRENT_USER, SystemActionTypes, UPDATE_LOGIN_STATE } from './reducer/system/types';
+import { Dispatch, useEffect } from 'react';
 import { ForgetPasswordPage } from './page/ForgetPasswordPage';
 import { ResetPasswordPage } from './page/ResetPasswordPage';
 import { PrivateRoute } from './component/PrivateRouter';
+import { getLoginFlag, getUserIconFromCookie, getUserNameFromCookie } from './common/common';
 
 export default function App() {
   const hintState = useSelector(selectHintState);
   const hintMsg = useSelector(selectHintMsg);
-  const isLogin = useSelector(selectLoginState);
+  // const isLogin = getLoginFlag();
 
   const dispatch = useDispatch<Dispatch<SystemActionTypes>>();
 
-  
+  useEffect(() => {
+    dispatch({
+      type: SET_CURRENT_USER,
+      payload: {
+        name: getUserNameFromCookie(),
+        icon: getUserIconFromCookie(),
+      }
+    });
+  }, []);
+
   return (
     <div>
       <Snackbar
@@ -47,7 +57,7 @@ export default function App() {
           <Route path={'/reset/:code'}>
             <ResetPasswordPage />
           </Route>
-          <PrivateRoute flag={isLogin} path="/main">
+          <PrivateRoute flag={getLoginFlag} path="/main">
             <MainFrame />
           </PrivateRoute>
         </Switch>
