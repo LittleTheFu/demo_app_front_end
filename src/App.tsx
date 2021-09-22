@@ -57,7 +57,7 @@ export default function App() {
           <Route path={'/reset/:code'}>
             <ResetPasswordPage />
           </Route>
-          <PrivateRoute flag={getLoginFlag} path="/main">
+          <PrivateRoute flagFunc={getLoginFlag} path="/main">
             <MainFrame />
           </PrivateRoute>
         </Switch>
