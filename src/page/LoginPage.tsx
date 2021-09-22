@@ -40,19 +40,14 @@ export const Login: React.FC = () => {
     // const isLogin = useSelector(selectLoginState);
 
     // const isLogin = useAppSelector(selectLoginState)
-    const dispatch = useAppDispatch();
+    // const dispatch = useAppDispatch();
+    const dispatch = useDispatch();
 
     const [username, setUser] = useState('');
     const [password, setPassword] = useState('');
 
     const history = useHistory();
     const classes = useStyles({});
-
-    // useEffect(() => {
-    //     if (isLogin) {
-    //         history.push(getAllArticleUrl());
-    //     }
-    // }, [isLogin]);
 
     const resolveData = (accessData: IAccessData): void => {
         console.log(accessData);
@@ -69,7 +64,7 @@ export const Login: React.FC = () => {
 
             setUserNameIntoCookie(data.data.name);
             setUserIconIntoCookie(data.data.icon);
-            
+
             dispatch({
                 type: SET_CURRENT_USER,
                 payload: {
