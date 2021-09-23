@@ -1,16 +1,49 @@
 import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { addArticleTag, Article, ArticleComment, bookmarkArticle, createArticle, createComment, deleteArticle, deleteArticleTag, getArticleById, getArticleComments, thumbArticle, thumbComment, unBookmarkArticle, unthumbArticle, unThumbComment, updateArticle } from "../common/service";
+import {
+    addArticleTag,
+    Article,
+    ArticleComment,
+    bookmarkArticle,
+    createArticle,
+    createComment,
+    deleteArticle,
+    deleteArticleTag,
+    getArticleById,
+    getArticleComments,
+    thumbArticle,
+    thumbComment,
+    unBookmarkArticle,
+    unthumbArticle,
+    unThumbComment,
+    updateArticle
+} from "../common/service";
 import { useHistory, useLocation, useParams } from 'react-router-dom';
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, FormControl, MenuItem, Select, TextField } from '@material-ui/core';
-import { CommentCard } from '../component/CommentCard';
+import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    Divider,
+    FormControl,
+    MenuItem,
+    Select,
+    TextField
+} from '@material-ui/core';
 import { EditCard } from '../component/EditCard';
 import { ArticleCard } from '../component/ArticleCard';
-import { getAllArticleUrl, getSharedUrl, getTagTitleUrl, getUserUrl } from '../common/UrlHelper';
+import {
+    getAllArticleUrl,
+    getSharedUrl,
+    getTagTitleUrl,
+    getUserUrl
+} from '../common/UrlHelper';
 import { RichEditor } from '../component/RichEditor';
 import { Descendant } from 'slate';
-import { Pagination } from '@material-ui/lab';
 import { TagGroup } from '../component/TagGroup';
+import { CommentGroup } from '../component/CommentGroup';
 
 const useStyles = makeStyles({
     root: {
@@ -289,26 +322,15 @@ export const ArticleDetail: React.FC = () => {
                 </Select>
             </FormControl>
 
-            <Pagination
-                count={pages}
-                page={pageNum}
-                color="primary"
-                onChange={Change} />
-
-            {comments.map((comment: ArticleComment, index: number) => {
-                return (
-                    <CommentCard key={index}
-                        content={comment.articleCommentContent}
-                        author={comment.articleCommentUserName}
-                        authorIcon={comment.articleCommentUserIcon}
-                        date={comment.articleCommentDate}
-                        thumbState={comment.thumbState}
-                        thumbNum={comment.articleCommentThumbNum}
-                        authorClick={() => { AuthorClick(comment.articleCommentUserId) }}
-                        thumbClick={() => { ThumbCommentClick(comment.id) }}
-                        unThumbClick={() => { UnThumbCommentClick(comment.id) }} />
-                );
-            })}
+            <CommentGroup
+                pages={pages}
+                pageNum={pageNum}
+                comments={comments}
+                authorClick={AuthorClick}
+                thumbClick={ThumbCommentClick}
+                unThumbClick={UnThumbCommentClick}
+                onPageChange={Change}
+            />
 
             {/* <form onSubmit={handleSubmit} noValidate autoComplete="off"> */}
             <TextField
