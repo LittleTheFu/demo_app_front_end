@@ -332,9 +332,7 @@ export const ArticleDetail: React.FC = () => {
                 onPageChange={Change}
             />
 
-            {/* <form onSubmit={handleSubmit} noValidate autoComplete="off"> */}
             <TextField
-                // inputRef={textInput}
                 multiline={true}
                 id="standard-basic"
                 label="comment"
@@ -342,14 +340,12 @@ export const ArticleDetail: React.FC = () => {
                 onChange={(e): void => setContent(e.target.value)}
             />
 
-
             <Button type="submit"
                 variant="contained"
                 color="primary"
                 onClick={handleSubmit}>
                 post
             </Button>
-            {/* </form> */}
 
             <Dialog
                 open={shareDialogOpen}
