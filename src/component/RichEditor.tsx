@@ -3,7 +3,7 @@ import { createEditor, Descendant, Editor, Transforms } from 'slate'
 import { Slate, Editable, withReact, ReactEditor } from 'slate-react'
 import { BaseEditor } from 'slate'
 import { Box, IconButton, makeStyles, createStyles, Divider } from '@material-ui/core'
-import { Backup, CloudDownload, CropOriginal, FormatBold, FormatItalic, FormatUnderlined } from '@material-ui/icons'
+import { CropOriginal, FormatBold, FormatItalic, FormatUnderlined } from '@material-ui/icons'
 import { uploadImage } from '../common/service'
 import isUrl from 'is-url'
 import imageExtensions from 'image-extensions'
@@ -138,7 +138,7 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
         return (
             <div {...props.attributes}>
                 <div contentEditable={false}>
-                {/* <div> */}
+                    {/* <div> */}
                     <img
                         // draggable="false"
                         alt='image node'
@@ -192,24 +192,6 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
 
         editor.addMark('underline', !mark);
         console.log('btn click');
-    }
-
-    const saveClick = (): void => {
-        // const str = JSON.stringify(value);
-        // sessionStorage.setItem('test', str);
-        // console.log( str);
-
-        // const o = JSON.parse(str);
-        // console.log(o);
-        // setGlobal(value);
-    }
-
-    const loadClick = (): void => {
-        // const str = sessionStorage.getItem('test');
-        // if (str) {
-        //     const o = JSON.parse(str);
-        //     setValue(o);
-        // }
     }
 
     const italicBtnClick = (editor: Editor): void => {
@@ -320,14 +302,6 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
                             style={{ display: 'none' }}
                         />
                         <CropOriginal />
-                    </IconButton>
-
-                    <IconButton onClick={() => { saveClick() }}>
-                        <Backup />
-                    </IconButton>
-
-                    <IconButton onClick={() => { loadClick() }}>
-                        <CloudDownload />
                     </IconButton>
                     <Divider />
                 </Box>
