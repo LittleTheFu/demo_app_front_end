@@ -5,6 +5,8 @@ import { BaseEditor } from 'slate'
 import { Box, IconButton, makeStyles, createStyles, Divider } from '@material-ui/core'
 import { Backup, CloudDownload, CropOriginal, FormatBold, FormatItalic, FormatUnderlined } from '@material-ui/icons'
 import { uploadImage } from '../common/service'
+import isUrl from 'is-url'
+import imageExtensions from 'image-extensions'
 
 type EmptyText = {
     text: string
@@ -42,22 +44,61 @@ const useStyles = makeStyles(() =>
         },
         editor: {
             // height: 300,
-            width: 800,
-            height: 800,
+            // width: 800,
+            // height: 800,
             border: '1px solid #000',
-            overflow: 'auto',
+            // overflow: 'auto',
         },
     }),
 );
 
+const isImageUrl = (url: string) => {
+    if (!url) return false;
+    if (!isUrl(url)) return false;
+    const ext = new URL(url).pathname.split('.').pop();
+    if (!ext) return false;
+    return imageExtensions.includes(ext)
+}
+
 const withImages = (editor: BaseEditor & ReactEditor) => {
-    const { isVoid } = editor
+    const { insertData, isVoid } = editor
 
     editor.isVoid = element => {
         return element.type === 'image' ? true : isVoid(element)
     }
 
+    editor.insertData = data => {
+        const text = data.getData('text/plain');
+        const { files } = data
+
+        if (files && files.length > 0) {
+            for (let i = 0; i < files.length; i++) {
+                const reader = new FileReader()
+                const [mime] = files[i].type.split('/')
+
+                if (mime === 'image') {
+                    reader.addEventListener('load', () => {
+                        const url = reader.result as string;
+                        insertImage(editor, url)
+                    })
+
+                    reader.readAsDataURL(files[i])
+                }
+            }
+        } else if (isImageUrl(text)) {
+            insertImage(editor, text)
+        } else {
+            insertData(data)
+        }
+    }
+
     return editor;
+}
+
+const insertImage = (editor: BaseEditor & ReactEditor, url: string) => {
+    const text = { text: '' }
+    const image: CustomImageElement = { type: 'image', url, children: [text] }
+    Transforms.insertNodes(editor, image)
 }
 
 export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
@@ -72,17 +113,9 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
             return;
         }
 
-        const text = { text: '' }
-        const image: CustomImageElement = {
-            type: 'image',
-            url: returnUrl,
-            children: [text]
-        }
-
-        Transforms.insertNodes(editor, image)
+        insertImage(editor, returnUrl);
 
     }, [returnUrl]);
-
 
 
     // Define a React component renderer for our code blocks.
@@ -104,12 +137,14 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
     }) => {
         return (
             <div {...props.attributes}>
-                {/* <div contentEditable={false}> */}
+                <div contentEditable={false}>
+                {/* <div> */}
                     <img
+                        // draggable="false"
                         alt='image node'
                         src={props.element.url}
                     />
-                {/* </div> */}
+                </div>
                 {props.children}
             </div>
         )
