@@ -43,7 +43,9 @@ const useStyles = makeStyles(() =>
         editor: {
             // height: 300,
             width: 800,
+            height:800,
             border: '1px solid #000',
+            overflow: 'auto',
         },
     }),
 );
