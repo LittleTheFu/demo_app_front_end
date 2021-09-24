@@ -140,7 +140,7 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
                 <div contentEditable={false}>
                     {/* <div> */}
                     <img
-                        // draggable="false"
+                        draggable={false}
                         alt='image node'
                         src={props.element.url}
                     />
