@@ -2,7 +2,7 @@ import React, { ReactElement, useCallback, useEffect, useMemo, useState } from '
 import { createEditor, Descendant, Editor, Transforms } from 'slate'
 import { Slate, Editable, withReact, ReactEditor } from 'slate-react'
 import { BaseEditor } from 'slate'
-import { Box, IconButton } from '@material-ui/core'
+import { Box, IconButton, makeStyles, createStyles, Divider } from '@material-ui/core'
 import { Backup, CloudDownload, CropOriginal, FormatBold, FormatItalic, FormatUnderlined } from '@material-ui/icons'
 import { uploadImage } from '../common/service'
 
@@ -35,8 +35,23 @@ interface EditCardProps {
     readonly: boolean;
 }
 
+const useStyles = makeStyles(() =>
+    createStyles({
+        tool: {
+            // border: '1px solid #000',
+        },
+        editor: {
+            // height: 300,
+            width: 800,
+            border: '1px solid #000',
+        },
+    }),
+);
+
 export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
     const [returnUrl, setReturnUrl] = useState('');
+
+    const classes = useStyles({});
 
     const editor = useMemo(() => withReact(createEditor()), []);
     const renderLeaf = useCallback(props => <Leaf {...props} />, []);
@@ -221,55 +236,58 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
     }
 
     return (
-        <Slate
-            editor={editor}
-            value={props.content}
+        <Box component="div" className={classes.editor}>
+            <Slate
+                editor={editor}
+                value={props.content}
 
-            // onChange={newValue => setValue(newValue)}
-            onChange={newValue => props.onContentChange(newValue)}
-        >
-            <Box component="div" display={getToolDisplayFlag()}>
-                <IconButton onClick={() => { btnClick(editor) }} >
-                    <FormatBold />
-                </IconButton>
+                // onChange={newValue => setValue(newValue)}
+                onChange={newValue => props.onContentChange(newValue)}
+            >
+                <Box component="div" display={getToolDisplayFlag()} className={classes.tool}>
+                    <IconButton onClick={() => { btnClick(editor) }} >
+                        <FormatBold />
+                    </IconButton>
 
-                <IconButton onClick={() => { underLineBtnClick(editor) }}>
-                    <FormatUnderlined />
-                </IconButton>
+                    <IconButton onClick={() => { underLineBtnClick(editor) }}>
+                        <FormatUnderlined />
+                    </IconButton>
 
-                <IconButton onClick={() => { italicBtnClick(editor) }}>
-                    <FormatItalic />
-                </IconButton>
+                    <IconButton onClick={() => { italicBtnClick(editor) }}>
+                        <FormatItalic />
+                    </IconButton>
 
-                <IconButton component="label"
-                // onClick={() => { italicBtnClick(editor) }}
-                >
-                    <input
-                        accept="image/*"
-                        type="file"
-                        onClick={
-                            (event) => {
-                                event.currentTarget.value = '';
-                            }}
-                        onChange={onSelectFile}
-                        style={{ display: 'none' }}
-                    />
-                    <CropOriginal />
-                </IconButton>
+                    <IconButton component="label"
+                    // onClick={() => { italicBtnClick(editor) }}
+                    >
+                        <input
+                            accept="image/*"
+                            type="file"
+                            onClick={
+                                (event) => {
+                                    event.currentTarget.value = '';
+                                }}
+                            onChange={onSelectFile}
+                            style={{ display: 'none' }}
+                        />
+                        <CropOriginal />
+                    </IconButton>
 
-                <IconButton onClick={() => { saveClick() }}>
-                    <Backup />
-                </IconButton>
+                    <IconButton onClick={() => { saveClick() }}>
+                        <Backup />
+                    </IconButton>
 
-                <IconButton onClick={() => { loadClick() }}>
-                    <CloudDownload />
-                </IconButton>
-            </Box>
-            <Editable
-                readOnly={props.readonly}
-                renderElement={renderElement}
-                renderLeaf={renderLeaf}
-            />
-        </Slate>
+                    <IconButton onClick={() => { loadClick() }}>
+                        <CloudDownload />
+                    </IconButton>
+                    <Divider />
+                </Box>
+                <Editable
+                    readOnly={props.readonly}
+                    renderElement={renderElement}
+                    renderLeaf={renderLeaf}
+                />
+            </Slate>
+        </Box>
     )
 }
