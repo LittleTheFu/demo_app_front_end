@@ -43,19 +43,29 @@ const useStyles = makeStyles(() =>
         editor: {
             // height: 300,
             width: 800,
-            height:800,
+            height: 800,
             border: '1px solid #000',
             overflow: 'auto',
         },
     }),
 );
 
+const withImages = (editor: BaseEditor & ReactEditor) => {
+    const { isVoid } = editor
+
+    editor.isVoid = element => {
+        return element.type === 'image' ? true : isVoid(element)
+    }
+
+    return editor;
+}
+
 export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
     const [returnUrl, setReturnUrl] = useState('');
 
     const classes = useStyles({});
 
-    const editor = useMemo(() => withReact(createEditor()), []);
+    const editor = useMemo(() => withImages(withReact(createEditor())), []);
     const renderLeaf = useCallback(props => <Leaf {...props} />, []);
     useEffect(() => {
         if (returnUrl === '') {
@@ -72,6 +82,8 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
         Transforms.insertNodes(editor, image)
 
     }, [returnUrl]);
+
+
 
     // Define a React component renderer for our code blocks.
     const CodeElement = (props: {
@@ -92,12 +104,12 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
     }) => {
         return (
             <div {...props.attributes}>
-                <div contentEditable={false}>
+                {/* <div contentEditable={false}> */}
                     <img
                         alt='image node'
                         src={props.element.url}
                     />
-                </div>
+                {/* </div> */}
                 {props.children}
             </div>
         )
