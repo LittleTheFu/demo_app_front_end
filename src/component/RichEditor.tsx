@@ -80,40 +80,43 @@ const isImageUrl = (url: string) => {
   return imageExtensions.includes(ext);
 };
 
-// const withImages = (editor: BaseEditor & ReactEditor) => {
-//   const { insertData, isVoid } = editor;
+const withImages = (editor: BaseEditor & ReactEditor) => {
+  const { insertData, isVoid } = editor;
 
-//   // editor.isVoid = (element) => {
-//   //   return element.type === "image" ? true : isVoid(element);
-//   // };
+  editor.isVoid = (element) => {
+    if(Array.isArray(element)) {
+      return false;
+    }
+    return element.type === "image" ? true : isVoid(element);
+  };
 
-//   editor.insertData = (data) => {
-//     const text = data.getData("text/plain");
-//     const { files } = data;
+  editor.insertData = (data) => {
+    const text = data.getData("text/plain");
+    const { files } = data;
 
-//     if (files && files.length > 0) {
-//       for (let i = 0; i < files.length; i++) {
-//         const reader = new FileReader();
-//         const [mime] = files[i].type.split("/");
+    if (files && files.length > 0) {
+      for (let i = 0; i < files.length; i++) {
+        const reader = new FileReader();
+        const [mime] = files[i].type.split("/");
 
-//         if (mime === "image") {
-//           reader.addEventListener("load", () => {
-//             const url = reader.result as string;
-//             insertImage(editor, url);
-//           });
+        if (mime === "image") {
+          reader.addEventListener("load", () => {
+            const url = reader.result as string;
+            insertImage(editor, url);
+          });
 
-//           reader.readAsDataURL(files[i]);
-//         }
-//       }
-//     } else if (isImageUrl(text)) {
-//       insertImage(editor, text);
-//     } else {
-//       insertData(data);
-//     }
-//   };
+          reader.readAsDataURL(files[i]);
+        }
+      }
+    } else if (isImageUrl(text)) {
+      insertImage(editor, text);
+    } else {
+      insertData(data);
+    }
+  };
 
-//   return editor;
-// };
+  return editor;
+};
 
 const insertImage = (editor: BaseEditor & ReactEditor, url: string) => {
   const text = { text: "" };
@@ -136,8 +139,8 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
 
   const classes = useStyles({});
 
-  // const editor = useMemo(() => withImages(withReact(createEditor())), []);
-  const editor = useMemo(() => withReact(createEditor()), []);
+  const editor = useMemo(() => withImages(withReact(createEditor())), []);
+  // const editor = useMemo(() => withReact(createEditor()), []);
 
   const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
   useEffect(() => {
