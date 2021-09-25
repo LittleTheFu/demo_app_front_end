@@ -7,55 +7,61 @@ import { getArticleUrl } from "../common/UrlHelper";
 import { RichEditor } from "../component/RichEditor";
 
 export const NewArticlePage: React.FC = () => {
-    const [title, setTitle] = useState('');
-    const [richContent, setRichContent] = useState<Descendant[]>([
+  const [title, setTitle] = useState("");
+  const [richContent, setRichContent] = useState<Descendant[]>([
+    {
+      type: "paragraph",
+      children: [
         {
-            type: 'paragraph',
-            children: [{
-                text: 'A line of text in a paragraph.',
-                bold: false,
-                underline: false,
-                italic: false,
-            }],
+          text: "A line of text in a paragraph.",
+          bold: false,
+          underline: false,
+          italic: false,
         },
-    ]);
+      ],
+    },
+  ]);
 
-    const [textObjects] = useState('');
+  const [textObjects] = useState("");
 
-    const history = useHistory();
+  const history = useHistory();
 
-    function handleSubmit(): void {
-        const strContent = JSON.stringify(richContent);
-        createArticle(title, strContent, (data: ICreateArticleResponseData) => {
-            console.log(data);
-            history.push(getArticleUrl(data.data.id));
-        });
-        console.log(textObjects);
-    }
+  function handleSubmit(): void {
+    const strContent = JSON.stringify(richContent);
+    createArticle(title, strContent, (data: ICreateArticleResponseData) => {
+      console.log(data);
+      history.push(getArticleUrl(data.data.id));
+    });
+    console.log(textObjects);
+  }
 
-    return (
-        <div>
-            <TextField
-                multiline={true}
-                variant="outlined"
-                onChange={(e): void => setTitle(e.target.value)}
-            />
-            <Divider />
-          
-            <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                onClick={handleSubmit}>
-                post
-            </Button>
+  return (
+    <div>
+      <TextField
+        multiline={true}
+        variant="outlined"
+        onChange={(e): void => setTitle(e.target.value)}
+      />
+      <Divider />
 
-            <Divider />
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        onClick={handleSubmit}
+      >
+        post
+      </Button>
 
-            <RichEditor
-                readonly={false}
-                content={richContent}
-                onContentChange={(content) => { setRichContent(content) }} />
-        </div>
-    );
-}
+      <Divider />
+
+      <RichEditor
+        readonly={false}
+        content={richContent}
+        onContentChange={(content) => {
+          setRichContent(content);
+        }}
+      />
+    </div>
+  );
+};
