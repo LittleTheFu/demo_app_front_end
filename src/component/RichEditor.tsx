@@ -46,7 +46,7 @@ type CustomText = {
 declare module "slate" {
   interface CustomTypes {
     Editor: BaseEditor & ReactEditor;
-    Element: CustomElement;
+    Element: CustomElement | CustomElement[];
     Text: CustomText;
   }
 }
@@ -80,45 +80,55 @@ const isImageUrl = (url: string) => {
   return imageExtensions.includes(ext);
 };
 
-const withImages = (editor: BaseEditor & ReactEditor) => {
-  const { insertData, isVoid } = editor;
+// const withImages = (editor: BaseEditor & ReactEditor) => {
+//   const { insertData, isVoid } = editor;
 
-  editor.isVoid = (element) => {
-    return element.type === "image" ? true : isVoid(element);
-  };
+//   // editor.isVoid = (element) => {
+//   //   return element.type === "image" ? true : isVoid(element);
+//   // };
 
-  editor.insertData = (data) => {
-    const text = data.getData("text/plain");
-    const { files } = data;
+//   editor.insertData = (data) => {
+//     const text = data.getData("text/plain");
+//     const { files } = data;
 
-    if (files && files.length > 0) {
-      for (let i = 0; i < files.length; i++) {
-        const reader = new FileReader();
-        const [mime] = files[i].type.split("/");
+//     if (files && files.length > 0) {
+//       for (let i = 0; i < files.length; i++) {
+//         const reader = new FileReader();
+//         const [mime] = files[i].type.split("/");
 
-        if (mime === "image") {
-          reader.addEventListener("load", () => {
-            const url = reader.result as string;
-            insertImage(editor, url);
-          });
+//         if (mime === "image") {
+//           reader.addEventListener("load", () => {
+//             const url = reader.result as string;
+//             insertImage(editor, url);
+//           });
 
-          reader.readAsDataURL(files[i]);
-        }
-      }
-    } else if (isImageUrl(text)) {
-      insertImage(editor, text);
-    } else {
-      insertData(data);
-    }
-  };
+//           reader.readAsDataURL(files[i]);
+//         }
+//       }
+//     } else if (isImageUrl(text)) {
+//       insertImage(editor, text);
+//     } else {
+//       insertData(data);
+//     }
+//   };
 
-  return editor;
-};
+//   return editor;
+// };
 
 const insertImage = (editor: BaseEditor & ReactEditor, url: string) => {
   const text = { text: "" };
-  const image: CustomImageElement = { type: "image", url, children: [text] };
+  const image: CustomElement[] = [{ type: "image", url, children: [text] }];
   Transforms.insertNodes(editor, image);
+};
+
+const insertText = (editor: BaseEditor & ReactEditor, text: string) => {
+  const textNode: CustomText = {
+    text: text,
+    bold: false,
+    underline: false,
+    italic: false,
+  };
+  Transforms.insertNodes(editor, textNode);
 };
 
 export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
@@ -126,7 +136,9 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
 
   const classes = useStyles({});
 
-  const editor = useMemo(() => withImages(withReact(createEditor())), []);
+  // const editor = useMemo(() => withImages(withReact(createEditor())), []);
+  const editor = useMemo(() => withReact(createEditor()), []);
+
   const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
   useEffect(() => {
     if (returnUrl === "") {
@@ -273,13 +285,7 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
       if (data && data.data && data.data.url && data.data.url !== "") {
         setReturnUrl(data.data.url);
       }
-
-      // console.log(value);
     });
-
-    // const text = { text: '' }
-    // const image: CustomImageElement = { type: 'image', url: strIcon, children: [text] }
-    // Transforms.insertNodes(editor, image)
   };
 
   type LeafProp = {
@@ -289,9 +295,6 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
   };
   const Leaf = (props: LeafProp) => {
     const { attributes, children, leaf } = props;
-
-    // if (typeof (props.leaf) == "EmptyText")
-    //   return <span></span>
 
     let new_children = children;
 
