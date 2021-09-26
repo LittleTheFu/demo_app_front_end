@@ -32,7 +32,7 @@ type EmptyText = {
 // type CustomElement = { type: 'paragraph' | 'code'; children: CustomText[] }
 type CustomBlockElement = {
   type: "paragraph" | "code";
-  children: CustomText[];
+  children: CustomText[] | EmptyText[];
 };
 type CustomImageElement = { type: "image"; url: string; children: EmptyText[] };
 type CustomElement = CustomBlockElement | CustomImageElement;
@@ -120,7 +120,11 @@ const withImages = (editor: BaseEditor & ReactEditor) => {
 
 const insertImage = (editor: BaseEditor & ReactEditor, url: string) => {
   const text = { text: "" };
-  const image: CustomElement[] = [{ type: "image", url, children: [text] }];
+  // const blank = {text: "---"};
+  const image: CustomElement[] = [
+    { type: "image", url, children: [text] },
+    { type: "paragraph", children: [text] },
+  ];
   Transforms.insertNodes(editor, image);
 };
 
