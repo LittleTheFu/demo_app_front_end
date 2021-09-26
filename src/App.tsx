@@ -1,16 +1,25 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { MainFrame } from './MainFrame';
-import { Login } from './page/LoginPage';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectHintMsg, selectHintState } from './reducer/rootReducer';
-import { RegisterPage } from './page/RegisterPage';
-import { Snackbar } from '@material-ui/core';
-import { CLOSE_HINT, SET_CURRENT_USER, SystemActionTypes, UPDATE_LOGIN_STATE } from './reducer/system/types';
-import { Dispatch, useEffect } from 'react';
-import { ForgetPasswordPage } from './page/ForgetPasswordPage';
-import { ResetPasswordPage } from './page/ResetPasswordPage';
-import { PrivateRoute } from './component/PrivateRouter';
-import { getLoginFlag, getUserIconFromCookie, getUserNameFromCookie } from './common/common';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { MainFrame } from "./MainFrame";
+import { Login } from "./page/LoginPage";
+import { useDispatch, useSelector } from "react-redux";
+import { selectHintMsg, selectHintState } from "./reducer/rootReducer";
+import { RegisterPage } from "./page/RegisterPage";
+import { Snackbar } from "@material-ui/core";
+import {
+  CLOSE_HINT,
+  SET_CURRENT_USER,
+  SystemActionTypes,
+  UPDATE_LOGIN_STATE,
+} from "./reducer/system/types";
+import { Dispatch, useEffect } from "react";
+import { ForgetPasswordPage } from "./page/ForgetPasswordPage";
+import { ResetPasswordPage } from "./page/ResetPasswordPage";
+import { PrivateRoute } from "./component/PrivateRouter";
+import {
+  getLoginFlag,
+  getUserIconFromCookie,
+  getUserNameFromCookie,
+} from "./common/common";
 
 export default function App() {
   const hintState = useSelector(selectHintState);
@@ -25,7 +34,7 @@ export default function App() {
       payload: {
         name: getUserNameFromCookie(),
         icon: getUserIconFromCookie(),
-      }
+      },
     });
   }, []);
 
@@ -33,8 +42,8 @@ export default function App() {
     <div>
       <Snackbar
         anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
+          vertical: "top",
+          horizontal: "center",
         }}
         open={hintState}
         autoHideDuration={2000}
@@ -48,13 +57,13 @@ export default function App() {
           <Route path="/login">
             <Login />
           </Route>
-          <Route path='/register'>
+          <Route path="/register">
             <RegisterPage />
           </Route>
-          <Route path='/forget_password'>
+          <Route path="/forget_password">
             <ForgetPasswordPage />
           </Route>
-          <Route path={'/reset/:code'}>
+          <Route path={"/reset/:code"}>
             <ResetPasswordPage />
           </Route>
           <PrivateRoute flagFunc={getLoginFlag} path="/main">
@@ -62,5 +71,6 @@ export default function App() {
           </PrivateRoute>
         </Switch>
       </Router>
-    </div>);
+    </div>
+  );
 }

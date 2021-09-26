@@ -14,47 +14,47 @@ import { TagTitlePage } from "./page/TagTitlePage";
 import { UserDetailPage } from "./page/UserDetailPage";
 
 export const MainFrame: React.FC = () => {
-    const { path } = useRouteMatch();
+  const { path } = useRouteMatch();
 
-    return (
-        <div>
-            <TemporaryDrawer />
-            <HomeBar />
-            <Switch>
-                <Route path={`${path}/articles`}>
-                    <AllArticle></AllArticle>
-                </Route>
-                <Route path={`${path}/article/:id`}>
-                    <ArticleDetail></ArticleDetail>
-                </Route>
-                <Route path={`${path}/new_article/`}>
-                    <NewArticlePage></NewArticlePage>
-                </Route>
-                <Route path={`${path}/user/:id`}>
-                    <UserDetailPage></UserDetailPage>
-                </Route>
-                <Route path={`${path}/profile`}>
-                    <ProfilePage></ProfilePage>
-                </Route>
-                <Route path={`${path}/mail`}>
-                    <MailPage></MailPage>
-                </Route>
-                <Route path={`${path}/new_mail`}>
-                    <NewMailPage></NewMailPage>
-                </Route>
-                <Route path={`${path}/friend`}>
-                    <FriendPage></FriendPage>
-                </Route>
-                <Route path={`${path}/history`}>
-                    <HistoryPage></HistoryPage>
-                </Route>
-                <Route path={`${path}/favorite`}>
-                    <FavoritePage></FavoritePage>
-                </Route>
-                <Route path={`${path}/tag_titles/:tag`}>
-                    <TagTitlePage></TagTitlePage>
-                </Route>
-            </Switch>
-        </div>
-    );
+  return (
+    <div>
+      <TemporaryDrawer />
+      <HomeBar />
+      <Switch>
+        <Route path={`${path}/articles`}>
+          <AllArticle></AllArticle>
+        </Route>
+        <Route path={`${path}/article/:id`}>
+          <ArticleDetail></ArticleDetail>
+        </Route>
+        <Route path={`${path}/new_article/`}>
+          <NewArticlePage></NewArticlePage>
+        </Route>
+        <Route path={`${path}/user/:id`}>
+          <UserDetailPage></UserDetailPage>
+        </Route>
+        <Route path={`${path}/profile`}>
+          <ProfilePage></ProfilePage>
+        </Route>
+        <Route path={`${path}/mail`}>
+          <MailPage></MailPage>
+        </Route>
+        <Route path={`${path}/new_mail`}>
+          <NewMailPage></NewMailPage>
+        </Route>
+        <Route path={`${path}/friend`}>
+          <FriendPage></FriendPage>
+        </Route>
+        <Route path={`${path}/history`}>
+          <HistoryPage></HistoryPage>
+        </Route>
+        <Route path={`${path}/favorite`}>
+          <FavoritePage></FavoritePage>
+        </Route>
+        <Route path={`${path}/tag_titles/:tag`}>
+          <TagTitlePage></TagTitlePage>
+        </Route>
+      </Switch>
+    </div>
+  );
 };

@@ -1,371 +1,398 @@
-import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useEffect, useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import {
-    addArticleTag,
-    Article,
-    ArticleComment,
-    bookmarkArticle,
-    createArticle,
-    createComment,
-    deleteArticle,
-    deleteArticleTag,
-    getArticleById,
-    getArticleComments,
-    thumbArticle,
-    thumbComment,
-    unBookmarkArticle,
-    unthumbArticle,
-    unThumbComment,
-    updateArticle
+  addArticleTag,
+  Article,
+  ArticleComment,
+  bookmarkArticle,
+  createArticle,
+  createComment,
+  deleteArticle,
+  deleteArticleTag,
+  getArticleById,
+  getArticleComments,
+  thumbArticle,
+  thumbComment,
+  unBookmarkArticle,
+  unthumbArticle,
+  unThumbComment,
+  updateArticle,
 } from "../common/service";
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { useHistory, useLocation, useParams } from "react-router-dom";
 import {
-    Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogContentText,
-    DialogTitle,
-    Divider,
-    FormControl,
-    MenuItem,
-    Select,
-    TextField
-} from '@material-ui/core';
-import { EditCard } from '../component/EditCard';
-import { ArticleCard } from '../component/ArticleCard';
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Divider,
+  FormControl,
+  MenuItem,
+  Select,
+  TextField,
+} from "@material-ui/core";
+import { EditCard } from "../component/EditCard";
+import { ArticleCard } from "../component/ArticleCard";
 import {
-    getAllArticleUrl,
-    getSharedUrl,
-    getTagTitleUrl,
-    getUserUrl
-} from '../common/UrlHelper';
-import { RichEditor } from '../component/RichEditor';
-import { Descendant } from 'slate';
-import { TagGroup } from '../component/TagGroup';
-import { CommentGroup } from '../component/CommentGroup';
+  getAllArticleUrl,
+  getSharedUrl,
+  getTagTitleUrl,
+  getUserUrl,
+} from "../common/UrlHelper";
+import { RichEditor } from "../component/RichEditor";
+import { Descendant } from "slate";
+import { TagGroup } from "../component/TagGroup";
+import { CommentGroup } from "../component/CommentGroup";
 
 const useStyles = makeStyles({
-    root: {
-        maxWidth: 345,
-    },
+  root: {
+    maxWidth: 345,
+  },
 });
 
 export const ArticleDetail: React.FC = () => {
-    const ORDER_BY_DATE = 'date';
-    const ORDER_BY_THUMB = 'thumb';
+  const ORDER_BY_DATE = "date";
+  const ORDER_BY_THUMB = "thumb";
 
-    const [commentOrderStatus, setCommentOrderStatus] = useState(ORDER_BY_DATE);
-    const [article, setArticle] = useState<Article>(new Article());
-    const [content, setContent] = useState('');
-    const [comments, setComments] = useState<ArticleComment[]>([]);
-    const [editFlag, setEditFlag] = useState(false);
-    const [shareDialogOpen, setShareDialogOpen] = useState(false);
-    const [newTag, setNewTag] = useState('');
-    const [tags, setTags] = useState<string[]>([]);
+  const [commentOrderStatus, setCommentOrderStatus] = useState(ORDER_BY_DATE);
+  const [article, setArticle] = useState<Article>(new Article());
+  const [content, setContent] = useState("");
+  const [comments, setComments] = useState<ArticleComment[]>([]);
+  const [editFlag, setEditFlag] = useState(false);
+  const [shareDialogOpen, setShareDialogOpen] = useState(false);
+  const [newTag, setNewTag] = useState("");
+  const [tags, setTags] = useState<string[]>([]);
 
-    const [richContent, setRichContent] = useState<Descendant[]>([]);
+  const [richContent, setRichContent] = useState<Descendant[]>([]);
 
-    const [pageNum, setPageNum] = useState(0);
-    const [pages, setPages] = useState(0);
+  const [pageNum, setPageNum] = useState(0);
+  const [pages, setPages] = useState(0);
 
-    const classes = useStyles();
-    const history = useHistory();
-    const location = useLocation();
+  const classes = useStyles();
+  const history = useHistory();
+  const location = useLocation();
 
-    const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string }>();
 
-    const LikeClick = (id: number): void => {
-        if (!article.thumbState) {
-            thumbArticle(id, (data) => {
-                console.log(data);
-                setArticle({ ...article, ...data.data });
-            });
+  const LikeClick = (id: number): void => {
+    if (!article.thumbState) {
+      thumbArticle(id, (data) => {
+        console.log(data);
+        setArticle({ ...article, ...data.data });
+      });
+    }
+  };
+
+  const UnlikeClick = (id: number): void => {
+    if (article.thumbState) {
+      unthumbArticle(id, (data) => {
+        console.log(data);
+        setArticle({ ...article, ...data.data });
+      });
+    }
+  };
+
+  const BookMarkClick = (id: number): void => {
+    bookmarkArticle(id, (data) => {
+      setArticle({ ...article, bookmarked: true });
+      console.log(data);
+    });
+    console.log("Bookmark click : " + id);
+  };
+
+  const UnBookMarkClick = (id: number): void => {
+    unBookmarkArticle(id, (data) => {
+      setArticle({ ...article, bookmarked: false });
+      console.log(data);
+    });
+    console.log("UnBookMark click : " + id);
+  };
+
+  const AuthorClick = (authorId: number): void => {
+    history.push(getUserUrl(authorId));
+    console.log("author clicked : " + authorId);
+  };
+
+  const ShareClick = (id: number): void => {
+    setShareDialogOpen(true);
+    console.log("share : " + location.pathname);
+  };
+
+  const DeleteClick = (id: number): void => {
+    deleteArticle(id, (data) => {
+      console.log(data);
+      history.push(getAllArticleUrl());
+    });
+  };
+
+  const EditClick = (): void => {
+    setEditFlag(true);
+    console.log("edit click");
+  };
+
+  const AcceptClick = (title: string, content: string): void => {
+    setEditFlag(false);
+    updateArticle(article.id, title, content, (data) => {
+      console.log(data);
+      console.log("accpet click : " + title + " " + content);
+      setArticle({ ...article, title: title, content: content });
+    });
+  };
+
+  const CancelClick = (): void => {
+    setEditFlag(false);
+    console.log("cancel click");
+  };
+
+  const CommitShare = (): void => {
+    createArticle("I shared this!", getSharedUrl(location.pathname), (data) => {
+      console.log(data);
+      setShareDialogOpen(false);
+    });
+    console.log("commit share");
+  };
+
+  const ThumbCommentClick = (id: number): void => {
+    thumbComment(id, (data) => {
+      const new_comments = comments.map((c) => {
+        if (c.id === id) {
+          c.thumbState = true;
+          c.articleCommentThumbNum += 1;
         }
-    }
+        return c;
+      });
+      setComments(new_comments);
+      console.log(data);
+    });
+  };
 
-    const UnlikeClick = (id: number): void => {
-        if (article.thumbState) {
-            unthumbArticle(id, (data) => {
-                console.log(data);
-                setArticle({ ...article, ...data.data });
-            });
+  const UnThumbCommentClick = (id: number): void => {
+    unThumbComment(id, (data) => {
+      const new_comments = comments.map((c) => {
+        if (c.id === id) {
+          c.thumbState = false;
+          c.articleCommentThumbNum -= 1;
         }
-    }
+        return c;
+      });
+      setComments(new_comments);
+      console.log(data);
+    });
+  };
 
-    const BookMarkClick = (id: number): void => {
-        bookmarkArticle(id, (data) => {
-            setArticle({ ...article, bookmarked: true });
-            console.log(data);
-        });
-        console.log('Bookmark click : ' + id);
-    }
+  const Change = (event: React.ChangeEvent<unknown>, page: number): void => {
+    console.log("page change : " + page);
+    getArticleComments(id, page, commentOrderStatus, (comments) => {
+      setComments(comments.data.content);
+      setPageNum(comments.data.pageNum);
+      setPages(comments.data.pages);
 
-    const UnBookMarkClick = (id: number): void => {
-        unBookmarkArticle(id, (data) => {
-            setArticle({ ...article, bookmarked: false });
-            console.log(data);
-        });
-        console.log('UnBookMark click : ' + id);
-    }
+      console.log("comments:");
+      console.log(comments);
+    });
+  };
 
-    const AuthorClick = (authorId: number): void => {
-        history.push(getUserUrl(authorId));
-        console.log("author clicked : " + authorId);
-    }
+  const TagClick = (tag: string): void => {
+    history.push(getTagTitleUrl(tag));
+    console.log("tag clicked : " + tag);
+  };
 
-    const ShareClick = (id: number): void => {
-        setShareDialogOpen(true);
-        console.log('share : ' + location.pathname);
-    }
+  const TagDeleteClick = (tag: string): void => {
+    deleteArticleTag(article.id, tag, (data) => {
+      const newTags = tags.filter((t) => {
+        return t != tag;
+      });
+      setTags(newTags);
+    });
+  };
 
-    const DeleteClick = (id: number): void => {
-        deleteArticle(id, (data) => {
-            console.log(data);
-            history.push(getAllArticleUrl());
-        })
-    }
+  const TagAddClick = (tag: string): void => {
+    addArticleTag(article.id, tag, (data) => {
+      const newTags = [...tags, tag];
+      setTags(newTags);
+      console.log(data);
+    });
+  };
 
-    const EditClick = (): void => {
-        setEditFlag(true);
-        console.log('edit click')
-    }
+  useEffect(() => {
+    getArticleById(id, (article) => {
+      setArticle(article.data);
 
-    const AcceptClick = (title: string, content: string): void => {
-        setEditFlag(false);
-        updateArticle(article.id, title, content, (data) => {
-            console.log(data);
-            console.log('accpet click : ' + title + ' ' + content);
-            setArticle({ ...article, title: title, content: content })
-        });
-    }
+      const parsedObject = JSON.parse(article.data.content);
+      setRichContent(parsedObject);
 
-    const CancelClick = (): void => {
-        setEditFlag(false);
-        console.log('cancel click')
-    }
+      setTags(article.data.tags);
+      console.log(article);
+    });
+  }, [id]);
 
-    const CommitShare = (): void => {
-        createArticle('I shared this!', getSharedUrl(location.pathname), (data) => {
-            console.log(data);
-            setShareDialogOpen(false);
-        });
-        console.log('commit share');
-    }
+  useEffect(() => {
+    getArticleComments(id, 1, commentOrderStatus, (comments) => {
+      setComments(comments.data.content);
+      setPageNum(comments.data.pageNum);
+      setPages(comments.data.pages);
 
-    const ThumbCommentClick = (id: number): void => {
-        thumbComment(id, (data) => {
-            const new_comments = comments.map((c) => {
-                if (c.id === id) {
-                    c.thumbState = true;
-                    c.articleCommentThumbNum += 1;
-                }
-                return c;
-            });
-            setComments(new_comments);
-            console.log(data);
-        });
-    }
+      console.log("comments:");
+      console.log(comments);
+    });
+  }, [id, commentOrderStatus]);
 
-    const UnThumbCommentClick = (id: number): void => {
-        unThumbComment(id, (data) => {
-            const new_comments = comments.map((c) => {
-                if (c.id === id) {
-                    c.thumbState = false;
-                    c.articleCommentThumbNum -= 1;
-                }
-                return c;
-            });
-            setComments(new_comments);
-            console.log(data);
-        });
-    }
+  function handleSubmit(): void {
+    // event.preventDefault();
+    console.log(content);
 
-    const Change = (event: React.ChangeEvent<unknown>, page: number): void => {
-        console.log('page change : ' + page);
-        getArticleComments(id, page, commentOrderStatus, comments => {
-            setComments(comments.data.content);
-            setPageNum(comments.data.pageNum);
-            setPages(comments.data.pages);
+    createComment(id, content, (oneCommentData) => {
+      setComments([oneCommentData.data, ...comments]);
+    });
+  }
 
-            console.log('comments:');
-            console.log(comments);
-        })
-    }
+  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setCommentOrderStatus(event.target.value as string);
 
-    const TagClick = (tag: string): void => {
-        history.push(getTagTitleUrl(tag));
-        console.log('tag clicked : ' + tag);
-    }
+    console.log(event.target.value);
+  };
 
-    const TagDeleteClick = (tag: string): void => {
-        deleteArticleTag(article.id,
-            tag, (data) => {
-                const newTags = tags.filter((t) => {
-                    return t != tag;
-                });
-                setTags(newTags);
-            });
-    }
+  return (
+    <div>
+      {editFlag ? (
+        <EditCard
+          title={article.title}
+          content={article.content}
+          acceptClick={AcceptClick}
+          cancelClick={CancelClick}
+        />
+      ) : (
+        <ArticleCard
+          likeClick={() => {
+            LikeClick(article.id);
+          }}
+          unlikeClick={() => {
+            UnlikeClick(article.id);
+          }}
+          bookmarkClick={() => {
+            BookMarkClick(article.id);
+          }}
+          unbookmarkClick={() => {
+            UnBookMarkClick(article.id);
+          }}
+          authorClick={() => {
+            AuthorClick(article.authorId);
+          }}
+          deleteClick={() => {
+            DeleteClick(article.id);
+          }}
+          shareClick={() => {
+            ShareClick(article.id);
+          }}
+          editClick={EditClick}
+          id={article.id}
+          title={article.title}
+          content={article.content}
+          author={article.author}
+          authorIcon={article.authorIcon}
+          thumb={article.thumb}
+          thumbed={article.thumbState}
+          deletable={article.deletable}
+          editable={article.editable}
+          shareable={true}
+          bookmarded={article.bookmarked}
+        />
+      )}
 
-    const TagAddClick = (tag: string): void => {
-        addArticleTag(article.id, tag, (data) => {
-            const newTags = [...tags, tag];
-            setTags(newTags);
-            console.log(data);
-        });
-    }
+      <TagGroup
+        tags={tags}
+        TagClick={TagClick}
+        TagDeleteClick={article.editable ? TagDeleteClick : undefined}
+      />
 
-    useEffect(() => {
+      <Divider />
+      <TextField id="tag" onChange={(e): void => setNewTag(e.target.value)} />
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        onClick={() => {
+          TagAddClick(newTag);
+        }}
+      >
+        add tag
+      </Button>
+      <Divider />
 
-        getArticleById(id, article => {
-            setArticle(article.data);
+      <RichEditor
+        readonly={editFlag ? false : true}
+        content={richContent}
+        onContentChange={(content) => {
+          setRichContent(content);
+        }}
+      />
+      <Divider />
 
-            const parsedObject = JSON.parse(article.data.content);
-            setRichContent(parsedObject);
+      <FormControl variant="filled">
+        <Select
+          labelId="demo-simple-select-filled-label"
+          id="demo-simple-select-filled"
+          value={commentOrderStatus}
+          onChange={handleChange}
+        >
+          <MenuItem value={ORDER_BY_DATE}>按时间排序</MenuItem>
+          <MenuItem value={ORDER_BY_THUMB}>按点赞排序</MenuItem>
+        </Select>
+      </FormControl>
 
-            setTags(article.data.tags);
-            console.log(article);
-        });
+      <CommentGroup
+        pages={pages}
+        pageNum={pageNum}
+        comments={comments}
+        authorClick={AuthorClick}
+        thumbClick={ThumbCommentClick}
+        unThumbClick={UnThumbCommentClick}
+        onPageChange={Change}
+      />
 
-    }, [id]);
+      <TextField
+        multiline={true}
+        id="standard-basic"
+        label="comment"
+        variant="outlined"
+        onChange={(e): void => setContent(e.target.value)}
+      />
 
-    useEffect(() => {
-        getArticleComments(id, 1, commentOrderStatus, comments => {
-            setComments(comments.data.content);
-            setPageNum(comments.data.pageNum);
-            setPages(comments.data.pages);
+      <Button
+        type="submit"
+        variant="contained"
+        color="primary"
+        onClick={handleSubmit}
+      >
+        post
+      </Button>
 
-            console.log('comments:');
-            console.log(comments);
-        })
-    }, [id, commentOrderStatus]);
-
-    function handleSubmit(): void {
-        // event.preventDefault();
-        console.log(content);
-
-        createComment(id, content, (oneCommentData) => {
-            setComments([oneCommentData.data, ...comments]);
-        })
-    }
-
-    const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setCommentOrderStatus(event.target.value as string);
-
-        console.log(event.target.value);
-    };
-
-    return (
-        <div>
-            {editFlag ?
-                <EditCard
-                    title={article.title}
-                    content={article.content}
-                    acceptClick={AcceptClick}
-                    cancelClick={CancelClick} />
-                :
-                <ArticleCard
-                    likeClick={() => { LikeClick(article.id) }}
-                    unlikeClick={() => { UnlikeClick(article.id) }}
-                    bookmarkClick={() => { BookMarkClick(article.id) }}
-                    unbookmarkClick={() => { UnBookMarkClick(article.id) }}
-                    authorClick={() => { AuthorClick(article.authorId) }}
-                    deleteClick={() => { DeleteClick(article.id) }}
-                    shareClick={() => { ShareClick(article.id) }}
-                    editClick={EditClick}
-                    id={article.id}
-                    title={article.title}
-                    content={article.content}
-                    author={article.author}
-                    authorIcon={article.authorIcon}
-                    thumb={article.thumb}
-                    thumbed={article.thumbState}
-                    deletable={article.deletable}
-                    editable={article.editable}
-                    shareable={true}
-                    bookmarded={article.bookmarked} />
-            }
-
-            <TagGroup
-                tags={tags}
-                TagClick={TagClick}
-                TagDeleteClick={article.editable ? TagDeleteClick : undefined}
-            />
-
-            <Divider />
-            <TextField id="tag" onChange={(e): void => setNewTag(e.target.value)} />
-            <Button type="submit"
-                variant="contained"
-                color="primary"
-                onClick={() => { TagAddClick(newTag) }}>
-                add tag
-            </Button>
-            <Divider />
-
-            <RichEditor
-                readonly={editFlag ? false : true}
-                content={richContent}
-                onContentChange={(content) => { setRichContent(content) }}
-            />
-            <Divider />
-
-            <FormControl variant="filled">
-                <Select
-                    labelId="demo-simple-select-filled-label"
-                    id="demo-simple-select-filled"
-                    value={commentOrderStatus}
-                    onChange={handleChange}
-                >
-                    <MenuItem value={ORDER_BY_DATE}>按时间排序</MenuItem>
-                    <MenuItem value={ORDER_BY_THUMB}>按点赞排序</MenuItem>
-                </Select>
-            </FormControl>
-
-            <CommentGroup
-                pages={pages}
-                pageNum={pageNum}
-                comments={comments}
-                authorClick={AuthorClick}
-                thumbClick={ThumbCommentClick}
-                unThumbClick={UnThumbCommentClick}
-                onPageChange={Change}
-            />
-
-            <TextField
-                multiline={true}
-                id="standard-basic"
-                label="comment"
-                variant="outlined"
-                onChange={(e): void => setContent(e.target.value)}
-            />
-
-            <Button type="submit"
-                variant="contained"
-                color="primary"
-                onClick={handleSubmit}>
-                post
-            </Button>
-
-            <Dialog
-                open={shareDialogOpen}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-            >
-                <DialogTitle id="alert-dialog-title">{"Share?"}</DialogTitle>
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        {getSharedUrl(location.pathname)}
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={() => { setShareDialogOpen(false) }} color="primary">
-                        No
-                    </Button>
-                    <Button onClick={CommitShare} color="primary" autoFocus>
-                        Yes
-                    </Button>
-                </DialogActions>
-            </Dialog>
-        </div>);
+      <Dialog
+        open={shareDialogOpen}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Share?"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {getSharedUrl(location.pathname)}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => {
+              setShareDialogOpen(false);
+            }}
+            color="primary"
+          >
+            No
+          </Button>
+          <Button onClick={CommitShare} color="primary" autoFocus>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
 };

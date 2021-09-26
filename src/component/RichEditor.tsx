@@ -84,7 +84,7 @@ const withImages = (editor: BaseEditor & ReactEditor) => {
   const { insertData, isVoid } = editor;
 
   editor.isVoid = (element) => {
-    if(Array.isArray(element)) {
+    if (Array.isArray(element)) {
       return false;
     }
     return element.type === "image" ? true : isVoid(element);

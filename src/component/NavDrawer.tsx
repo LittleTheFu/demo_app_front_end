@@ -1,129 +1,147 @@
-import React from 'react';
-import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import { useHistory } from 'react-router-dom';
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import Divider from '@material-ui/core/Divider';
-import Badge from '@material-ui/core/Badge';
-import { UserHead } from './UserHead';
-import { NavListIconButton } from './NavListIconButton';
-import { selectNameState, selectDrawerState, selectIconState } from '../reducer/rootReducer';
-import { closeDrawer } from '../reducer/system/functions';
-import { SystemActionTypes, UPDATE_LOGIN_STATE } from '../reducer/system/types';
-import { useSelector, useDispatch } from 'react-redux';
-import { Dispatch } from 'redux';
-import HomeIcon from '@material-ui/icons/Home';
-import { AccountBox, AddBox, Bookmark, Mail, People, Restore } from '@material-ui/icons';
-import { getAllArticleUrl, getFavoriteUrl, getFriendUrl, getHistoryUrl, getLoginUrl, getMailUrl, getNewArticleUrl, getProfileUrl } from '../common/UrlHelper';
-import { setLoginFlag } from '../common/common';
-
-
+import React from "react";
+import Drawer from "@material-ui/core/Drawer";
+import List from "@material-ui/core/List";
+import { useHistory } from "react-router-dom";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import Divider from "@material-ui/core/Divider";
+import Badge from "@material-ui/core/Badge";
+import { UserHead } from "./UserHead";
+import { NavListIconButton } from "./NavListIconButton";
+import {
+  selectNameState,
+  selectDrawerState,
+  selectIconState,
+} from "../reducer/rootReducer";
+import { closeDrawer } from "../reducer/system/functions";
+import { SystemActionTypes, UPDATE_LOGIN_STATE } from "../reducer/system/types";
+import { useSelector, useDispatch } from "react-redux";
+import { Dispatch } from "redux";
+import HomeIcon from "@material-ui/icons/Home";
+import {
+  AccountBox,
+  AddBox,
+  Bookmark,
+  Mail,
+  People,
+  Restore,
+} from "@material-ui/icons";
+import {
+  getAllArticleUrl,
+  getFavoriteUrl,
+  getFriendUrl,
+  getHistoryUrl,
+  getLoginUrl,
+  getMailUrl,
+  getNewArticleUrl,
+  getProfileUrl,
+} from "../common/UrlHelper";
+import { setLoginFlag } from "../common/common";
 
 export const TemporaryDrawer: React.FC = () => {
-    const dispatch = useDispatch<Dispatch<SystemActionTypes>>();
-    
-    const drawerState = useSelector(selectDrawerState);
+  const dispatch = useDispatch<Dispatch<SystemActionTypes>>();
 
-    const headIcon = useSelector(selectIconState);
-    const headName = useSelector(selectNameState);
+  const drawerState = useSelector(selectDrawerState);
 
-    // const classes = useStyles({});
-    const history = useHistory();
+  const headIcon = useSelector(selectIconState);
+  const headName = useSelector(selectNameState);
 
-    const logoutClick = (): void => {
-        // dispatch({
-        //     type: UPDATE_LOGIN_STATE,
-        //     payload: {
-        //         isLogin: false
-        //     }
-        // });
-        setLoginFlag(false);
-        history.push(getLoginUrl());
-    };
+  // const classes = useStyles({});
+  const history = useHistory();
 
-    const friendClick = (): void => {
-        history.push(getFriendUrl());
-    };
+  const logoutClick = (): void => {
+    // dispatch({
+    //     type: UPDATE_LOGIN_STATE,
+    //     payload: {
+    //         isLogin: false
+    //     }
+    // });
+    setLoginFlag(false);
+    history.push(getLoginUrl());
+  };
 
-    const historyClick = (): void => {
-        history.push(getHistoryUrl());
-    };
+  const friendClick = (): void => {
+    history.push(getFriendUrl());
+  };
 
-    const favoriteClick = (): void => {
-        history.push(getFavoriteUrl());
-        console.log('favorite click');
-    }
+  const historyClick = (): void => {
+    history.push(getHistoryUrl());
+  };
 
-    const mailClick = (): void => {
-        history.push(getMailUrl());
-    };
+  const favoriteClick = (): void => {
+    history.push(getFavoriteUrl());
+    console.log("favorite click");
+  };
 
-    const meClick = (): void => {
-        history.push(getProfileUrl());
-    };
+  const mailClick = (): void => {
+    history.push(getMailUrl());
+  };
 
-    const newArticleClick = (): void => {
-        history.push(getNewArticleUrl());
-    };
+  const meClick = (): void => {
+    history.push(getProfileUrl());
+  };
 
-    const allClick = (): void => {
-        history.push(getAllArticleUrl());
-    };
+  const newArticleClick = (): void => {
+    history.push(getNewArticleUrl());
+  };
 
-    return (
-        <div>
-            <Drawer
-                anchor="left"
-                open={drawerState}
-                onClose={(): void => {
-                    closeDrawer(dispatch);
-                }}
-            >
-                <List>
-                    <UserHead
-                        padding={5}
-                        avatar={headIcon}
-                        userName={headName}
-                        nameClick={meClick}
-                        avatarClick={meClick}
-                        size={80}
-                    ></UserHead>
-                    <Divider></Divider>
-                    <NavListIconButton msg={'all articles'} iconClick={allClick}>
-                        <HomeIcon />
-                    </NavListIconButton>
+  const allClick = (): void => {
+    history.push(getAllArticleUrl());
+  };
 
-                    <NavListIconButton msg={'new article'} iconClick={newArticleClick}>
-                        <Badge color="secondary" badgeContent={3} invisible={false}>
-                            <AddBox />
-                        </Badge>
-                    </NavListIconButton>
+  return (
+    <div>
+      <Drawer
+        anchor="left"
+        open={drawerState}
+        onClose={(): void => {
+          closeDrawer(dispatch);
+        }}
+      >
+        <List>
+          <UserHead
+            padding={5}
+            avatar={headIcon}
+            userName={headName}
+            nameClick={meClick}
+            avatarClick={meClick}
+            size={80}
+          ></UserHead>
+          <Divider></Divider>
+          <NavListIconButton msg={"all articles"} iconClick={allClick}>
+            <HomeIcon />
+          </NavListIconButton>
 
-                    <NavListIconButton msg={'me'} iconClick={meClick}>
-                        <AccountBox />
-                    </NavListIconButton>
+          <NavListIconButton msg={"new article"} iconClick={newArticleClick}>
+            <Badge color="secondary" badgeContent={3} invisible={false}>
+              <AddBox />
+            </Badge>
+          </NavListIconButton>
 
-                    <NavListIconButton msg={'mail'} iconClick={mailClick}>
-                        <Mail />
-                    </NavListIconButton>
+          <NavListIconButton msg={"me"} iconClick={meClick}>
+            <AccountBox />
+          </NavListIconButton>
 
-                    <NavListIconButton msg={'friend'} iconClick={friendClick}>
-                        <People />
-                    </NavListIconButton>
+          <NavListIconButton msg={"mail"} iconClick={mailClick}>
+            <Mail />
+          </NavListIconButton>
 
-                    <NavListIconButton msg={'history'} iconClick={historyClick}>
-                        <Restore />
-                    </NavListIconButton>
+          <NavListIconButton msg={"friend"} iconClick={friendClick}>
+            <People />
+          </NavListIconButton>
 
-                    <NavListIconButton msg={'favorite'} iconClick={favoriteClick}>
-                        <Bookmark />
-                    </NavListIconButton>
+          <NavListIconButton msg={"history"} iconClick={historyClick}>
+            <Restore />
+          </NavListIconButton>
 
-                    <NavListIconButton msg={'logout'} iconClick={logoutClick}>
-                        <ExitToAppIcon />
-                    </NavListIconButton>
-                </List>
-            </Drawer>
-        </div>
-    );
+          <NavListIconButton msg={"favorite"} iconClick={favoriteClick}>
+            <Bookmark />
+          </NavListIconButton>
+
+          <NavListIconButton msg={"logout"} iconClick={logoutClick}>
+            <ExitToAppIcon />
+          </NavListIconButton>
+        </List>
+      </Drawer>
+    </div>
+  );
 };
