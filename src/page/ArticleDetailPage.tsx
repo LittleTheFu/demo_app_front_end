@@ -201,7 +201,7 @@ export const ArticleDetail: React.FC = () => {
   const TagDeleteClick = (tag: string): void => {
     deleteArticleTag(article.id, tag, (data) => {
       const newTags = tags.filter((t) => {
-        return t != tag;
+        return t !== tag;
       });
       setTags(newTags);
     });

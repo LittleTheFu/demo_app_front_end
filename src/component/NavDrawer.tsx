@@ -13,7 +13,7 @@ import {
   selectIconState,
 } from "../reducer/rootReducer";
 import { closeDrawer } from "../reducer/system/functions";
-import { SystemActionTypes, UPDATE_LOGIN_STATE } from "../reducer/system/types";
+import { SystemActionTypes } from "../reducer/system/types";
 import { useSelector, useDispatch } from "react-redux";
 import { Dispatch } from "redux";
 import HomeIcon from "@material-ui/icons/Home";
