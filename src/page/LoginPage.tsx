@@ -7,7 +7,6 @@ import Container from "@material-ui/core/Container";
 import {
   IAccessData,
   getCurrentUser,
-  getGreeting,
   postLogin,
 } from "../common/service";
 import {
