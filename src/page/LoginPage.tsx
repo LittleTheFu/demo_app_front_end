@@ -1,4 +1,4 @@
-import React, { Dispatch, useEffect, useState } from "react";
+import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
@@ -18,20 +18,9 @@ import {
   setUserIconIntoCookie,
   setUserNameIntoCookie,
 } from "../common/common";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  SET_CURRENT_USER,
-  SystemActionTypes,
-  UPDATE_LOGIN_STATE,
-} from "../reducer/system/types";
+import { useDispatch } from "react-redux";
+import { SET_CURRENT_USER } from "../reducer/system/types";
 import { getAllArticleUrl } from "../common/UrlHelper";
-import {
-  enableLoginFlag,
-  selectLoginState,
-  store,
-  useAppDispatch,
-  useAppSelector,
-} from "../reducer/rootReducer";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -94,21 +83,7 @@ export const Login: React.FC = () => {
           icon: data.data.icon,
         },
       });
-
-      // dispatch({
-      //     type: UPDATE_LOGIN_STATE,
-      //     payload: {
-      //         isLogin: true
-      //     }
-      // });
-      // dispatch as ThunkDispatch<State, unknown, AnyAction>
-      // dispatch(enableLoginFlag()).then(()=>{
-      //     setLoginFlag(true);
-
-      //     console.log('jump begin');
-      //     history.push(getAllArticleUrl());
-      //     console.log('jump end');
-      // });
+     
       setLoginFlag(true);
       history.push(getAllArticleUrl());
     });
@@ -117,22 +92,10 @@ export const Login: React.FC = () => {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
     event.preventDefault();
     postLogin(username, password, resolveData);
-
-    // console.log(username);
-    // console.log(password);
   }
-
-  const grettings = (): void => {
-    getGreeting((data: object) => {
-      console.log(data);
-    });
-  };
 
   return (
     <Container maxWidth="sm" className={classes.main}>
-      <Button onClick={grettings} color="secondary">
-        greeting
-      </Button>
       <div className={classes.paper}>
         <form
           onSubmit={handleSubmit}
