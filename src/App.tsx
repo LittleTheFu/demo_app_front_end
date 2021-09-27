@@ -9,7 +9,6 @@ import {
   CLOSE_HINT,
   SET_CURRENT_USER,
   SystemActionTypes,
-  UPDATE_LOGIN_STATE,
 } from "./reducer/system/types";
 import { Dispatch, useEffect } from "react";
 import { ForgetPasswordPage } from "./page/ForgetPasswordPage";
@@ -36,7 +35,7 @@ export default function App() {
         icon: getUserIconFromCookie(),
       },
     });
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>
