@@ -67,8 +67,8 @@ export const RegisterPage: React.FC = () => {
     return validate(email);
   }
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>): void {
-    event.preventDefault();
+  function handleSubmit(): void {
+    // event.preventDefault();
 
     // if (!isValidUserName(user)) {
     //     openHint(dispatch, 'invalid user name!');
@@ -92,50 +92,48 @@ export const RegisterPage: React.FC = () => {
   return (
     <Container maxWidth="sm" className={classes.main}>
       <div className={classes.paper}>
-        <form
-          onSubmit={handleSubmit}
-          className={classes.root}
-          noValidate
-          autoComplete="off"
-        >
-          {/* <TextField
+        {/* <TextField
                         id="name"
                         error={!isValidUserName(user)}
                         label="user"
                         onChange={(e): void => setUser(e.target.value)}
                         helperText={getUsernameHelpText()}
                     /> */}
-          <TextField
-            autoComplete="on"
-            // error={!isValidEmail(email)}
-            id="email"
-            label="email"
-            type="email"
-            onChange={(e): void => setEmail(e.target.value)}
-            helperText={getEmailHelpText()}
-          />
-          <TextField
-            autoComplete="on"
-            // error={!isValidPassowrd(password)}
-            id="pswd"
-            label="password"
-            type="password"
-            onChange={(e): void => setPassword(e.target.value)}
-            helperText={getPassowrdHelpText()}
-          />
-          <Button type="submit" variant="contained" color="secondary">
-            register
-          </Button>
-          <Button
-            component={Link}
-            to="/login"
-            type="submit"
-            variant="contained"
-            color="primary"
-          >
-            go login page
-          </Button>
-        </form>
+        <TextField
+          autoComplete="on"
+          // error={!isValidEmail(email)}
+          id="email"
+          label="email"
+          type="email"
+          onChange={(e): void => setEmail(e.target.value)}
+          helperText={getEmailHelpText()}
+        />
+        <TextField
+          autoComplete="on"
+          // error={!isValidPassowrd(password)}
+          id="pswd"
+          label="password"
+          type="password"
+          onChange={(e): void => setPassword(e.target.value)}
+          helperText={getPassowrdHelpText()}
+        />
+        <Button
+          type="submit"
+          variant="contained"
+          color="secondary"
+          onClick={handleSubmit}
+        >
+          register
+        </Button>
+        <Button
+          component={Link}
+          to="/login"
+          type="submit"
+          variant="contained"
+          color="primary"
+        >
+          go login page
+        </Button>
       </div>
     </Container>
   );
