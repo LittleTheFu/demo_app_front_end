@@ -43,7 +43,6 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const RegisterPage: React.FC = () => {
-  const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 
