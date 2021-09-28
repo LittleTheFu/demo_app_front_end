@@ -27,7 +27,6 @@ import {
 import {
   OPEN_DRAWER,
   SystemActionTypes,
-  UPDATE_LOGIN_STATE,
 } from "../reducer/system/types";
 import { useDispatch } from "react-redux";
 import { Dispatch } from "react";
