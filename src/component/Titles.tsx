@@ -17,6 +17,7 @@ interface TitlesProps {
     reject?: (code: number, message: string) => void
   ) => Promise<IPageWrapper<ArticleTitle[]>>;
   onFetched: (fetchedTitles: ArticleTitle[]) => void;
+  freshFlag?: boolean;
 }
 
 export const Titles: React.FC<TitlesProps> = (props: TitlesProps) => {
@@ -24,7 +25,7 @@ export const Titles: React.FC<TitlesProps> = (props: TitlesProps) => {
   const [pageNum, setPageNum] = useState(0);
   const [pages, setPages] = useState(0);
 
-  const { fetch, onFetched } = props;
+  const { fetch, onFetched, freshFlag } = props;
 
   const ArticleClick = (id: number): void => {
     history.push(getArticleDetailUrl(id));
@@ -54,7 +55,7 @@ export const Titles: React.FC<TitlesProps> = (props: TitlesProps) => {
       console.log("titles useeffect");
       console.log(data);
     });
-  }, []);
+  }, [freshFlag]);
 
   return (
     <div>

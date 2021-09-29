@@ -30,6 +30,7 @@ export const UserDetailPage: React.FC = () => {
   const [followings, setFollowings] = useState<UserDetail[]>([]);
   const [followers, setFollowers] = useState<UserDetail[]>([]);
   const [titles, setTitles] = useState<ArticleTitle[]>([]);
+  const [freshTitleFlag, setFreshTitleFlag] = useState(true);
 
   const [SelectTabValue, setSelectTabValue] = useState(0);
   const [FollowingDisplay, setFollowingDisplay] = useState("block");
@@ -54,6 +55,8 @@ export const UserDetailPage: React.FC = () => {
       console.log(data);
       setFollowers(data.data);
     });
+
+    setFreshTitleFlag(!freshTitleFlag);
   }, [id]);
 
   useEffect(() => {
@@ -222,6 +225,7 @@ export const UserDetailPage: React.FC = () => {
           titles={titles}
           fetch={getUserTitles(id)}
           onFetched={setTitles}
+          freshFlag={freshTitleFlag}
         />
       </Box>
     </div>
