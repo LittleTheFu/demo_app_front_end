@@ -9,6 +9,7 @@ import {
 import { ControlPoint } from "@material-ui/icons";
 import { UserHead } from "../component/UserHead";
 import {
+  OPEN_HINT,
   SET_CURRENT_USER_ICON,
   SET_CURRENT_USER_NAME,
   SystemActionTypes,
@@ -92,6 +93,13 @@ export const ProfilePage: React.FC = () => {
         type: SET_CURRENT_USER_ICON,
         payload: {
           icon: data.data.url,
+        },
+      });
+
+      dispatch({
+        type: OPEN_HINT,
+        payload: {
+          hintMsg: "上传成功",
         },
       });
 
