@@ -74,15 +74,15 @@ export const RegisterPage: React.FC = () => {
     //     return;
     // }
 
-    // if (!isValidPassowrd(password)) {
-    //     openHint(dispatch, 'invalid password!');
-    //     return;
-    // }
+    if (!isValidPassowrd(password)) {
+        openHint(dispatch, 'invalid password!');
+        return;
+    }
 
-    // if (!isCorrectEmail(email)) {
-    //     openHint(dispatch, 'please check your email!');
-    //     return;
-    // }
+    if (!isCorrectEmail(email)) {
+        openHint(dispatch, 'please check your email!');
+        return;
+    }
 
     // postRegister(user, password, email, resolveData);
     postRegister(email, password, resolveData);
@@ -100,7 +100,7 @@ export const RegisterPage: React.FC = () => {
                     /> */}
         <TextField
           autoComplete="on"
-          // error={!isValidEmail(email)}
+          error={!isValidEmail(email)}
           id="email"
           label="email"
           type="email"
@@ -109,7 +109,7 @@ export const RegisterPage: React.FC = () => {
         />
         <TextField
           autoComplete="on"
-          // error={!isValidPassowrd(password)}
+          error={!isValidPassowrd(password)}
           id="pswd"
           label="password"
           type="password"
