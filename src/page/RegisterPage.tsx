@@ -54,7 +54,7 @@ export const RegisterPage: React.FC = () => {
   const classes = useStyles({});
 
   const resolveData = (data: ISimpleData): void => {
-    // openHint(dispatch, data.msg);
+    openHint(dispatch, data.message);
     // dispatch({ type: OPEN_HINT, payload: { hintMsg: data.msg } });
     console.log(data);
     history.push(getLoginUrl());
