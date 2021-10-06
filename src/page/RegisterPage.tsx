@@ -8,15 +8,15 @@ import Container from "@material-ui/core/Container";
 import { validate } from "email-validator";
 import {
   isValidPassowrd,
-  isValidUserName,
+  // isValidUserName,
   getPassowrdHelpText,
-  getUsernameHelpText,
+  // getUsernameHelpText,
   isValidEmail,
   getEmailHelpText,
 } from "../common/common";
 import { getLoginUrl } from "../common/UrlHelper";
 import { useDispatch } from "react-redux";
-import { OPEN_HINT, SystemActionTypes } from "../reducer/system/types";
+import { SystemActionTypes } from "../reducer/system/types";
 import { Dispatch } from "redux";
 import { openHint } from "../reducer/system/functions";
 
