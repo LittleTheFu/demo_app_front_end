@@ -8,9 +8,7 @@ import Container from "@material-ui/core/Container";
 import { validate } from "email-validator";
 import {
   isValidPassowrd,
-  // isValidUserName,
   getPassowrdHelpText,
-  // getUsernameHelpText,
   isValidEmail,
   getEmailHelpText,
 } from "../common/common";
@@ -55,7 +53,6 @@ export const RegisterPage: React.FC = () => {
 
   const resolveData = (data: ISimpleData): void => {
     openHint(dispatch, data.message);
-    // dispatch({ type: OPEN_HINT, payload: { hintMsg: data.msg } });
     console.log(data);
     history.push(getLoginUrl());
   };
@@ -67,13 +64,6 @@ export const RegisterPage: React.FC = () => {
   }
 
   function handleSubmit(): void {
-    // event.preventDefault();
-
-    // if (!isValidUserName(user)) {
-    //     openHint(dispatch, 'invalid user name!');
-    //     return;
-    // }
-
     if (!isValidPassowrd(password)) {
         openHint(dispatch, 'invalid password!');
         return;
@@ -84,20 +74,12 @@ export const RegisterPage: React.FC = () => {
         return;
     }
 
-    // postRegister(user, password, email, resolveData);
     postRegister(email, password, resolveData);
   }
 
   return (
     <Container maxWidth="sm" className={classes.main}>
       <div className={classes.paper}>
-        {/* <TextField
-                        id="name"
-                        error={!isValidUserName(user)}
-                        label="user"
-                        onChange={(e): void => setUser(e.target.value)}
-                        helperText={getUsernameHelpText()}
-                    /> */}
         <TextField
           autoComplete="on"
           error={!isValidEmail(email)}

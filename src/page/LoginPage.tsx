@@ -46,11 +46,6 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export const Login: React.FC = () => {
-  // const dispatch = useDispatch<ThunkDispatch<AppState, unknown, SystemActionTypes>>();
-  // const isLogin = useSelector(selectLoginState);
-
-  // const isLogin = useAppSelector(selectLoginState)
-  // const dispatch = useAppDispatch();
   const dispatch = useDispatch();
 
   const [username, setUser] = useState("");

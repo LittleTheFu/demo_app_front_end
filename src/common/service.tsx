@@ -7,16 +7,6 @@ import {
   rawObjectDelete,
 } from "./net";
 
-// export class BaseData {
-//     code: number;
-//     message: string;
-
-//     constructor() {
-//         this.code = 0;
-//         this.message = '';
-//     }
-// }
-
 export class TokenData {
   token: string;
   tokenHead: string;

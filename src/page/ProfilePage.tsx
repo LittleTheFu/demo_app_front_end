@@ -43,26 +43,15 @@ export const ProfilePage: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    // if (!selectedFile) {
-    // setPreview(undefined);
-    // return;
-    // }
-
     setSize(selectedFile.size);
-    // const objectUrl = URL.createObjectURL(selectedFile);
-    // setPreview(objectUrl);
-
-    // return (): void => URL.revokeObjectURL(objectUrl);
   }, [selectedFile]);
 
   const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (!e.target.files || e.target.files.length === 0) {
-      // setSelectedFile(undefined);
       return;
     }
 
     const strIcon = URL.createObjectURL(e.target.files[0]);
-    // console.log(strIcon);
 
     setUserDetail({ ...userDetail, ...{ icon: strIcon } });
     setSelectedFile(e.target.files[0]);

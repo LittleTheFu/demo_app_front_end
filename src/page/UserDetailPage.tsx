@@ -56,7 +56,6 @@ export const UserDetailPage: React.FC = () => {
       setFollowers(data.data);
     });
 
-    // setFreshTitleFlag(!freshTitleFlag);
     setFreshTitleFlag((flag: boolean) => {
       return !flag;
     });

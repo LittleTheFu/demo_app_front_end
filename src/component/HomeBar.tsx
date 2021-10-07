@@ -54,16 +54,9 @@ export default function HomeBar() {
   const logoutClick = (): void => {
     setLoginFlag(false);
     history.push(getLoginUrl());
-    // dispatch({
-    //     type: UPDATE_LOGIN_STATE,
-    //     payload: {
-    //         isLogin: false
-    //     }
-    // });
   };
 
   const menuClick = (): void => {
-    // openDrawer(dispatch);
     dispatch({ type: OPEN_DRAWER });
     console.log("menu clicked");
   };

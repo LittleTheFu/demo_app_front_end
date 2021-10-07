@@ -15,12 +15,6 @@ export const NewMailPage: React.FC = () => {
   const location = useLocation<stateType>();
   const { state } = location;
 
-  // useEffect(() => {
-  //     console.log(location.pathname); // result: '/secondpage'
-  //     console.log(state.id); // result: 'some_value'
-  //     console.log(state.icon); // result: 'some_value'
-  // }, [location]);
-
   const SendClick = (): void => {
     createMail(state.id, content, (data) => {
       console.log(data);

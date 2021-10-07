@@ -49,12 +49,6 @@ export const TemporaryDrawer: React.FC = () => {
   const history = useHistory();
 
   const logoutClick = (): void => {
-    // dispatch({
-    //     type: UPDATE_LOGIN_STATE,
-    //     payload: {
-    //         isLogin: false
-    //     }
-    // });
     setLoginFlag(false);
     history.push(getLoginUrl());
   };

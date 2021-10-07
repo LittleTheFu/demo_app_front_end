@@ -66,9 +66,6 @@ export const ArticleCard: React.FC<ArticleCardProps> = (
             nameClick={props.authorClick}
             avatarClick={props.authorClick}
           ></UserHead>
-          {/* <Typography variant="body2" color="textSecondary" component="p">
-                        {props.content}
-                    </Typography> */}
         </CardContent>
       </CardActionArea>
       <CardActions>

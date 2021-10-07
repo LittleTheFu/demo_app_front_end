@@ -86,9 +86,3 @@ export const UserHead: React.FC<UserHeadProps> = (props: UserHeadProps) => {
     </div>
   );
 };
-
-// UserHead.defaultProps = {
-//     size: 150,
-//     center: true,
-//     padding: 0,
-// };
