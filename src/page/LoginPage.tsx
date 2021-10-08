@@ -18,8 +18,8 @@ import {
   setUserNameIntoCookie,
 } from "../common/common";
 import { useDispatch } from "react-redux";
-import { SET_CURRENT_USER } from "../reducer/system/types";
 import { getAllArticleUrl } from "../common/UrlHelper";
+import { setCurrentUser } from "../reducer/system/functions";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -70,13 +70,7 @@ export const Login: React.FC = () => {
       setUserNameIntoCookie(data.data.name);
       setUserIconIntoCookie(data.data.icon);
 
-      dispatch({
-        type: SET_CURRENT_USER,
-        payload: {
-          name: data.data.name,
-          icon: data.data.icon,
-        },
-      });
+      setCurrentUser(dispatch,data.data.name, data.data.icon);
      
       setLoginFlag(true);
       history.push(getAllArticleUrl());

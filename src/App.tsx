@@ -5,12 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectHintMsg, selectHintState } from "./reducer/rootReducer";
 import { RegisterPage } from "./page/RegisterPage";
 import { Snackbar } from "@material-ui/core";
-import {
-  CLOSE_HINT,
-  SET_CURRENT_USER,
-  SystemActionTypes,
-} from "./reducer/system/types";
-import { Dispatch, useEffect } from "react";
+import { useEffect } from "react";
 import { ForgetPasswordPage } from "./page/ForgetPasswordPage";
 import { ResetPasswordPage } from "./page/ResetPasswordPage";
 import { PrivateRoute } from "./component/PrivateRouter";
@@ -19,22 +14,15 @@ import {
   getUserIconFromCookie,
   getUserNameFromCookie,
 } from "./common/common";
+import { closeHint, setCurrentUser } from "./reducer/system/functions";
 
 export default function App() {
   const hintState = useSelector(selectHintState);
   const hintMsg = useSelector(selectHintMsg);
-  // const isLogin = getLoginFlag();
-
-  const dispatch = useDispatch<Dispatch<SystemActionTypes>>();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({
-      type: SET_CURRENT_USER,
-      payload: {
-        name: getUserNameFromCookie(),
-        icon: getUserIconFromCookie(),
-      },
-    });
+    setCurrentUser(dispatch, getUserNameFromCookie(), getUserIconFromCookie());
   }, [dispatch]);
 
   return (
@@ -47,7 +35,7 @@ export default function App() {
         open={hintState}
         autoHideDuration={2000}
         onClose={(): void => {
-          dispatch({ type: CLOSE_HINT });
+          closeHint(dispatch);
         }}
         message={hintMsg}
       />

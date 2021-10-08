@@ -8,15 +8,57 @@ import {
   CLOSE_MASK,
   OPEN_DRAWER,
   CLOSE_DRAWER,
-  UPDATE_LOGIN_STATE,
   UPDATE_PLAY_STATE,
   UPDATE_UNREAD_MAIL_COUNT,
   INCREASE_UNREAD_MAIL_COUNT,
   DECREASE_UNREAD_MAIL_COUNT,
   REFRESH_MAIL_PAGE,
+  CLOSE_HINT,
 } from "./types";
 
 import { Dispatch } from "redux";
+
+export const setCurrentIcon = (
+  dispatch: Dispatch<SystemActionTypes>,
+  icon: string
+): void => {
+  dispatch({
+    type: SET_CURRENT_USER_ICON,
+    payload: {
+      icon: icon,
+    },
+  });
+};
+
+export const setCurrentName = (
+  dispatch: Dispatch<SystemActionTypes>,
+  name: string
+): void => {
+  dispatch({
+    type: SET_CURRENT_USER_NAME,
+    payload: {
+      name: name,
+    },
+  });
+};
+
+export const setCurrentUser = (
+  dispatch: Dispatch<SystemActionTypes>,
+  name: string,
+  icon: string
+): void => {
+  dispatch({
+    type: SET_CURRENT_USER,
+    payload: {
+      name: name,
+      icon: icon,
+    },
+  });
+};
+
+export const closeHint = (dispatch: Dispatch<SystemActionTypes>): void => {
+  dispatch({ type: CLOSE_HINT });
+};
 
 export const openHint = (
   dispatch: Dispatch<SystemActionTypes>,

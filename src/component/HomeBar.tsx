@@ -24,13 +24,9 @@ import {
   getNewArticleUrl,
   getProfileUrl,
 } from "../common/UrlHelper";
-import {
-  OPEN_DRAWER,
-  SystemActionTypes,
-} from "../reducer/system/types";
 import { useDispatch } from "react-redux";
-import { Dispatch } from "react";
 import { setLoginFlag } from "../common/common";
+import { openDrawer } from "../reducer/system/functions";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 export default function HomeBar() {
-  const dispatch = useDispatch<Dispatch<SystemActionTypes>>();
+  const dispatch = useDispatch();
   const classes = useStyles();
   const history = useHistory();
 
@@ -57,7 +53,7 @@ export default function HomeBar() {
   };
 
   const menuClick = (): void => {
-    dispatch({ type: OPEN_DRAWER });
+    openDrawer(dispatch);
     console.log("menu clicked");
   };
 

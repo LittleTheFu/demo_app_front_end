@@ -1,5 +1,5 @@
 import { Button, Divider, IconButton, TextField } from "@material-ui/core";
-import { Dispatch, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   getCurrentUser,
   updateName,
@@ -8,12 +8,6 @@ import {
 } from "../common/service";
 import { ControlPoint } from "@material-ui/icons";
 import { UserHead } from "../component/UserHead";
-import {
-  OPEN_HINT,
-  SET_CURRENT_USER_ICON,
-  SET_CURRENT_USER_NAME,
-  SystemActionTypes,
-} from "../reducer/system/types";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getUserDetailPageUrl } from "../common/UrlHelper";
@@ -22,10 +16,11 @@ import {
   setUserIconIntoCookie,
   setUserNameIntoCookie,
 } from "../common/common";
+import { openHint, setCurrentIcon, setCurrentName } from "../reducer/system/functions";
 
 export const ProfilePage: React.FC = () => {
   const history = useHistory();
-  const dispatch = useDispatch<Dispatch<SystemActionTypes>>();
+  const dispatch = useDispatch();
 
   const [selectedFile, setSelectedFile] = useState(new Blob());
   const [userDetail, setUserDetail] = useState<UserDetail>(new UserDetail());
@@ -78,19 +73,8 @@ export const ProfilePage: React.FC = () => {
       console.log("上传成功 pre:");
       console.log(data);
 
-      dispatch({
-        type: SET_CURRENT_USER_ICON,
-        payload: {
-          icon: data.data.url,
-        },
-      });
-
-      dispatch({
-        type: OPEN_HINT,
-        payload: {
-          hintMsg: "上传成功",
-        },
-      });
+      setCurrentIcon(dispatch, data.data.url);
+      openHint(dispatch, "上传成功");
 
       setUserIconIntoCookie(data.data.url);
       console.log("上传成功 post:");
@@ -106,13 +90,13 @@ export const ProfilePage: React.FC = () => {
   const applyClick = (): void => {
     updateName(userName, (data) => {
       setUserDetail({ ...userDetail, name: userName });
-
-      dispatch({
-        type: SET_CURRENT_USER_NAME,
-        payload: {
-          name: userName,
-        },
-      });
+      setCurrentName(dispatch,userName);
+      // dispatch({
+      //   type: SET_CURRENT_USER_NAME,
+      //   payload: {
+      //     name: userName,
+      //   },
+      // });
       setUserNameIntoCookie(userName);
 
       console.log(data);
