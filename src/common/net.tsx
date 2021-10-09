@@ -1,7 +1,7 @@
 import axios from "axios";
 import { IBaseData } from "./service";
 import { store } from "../reducer/rootReducer";
-import { OPEN_HINT } from "../reducer/system/types";
+import { openHint } from "../reducer/system/functions";
 
 const STATE_CODE_OK = 200;
 
@@ -18,7 +18,8 @@ function runActionByStateCode<T>(
     if (reject) {
       reject(code, message);
     } else {
-      store.dispatch({ type: OPEN_HINT, payload: { hintMsg: message } });
+      // store.dispatch({ type: OPEN_HINT, payload: { hintMsg: message } });
+      openHint(store.dispatch, message);
     }
   }
 }
