@@ -18,7 +18,6 @@ function runActionByStateCode<T>(
     if (reject) {
       reject(code, message);
     } else {
-      // store.dispatch({ type: OPEN_HINT, payload: { hintMsg: message } });
       openHint(store.dispatch, message);
     }
   }

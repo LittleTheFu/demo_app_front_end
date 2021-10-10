@@ -91,12 +91,6 @@ export const ProfilePage: React.FC = () => {
     updateName(userName, (data) => {
       setUserDetail({ ...userDetail, name: userName });
       setCurrentName(dispatch,userName);
-      // dispatch({
-      //   type: SET_CURRENT_USER_NAME,
-      //   payload: {
-      //     name: userName,
-      //   },
-      // });
       setUserNameIntoCookie(userName);
 
       console.log(data);
