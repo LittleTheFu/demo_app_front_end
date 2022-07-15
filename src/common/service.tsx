@@ -7,6 +7,8 @@ import {
   rawObjectDelete,
 } from "./net";
 
+const SERVER = 'http://192.168.0.111:8080/';
+
 export class TokenData {
   token: string;
   tokenHead: string;
@@ -17,7 +19,7 @@ export class TokenData {
   }
 }
 
-export interface INullData {}
+export interface INullData { }
 
 export type ISimpleData = IBaseData<INullData>;
 
@@ -30,7 +32,7 @@ export interface RetMsgObj {
 }
 
 const wantResetPasswordUrl =
-  "http://localhost:8080/account/want_reset_password";
+  SERVER + "account/want_reset_password";
 export const wantResetPassword = (
   email: string,
   resolve: (data: ISimpleStringData) => void,
@@ -45,7 +47,7 @@ export const wantResetPassword = (
   );
 };
 
-const resetPasswordUrl = "http://localhost:8080/account/reset_password";
+const resetPasswordUrl = SERVER + "account/reset_password";
 export const resetPassword = (
   email: string,
   password: string,
@@ -62,7 +64,7 @@ export const resetPassword = (
   );
 };
 
-const registerUrl = "http://localhost:8080/account/register";
+const registerUrl = SERVER + "account/register";
 export const postRegister = (
   email: string,
   password: string,
@@ -78,7 +80,7 @@ export const postRegister = (
   );
 };
 
-const loginUrl = "http://localhost:8080/account/login";
+const loginUrl = SERVER + "account/login";
 export const postLogin = (
   email: string,
   password: string,
@@ -94,7 +96,7 @@ export const postLogin = (
   );
 };
 
-const greetingUrl = "http://localhost:8080/greeting";
+const greetingUrl = SERVER + "greeting";
 export const getGreeting = (
   resolve: (data: IAccessData) => void,
   reject?: (code: number, message: string) => void
@@ -178,7 +180,7 @@ export interface IPageWrapper<T> {
 
 export type IAllArticleData = IBaseData<IPageWrapper<Article[]>>;
 
-const allArticleUrl = "http://localhost:8080/article/all";
+const allArticleUrl = SERVER + "article/all";
 export const getAllTitles = (
   page: number,
   resolve: (data: IPagedArticleTitle) => void,
@@ -197,7 +199,7 @@ export const getAllTitles = (
 
 export type IArticleData = IBaseData<Article>;
 
-const getArticleUrl = "http://localhost:8080/article/";
+const getArticleUrl = SERVER + "article/";
 export const getArticleById = (
   id: string,
   resolve: (data: IArticleData) => void,
@@ -212,7 +214,7 @@ export const getArticleById = (
   );
 };
 
-const thumbCommentUrl = "http://localhost:8080/article/comment_thumb/";
+const thumbCommentUrl = SERVER + "article/comment_thumb/";
 export const thumbComment = (
   id: number,
   resolve: (data: ISimpleData) => void,
@@ -228,7 +230,7 @@ export const thumbComment = (
   );
 };
 
-const unThumbCommentUrl = "http://localhost:8080/article/comment_unthumb/";
+const unThumbCommentUrl = SERVER + "article/comment_unthumb/";
 export const unThumbComment = (
   id: number,
   resolve: (data: ISimpleData) => void,
@@ -244,7 +246,7 @@ export const unThumbComment = (
   );
 };
 
-const thumbArticleUrl = "http://localhost:8080/article/thumb/";
+const thumbArticleUrl = SERVER + "article/thumb/";
 export const thumbArticle = (
   id: number,
   resolve: (data: IArticleData) => void,
@@ -260,7 +262,7 @@ export const thumbArticle = (
   );
 };
 
-const unthumbArticleUrl = "http://localhost:8080/article/unthumb/";
+const unthumbArticleUrl = SERVER + "article/unthumb/";
 export const unthumbArticle = (
   id: number,
   resolve: (data: IArticleData) => void,
@@ -292,7 +294,7 @@ export class UserDetail {
 
 export type IUserData = IBaseData<UserDetail>;
 
-const getUserDetailUrl = "http://localhost:8080/user/";
+const getUserDetailUrl = SERVER + "user/";
 export const getUserById = (
   id: string,
   resolve: (data: IUserData) => void,
@@ -326,7 +328,7 @@ interface FollowResponse {
 
 export type IFollowResponseData = IBaseData<FollowResponse>;
 
-const followUserUrl = "http://localhost:8080/user/follow/";
+const followUserUrl = SERVER + "user/follow/";
 export const followUser = (
   id: number,
   resolve: (data: IFollowResponseData) => void,
@@ -342,7 +344,7 @@ export const followUser = (
   );
 };
 
-const unfollowUserUrl = "http://localhost:8080/user/unfollow/";
+const unfollowUserUrl = SERVER + "user/unfollow/";
 export const unfollowUser = (
   id: number,
   resolve: (data: IFollowResponseData) => void,
@@ -360,7 +362,7 @@ export const unfollowUser = (
 
 export type IOneCommentData = IBaseData<ArticleComment>;
 
-const createCommentUrl = "http://localhost:8080/article/create_comment/";
+const createCommentUrl = SERVER + "article/create_comment/";
 export const createComment = (
   id: string,
   content: string,
@@ -391,7 +393,7 @@ export interface ArticleComment {
 
 export type ICommentsData = IBaseData<IPageWrapper<ArticleComment[]>>;
 
-const getArticleCommentsUrl = "http://localhost:8080/article/article_comments/";
+const getArticleCommentsUrl = SERVER + "article/article_comments/";
 export const getArticleComments = (
   id: string,
   page: number,
@@ -415,7 +417,7 @@ export interface ChangeIconResponse {
 
 export type IChangeIconResponseData = IBaseData<ChangeIconResponse>;
 
-const updateNameUrl = "http://localhost:8080/user/change_name";
+const updateNameUrl = SERVER + "user/change_name";
 export const updateName = (
   name: string,
   resolve: (data: ISimpleData) => void,
@@ -431,7 +433,7 @@ export const updateName = (
   );
 };
 
-const uploadIconUrl = "http://localhost:8080/user/change_icon";
+const uploadIconUrl = SERVER + "user/change_icon";
 export const uploadIcon = (
   data: FormData,
   resolve: (data: IChangeIconResponseData) => void
@@ -443,7 +445,7 @@ export const uploadIcon = (
   });
 };
 
-const uploadImageUrl = "http://localhost:8080/file/upload";
+const uploadImageUrl = SERVER + "file/upload";
 export const uploadImage = (
   data: FormData,
   resolve: (data: IChangeIconResponseData) => void
@@ -461,7 +463,7 @@ export interface CreateArticleResponse {
 
 export type ICreateArticleResponseData = IBaseData<CreateArticleResponse>;
 
-const createArticleUrl = "http://localhost:8080/article/create_article";
+const createArticleUrl = SERVER + "article/create_article";
 export const createArticle = (
   title: string,
   content: string,
@@ -478,7 +480,7 @@ export const createArticle = (
   );
 };
 
-const deleteArticlTageUrl = "http://localhost:8080/article/delete_article_tag";
+const deleteArticlTageUrl = SERVER + "article/delete_article_tag";
 export const deleteArticleTag = (
   id: number,
   tag: string,
@@ -494,7 +496,7 @@ export const deleteArticleTag = (
   );
 };
 
-const addArticlTageUrl = "http://localhost:8080/article/add_article_tag/";
+const addArticlTageUrl = SERVER + "article/add_article_tag/";
 export const addArticleTag = (
   id: number,
   tag: string,
@@ -511,7 +513,7 @@ export const addArticleTag = (
   );
 };
 
-const deleteArticleUrl = "http://localhost:8080/article/delete/";
+const deleteArticleUrl = SERVER + "article/delete/";
 export const deleteArticle = (
   id: number,
   resolve: (data: ISimpleData) => void,
@@ -526,7 +528,7 @@ export const deleteArticle = (
   );
 };
 
-const updateArticleUrl = "http://localhost:8080/article/";
+const updateArticleUrl = SERVER + "article/";
 export const updateArticle = (
   id: number,
   title: string,
@@ -546,7 +548,7 @@ export const updateArticle = (
 
 export type IFollowersData = IBaseData<UserDetail[]>;
 
-const getFollowingsUrl = "http://localhost:8080/user/followings/";
+const getFollowingsUrl = SERVER + "user/followings/";
 export const getFollowings = (
   id: string,
   resolve: (data: IFollowersData) => void,
@@ -561,7 +563,7 @@ export const getFollowings = (
   );
 };
 
-const getFollowersUrl = "http://localhost:8080/user/followers/";
+const getFollowersUrl = SERVER + "user/followers/";
 export const getFollowers = (
   id: string,
   resolve: (data: IFollowersData) => void,
@@ -576,7 +578,7 @@ export const getFollowers = (
   );
 };
 
-const createMailUrl = "http://localhost:8080/mail/create_mail";
+const createMailUrl = SERVER + "mail/create_mail";
 export const createMail = (
   mailToId: number,
   content: string,
@@ -604,7 +606,7 @@ export interface Mail {
 
 export type IMailsResponseData = IBaseData<Mail[]>;
 
-const getMailsUrl = "http://localhost:8080/mail/get_mails";
+const getMailsUrl = SERVER + "mail/get_mails";
 export const getMails = (
   resolve: (data: IMailsResponseData) => void,
   reject?: (code: number, message: string) => void
@@ -618,7 +620,7 @@ export const getMails = (
   );
 };
 
-const deleteMailUrl = "http://localhost:8080/mail/";
+const deleteMailUrl = SERVER + "mail/";
 export const deleteMail = (
   id: number,
   resolve: (data: ISimpleData) => void,
@@ -650,24 +652,24 @@ export interface ArticleTitle {
 //     }
 // }
 
-const userTitlesUrl = "http://localhost:8080/article/get_titles_by_user/";
+const userTitlesUrl = SERVER + "article/get_titles_by_user/";
 export const getUserTitles =
   (id: string) =>
-  (
-    page: number,
-    resolve: (data: IPagedArticleTitle) => void,
-    reject?: (code: number, message: string) => void
-  ): Promise<IPageWrapper<ArticleTitle[]>> => {
-    const authHead = getTokenString();
-    return rawObjectGet(
-      userTitlesUrl + id + "?page=" + page,
-      resolve,
-      { Authorization: authHead },
-      reject
-    );
-  };
+    (
+      page: number,
+      resolve: (data: IPagedArticleTitle) => void,
+      reject?: (code: number, message: string) => void
+    ): Promise<IPageWrapper<ArticleTitle[]>> => {
+      const authHead = getTokenString();
+      return rawObjectGet(
+        userTitlesUrl + id + "?page=" + page,
+        resolve,
+        { Authorization: authHead },
+        reject
+      );
+    };
 
-const titlesTagUrl = "http://localhost:8080/article/get_titles_by_tag";
+const titlesTagUrl = SERVER + "article/get_titles_by_tag";
 export const getTitlesBytag = (
   tag: string,
   page: number,
@@ -686,7 +688,7 @@ export const getTitlesBytag = (
 
 export type IPagedArticleTitle = IBaseData<IPageWrapper<ArticleTitle[]>>;
 
-const historyUrl = "http://localhost:8080/history";
+const historyUrl = SERVER + "history";
 export const getHistory = (
   page: number,
   resolve: (data: IPagedArticleTitle) => void,
@@ -702,7 +704,7 @@ export const getHistory = (
   );
 };
 
-const bookmarkArticleUrl = "http://localhost:8080/article/bookmark/";
+const bookmarkArticleUrl = SERVER + "article/bookmark/";
 export const bookmarkArticle = (
   id: number,
   resolve: (data: ISimpleData) => void,
@@ -718,7 +720,7 @@ export const bookmarkArticle = (
   );
 };
 
-const unBookmarkArticleUrl = "http://localhost:8080/article/unbookmark/";
+const unBookmarkArticleUrl = SERVER + "article/unbookmark/";
 export const unBookmarkArticle = (
   id: number,
   resolve: (data: ISimpleData) => void,
@@ -735,7 +737,7 @@ export const unBookmarkArticle = (
 };
 
 const allBookmarkArticleUrl =
-  "http://localhost:8080/article/get_bookmark_articles";
+  SERVER + "article/get_bookmark_articles";
 export const getBookmarkArticles = (
   page: number,
   resolve: (data: IPagedArticleTitle) => void,
