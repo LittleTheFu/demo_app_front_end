@@ -30,12 +30,18 @@ type EmptyText = {
 };
 
 // type CustomElement = { type: 'paragraph' | 'code'; children: CustomText[] }
-type CustomBlockElement = {
-  type: "paragraph" | "code";
-  children: CustomText[] | EmptyText[];
+type ParagraphElement = {
+  type: "paragraph";
+  children: CustomText[];
 };
+
+type CodeElement = {
+  type: "code";
+  children: EmptyText[];
+};
+
 type CustomImageElement = { type: "image"; url: string; children: EmptyText[] };
-type CustomElement = CustomBlockElement | CustomImageElement;
+type CustomElement = ParagraphElement | CodeElement | CustomImageElement;
 type CustomText = {
   text: string;
   bold: boolean;
@@ -81,7 +87,8 @@ const isImageUrl = (url: string) => {
 };
 
 const withImages = (editor: BaseEditor & ReactEditor) => {
-  const { insertData, isVoid } = editor;
+  // const { insertData, isVoid } = editor;
+  const { isVoid } = editor;
 
   editor.isVoid = (element) => {
     if (Array.isArray(element)) {
@@ -90,30 +97,30 @@ const withImages = (editor: BaseEditor & ReactEditor) => {
     return element.type === "image" ? true : isVoid(element);
   };
 
-  editor.insertData = (data) => {
-    const text = data.getData("text/plain");
-    const { files } = data;
+  // editor.insertData = (data) => {
+  //   const text = data.getData("text/plain");
+  //   const { files } = data;
 
-    if (files && files.length > 0) {
-      for (let i = 0; i < files.length; i++) {
-        const reader = new FileReader();
-        const [mime] = files[i].type.split("/");
+  //   if (files && files.length > 0) {
+  //     for (let i = 0; i < files.length; i++) {
+  //       const reader = new FileReader();
+  //       const [mime] = files[i].type.split("/");
 
-        if (mime === "image") {
-          reader.addEventListener("load", () => {
-            const url = reader.result as string;
-            insertImage(editor, url);
-          });
+  //       if (mime === "image") {
+  //         reader.addEventListener("load", () => {
+  //           const url = reader.result as string;
+  //           insertImage(editor, url);
+  //         });
 
-          reader.readAsDataURL(files[i]);
-        }
-      }
-    } else if (isImageUrl(text)) {
-      insertImage(editor, text);
-    } else {
-      insertData(data);
-    }
-  };
+  //         reader.readAsDataURL(files[i]);
+  //       }
+  //     }
+  //   } else if (isImageUrl(text)) {
+  //     insertImage(editor, text);
+  //   } else {
+  //     insertData(data);
+  //   }
+  // };
 
   return editor;
 };
@@ -121,21 +128,23 @@ const withImages = (editor: BaseEditor & ReactEditor) => {
 const insertImage = (editor: BaseEditor & ReactEditor, url: string) => {
   const text = { text: "" };
   // const blank = {text: "---"};
-  const image: CustomElement[] = [
-    { type: "image", url, children: [text] },
-    { type: "paragraph", children: [text] },
-  ];
+  const image: CustomImageElement = { type: "image", url, children: [text] };
+
   Transforms.insertNodes(editor, image);
 };
 
-const insertText = (editor: BaseEditor & ReactEditor, text: string) => {
-  const textNode: CustomText = {
-    text: text,
-    bold: false,
-    underline: false,
-    italic: false,
+const insertParagraph = (editor: BaseEditor & ReactEditor, text: string) => {
+  const paragraph: ParagraphElement = {
+    type: "paragraph",
+    children: [{
+      text: text,
+      bold: false,
+      underline: false,
+      italic: false,
+    },
+    ],
   };
-  Transforms.insertNodes(editor, textNode);
+  Transforms.insertNodes(editor, paragraph);
 };
 
 export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
@@ -153,20 +162,21 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
     }
 
     insertImage(editor, returnUrl);
+    insertParagraph(editor, "");
   }, [returnUrl]);
 
   // Define a React component renderer for our code blocks.
   const CodeElement = (props: {
     attributes: JSX.IntrinsicAttributes &
-      React.ClassAttributes<HTMLPreElement> &
-      React.HTMLAttributes<HTMLPreElement>;
+    React.ClassAttributes<HTMLPreElement> &
+    React.HTMLAttributes<HTMLPreElement>;
     children:
-      | boolean
-      | React.ReactChild
-      | React.ReactFragment
-      | React.ReactPortal
-      | null
-      | undefined;
+    | boolean
+    | React.ReactChild
+    | React.ReactFragment
+    | React.ReactPortal
+    | null
+    | undefined;
   }) => {
     return (
       <pre {...props.attributes}>
@@ -177,15 +187,15 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
 
   const ImageElement = (props: {
     attributes: JSX.IntrinsicAttributes &
-      React.ClassAttributes<HTMLParagraphElement> &
-      React.HTMLAttributes<HTMLParagraphElement>;
+    React.ClassAttributes<HTMLParagraphElement> &
+    React.HTMLAttributes<HTMLParagraphElement>;
     children:
-      | boolean
-      | React.ReactChild
-      | React.ReactFragment
-      | React.ReactPortal
-      | null
-      | undefined;
+    | boolean
+    | React.ReactChild
+    | React.ReactFragment
+    | React.ReactPortal
+    | null
+    | undefined;
     element: CustomImageElement;
   }) => {
     return (
@@ -203,15 +213,15 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
 
   const DefaultElement = (props: {
     attributes: JSX.IntrinsicAttributes &
-      React.ClassAttributes<HTMLParagraphElement> &
-      React.HTMLAttributes<HTMLParagraphElement>;
+    React.ClassAttributes<HTMLParagraphElement> &
+    React.HTMLAttributes<HTMLParagraphElement>;
     children:
-      | boolean
-      | React.ReactChild
-      | React.ReactFragment
-      | React.ReactPortal
-      | null
-      | undefined;
+    | boolean
+    | React.ReactChild
+    | React.ReactFragment
+    | React.ReactPortal
+    | null
+    | undefined;
   }) => {
     return <p {...props.attributes}>{props.children}</p>;
   };
@@ -359,7 +369,7 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
 
           <IconButton
             component="label"
-            // onClick={() => { italicBtnClick(editor) }}
+          // onClick={() => { italicBtnClick(editor) }}
           >
             <input
               accept="image/*"
