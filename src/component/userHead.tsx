@@ -59,6 +59,8 @@ export const UserHead: React.FC<UserHeadProps> = (props: UserHeadProps) => {
   };
   const classes = useStyles({ size: size, center: center, padding: padding });
 
+  const handleImageError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => { event.currentTarget.src = "/img/error.png" };
+
   return (
     <div className={classes.bounder}>
       <img
@@ -66,6 +68,7 @@ export const UserHead: React.FC<UserHeadProps> = (props: UserHeadProps) => {
           avatarClick?.();
         }}
         src={avatar}
+        onError={handleImageError}
         alt="avatar"
         className={classes.avatar}
       />
