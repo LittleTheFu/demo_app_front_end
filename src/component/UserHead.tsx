@@ -1,6 +1,7 @@
 import React from "react";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
+import { ERROR_IMG } from "../common/macros";
 
 interface BoundProps {
   size: number;
@@ -59,7 +60,7 @@ export const UserHead: React.FC<UserHeadProps> = (props: UserHeadProps) => {
   };
   const classes = useStyles({ size: size, center: center, padding: padding });
 
-  const handleImageError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => { event.currentTarget.src = "/img/error.png" };
+  const handleImageError = (event: React.SyntheticEvent<HTMLImageElement, Event>) => { event.currentTarget.src = ERROR_IMG };
 
   return (
     <div className={classes.bounder}>
