@@ -51,24 +51,24 @@ export const CommentGroup: React.FC<CommentGroupProps> = (
       {comments.map((comment: ArticleComment, index: number) => {
         return (
           <Box className={classes.card}>
-          <CommentCard
-            key={index}
-            content={comment.articleCommentContent}
-            author={comment.articleCommentUserName}
-            authorIcon={comment.articleCommentUserIcon}
-            date={comment.articleCommentDate}
-            thumbState={comment.thumbState}
-            thumbNum={comment.articleCommentThumbNum}
-            authorClick={() => {
-              authorClick(comment.articleCommentUserId);
-            }}
-            thumbClick={() => {
-              thumbClick(comment.id);
-            }}
-            unThumbClick={() => {
-              unThumbClick(comment.id);
-            }}
-          />
+            <CommentCard
+              key={index}
+              content={comment.articleCommentContent}
+              author={comment.articleCommentUserName}
+              authorIcon={comment.articleCommentUserIcon}
+              date={comment.articleCommentDate}
+              thumbState={comment.thumbState}
+              thumbNum={comment.articleCommentThumbNum}
+              authorClick={() => {
+                authorClick(comment.articleCommentUserId);
+              }}
+              thumbClick={() => {
+                thumbClick(comment.id);
+              }}
+              unThumbClick={() => {
+                unThumbClick(comment.id);
+              }}
+            />
           </Box>
         );
       })}

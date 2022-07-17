@@ -115,7 +115,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = (
             IconComponent={BookmarkBorder}
           />
         )}
-         <UserHead
+        <UserHead
           size={50}
           userName={props.author}
           avatar={props.authorIcon}

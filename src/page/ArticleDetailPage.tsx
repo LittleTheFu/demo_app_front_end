@@ -311,7 +311,7 @@ export const ArticleDetail: React.FC = () => {
         />
       )}
 
-     
+
 
       <RichEditor
         readonly={editFlag ? false : true}
@@ -321,91 +321,91 @@ export const ArticleDetail: React.FC = () => {
         }}
       />
 
-  <Box className={classes.tags}>
-      <TagGroup
-        tags={tags}
-        TagClick={TagClick}
-        TagDeleteClick={article.editable ? TagDeleteClick : undefined}
-      />
+      <Box className={classes.tags}>
+        <TagGroup
+          tags={tags}
+          TagClick={TagClick}
+          TagDeleteClick={article.editable ? TagDeleteClick : undefined}
+        />
 
-      <TextField id="tag" onChange={(e): void => setNewTag(e.target.value)} />
-      <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        onClick={() => {
-          TagAddClick(newTag);
-        }}
-      >
-        add tag
-      </Button>
-    </Box>
-
-    <Box className={classes.comments}>
-      <FormControl variant="filled">
-        <Select
-          labelId="demo-simple-select-filled-label"
-          id="demo-simple-select-filled"
-          value={commentOrderStatus}
-          onChange={handleChange}
+        <TextField id="tag" onChange={(e): void => setNewTag(e.target.value)} />
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            TagAddClick(newTag);
+          }}
         >
-          <MenuItem value={ORDER_BY_DATE}>按时间排序</MenuItem>
-          <MenuItem value={ORDER_BY_THUMB}>按点赞排序</MenuItem>
-        </Select>
-      </FormControl>
+          add tag
+        </Button>
+      </Box>
 
-      <CommentGroup
-        pages={pages}
-        pageNum={pageNum}
-        comments={comments}
-        authorClick={AuthorClick}
-        thumbClick={ThumbCommentClick}
-        unThumbClick={UnThumbCommentClick}
-        onPageChange={Change}
-      />
-
-      <TextField
-        multiline={true}
-        id="standard-basic"
-        label="comment"
-        variant="outlined"
-        onChange={(e): void => setContent(e.target.value)}
-      />
-
-      <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        onClick={handleSubmit}
-      >
-        post
-      </Button>
-
-      <Dialog
-        open={shareDialogOpen}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{"Share?"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            {getSharedUrl(location.pathname)}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={() => {
-              setShareDialogOpen(false);
-            }}
-            color="primary"
+      <Box className={classes.comments}>
+        <FormControl variant="filled">
+          <Select
+            labelId="demo-simple-select-filled-label"
+            id="demo-simple-select-filled"
+            value={commentOrderStatus}
+            onChange={handleChange}
           >
-            No
-          </Button>
-          <Button onClick={CommitShare} color="primary" autoFocus>
-            Yes
-          </Button>
-        </DialogActions>
-      </Dialog>
+            <MenuItem value={ORDER_BY_DATE}>按时间排序</MenuItem>
+            <MenuItem value={ORDER_BY_THUMB}>按点赞排序</MenuItem>
+          </Select>
+        </FormControl>
+
+        <CommentGroup
+          pages={pages}
+          pageNum={pageNum}
+          comments={comments}
+          authorClick={AuthorClick}
+          thumbClick={ThumbCommentClick}
+          unThumbClick={UnThumbCommentClick}
+          onPageChange={Change}
+        />
+
+        <TextField
+          multiline={true}
+          id="standard-basic"
+          label="comment"
+          variant="outlined"
+          onChange={(e): void => setContent(e.target.value)}
+        />
+
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          onClick={handleSubmit}
+        >
+          post
+        </Button>
+
+        <Dialog
+          open={shareDialogOpen}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{"Share?"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              {getSharedUrl(location.pathname)}
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={() => {
+                setShareDialogOpen(false);
+              }}
+              color="primary"
+            >
+              No
+            </Button>
+            <Button onClick={CommitShare} color="primary" autoFocus>
+              Yes
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Box>
     </div>
   );
