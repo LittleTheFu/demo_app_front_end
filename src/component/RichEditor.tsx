@@ -80,7 +80,7 @@ const useStyles = makeStyles(() =>
       width: "80%",
       // height: 800,
       border: "1px solid #000",
-      overflow: "scroll",
+      overflow: "hidden",
     },
   })
 );
