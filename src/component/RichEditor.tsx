@@ -79,9 +79,14 @@ const useStyles = makeStyles(() =>
       // height: 300,
       width: "80%",
       // height: 800,
+      margin: "auto",
       border: "1px solid #000",
-      overflow: "hidden",
+      // overflow: "hidden",
     },
+    content: {
+      margin: "30px",
+      overflow: "hidden",
+    }
   })
 );
 
@@ -396,11 +401,13 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
           </IconButton>
           <Divider />
         </Box>
-        <Editable
-          readOnly={props.readonly}
-          renderElement={renderElement}
-          renderLeaf={renderLeaf}
-        />
+        <Box className={classes.content}>
+          <Editable
+            readOnly={props.readonly}
+            renderElement={renderElement}
+            renderLeaf={renderLeaf}
+          />
+        </Box>
       </Slate>
     </Box>
   );
