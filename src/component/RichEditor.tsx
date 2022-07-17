@@ -252,7 +252,7 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
     }
   }, []);
 
-  const btnClick = (editor: Editor): void => {
+  const btnBoldClick = (editor: Editor): void => {
     const marks = Editor.marks(editor);
     console.log("marks");
     console.log(marks);
@@ -263,6 +263,7 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
 
     editor.addMark("bold", !mark);
     console.log("btn click");
+    Transforms.deselect(editor);
   };
 
   const underLineBtnClick = (editor: Editor): void => {
@@ -276,6 +277,7 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
 
     editor.addMark("underline", !mark);
     console.log("btn click");
+    Transforms.deselect(editor);
   };
 
   const italicBtnClick = (editor: Editor): void => {
@@ -291,6 +293,7 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
     editor.addMark("italic", !mark);
     console.log("btn click");
     console.log(editor.selection);
+    Transforms.deselect(editor);
   };
 
   const getToolDisplayFlag = (): string => {
@@ -362,7 +365,7 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
         >
           <IconButton
             onClick={() => {
-              btnClick(editor);
+              btnBoldClick(editor);
             }}
           >
             <FormatBold />
