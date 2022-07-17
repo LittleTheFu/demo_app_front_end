@@ -5,8 +5,15 @@ import React, {
   useMemo,
   useState,
 } from "react";
-import { createEditor, Descendant, Editor, Transforms } from "slate";
-import { Slate, Editable, withReact, ReactEditor } from "slate-react";
+
+import {
+  createEditor,
+  Descendant,
+  Editor,
+  Transforms,
+} from "slate";
+
+import { Slate, Editable, withReact, ReactEditor, RenderElementProps } from "slate-react";
 import { BaseEditor } from "slate";
 import {
   Box,
@@ -22,8 +29,8 @@ import {
   FormatUnderlined,
 } from "@material-ui/icons";
 import { uploadImage } from "../common/service";
-import isUrl from "is-url";
-import imageExtensions from "image-extensions";
+// import isUrl from "is-url";
+// import imageExtensions from "image-extensions";
 
 type EmptyText = {
   text: string;
@@ -70,21 +77,21 @@ const useStyles = makeStyles(() =>
     },
     editor: {
       // height: 300,
-      width: 800,
+      width: "80%",
       // height: 800,
       border: "1px solid #000",
-      overflow: "auto",
+      overflow: "scroll",
     },
   })
 );
 
-const isImageUrl = (url: string) => {
-  if (!url) return false;
-  if (!isUrl(url)) return false;
-  const ext = new URL(url).pathname.split(".").pop();
-  if (!ext) return false;
-  return imageExtensions.includes(ext);
-};
+// const isImageUrl = (url: string) => {
+//   if (!url) return false;
+//   if (!isUrl(url)) return false;
+//   const ext = new URL(url).pathname.split(".").pop();
+//   if (!ext) return false;
+//   return imageExtensions.includes(ext);
+// };
 
 const withImages = (editor: BaseEditor & ReactEditor) => {
   // const { insertData, isVoid } = editor;
@@ -202,7 +209,6 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
       <div>
         <div {...props.attributes}>
           <div contentEditable={false}>
-            {/* <div> */}
             <img draggable={false} alt="pic" src={props.element.url} />
           </div>
           {props.children}
@@ -211,20 +217,24 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
     );
   };
 
-  const DefaultElement = (props: {
-    attributes: JSX.IntrinsicAttributes &
-    React.ClassAttributes<HTMLParagraphElement> &
-    React.HTMLAttributes<HTMLParagraphElement>;
-    children:
-    | boolean
-    | React.ReactChild
-    | React.ReactFragment
-    | React.ReactPortal
-    | null
-    | undefined;
-  }) => {
-    return <p {...props.attributes}>{props.children}</p>;
-  };
+  const DefaultElement = (props: RenderElementProps) => {
+    return <p {...props.attributes}>{props.children}</p>
+  }
+
+  // const DefaultElement = (props: {
+  //   attributes: JSX.IntrinsicAttributes &
+  //   React.ClassAttributes<HTMLParagraphElement> &
+  //   React.HTMLAttributes<HTMLParagraphElement>;
+  //   children:
+  //   | boolean
+  //   | React.ReactChild
+  //   | React.ReactFragment
+  //   | React.ReactPortal
+  //   | null
+  //   | undefined;
+  // }) => {
+  //   return <p {...props.attributes}>{props.children}</p>;
+  // };
 
   const renderElement = useCallback((props) => {
     switch (props.element.type) {
@@ -272,8 +282,10 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
       mark = marks.italic;
     }
 
+    console.log(editor.selection);
     editor.addMark("italic", !mark);
     console.log("btn click");
+    console.log(editor.selection);
   };
 
   const getToolDisplayFlag = (): string => {
@@ -316,7 +328,7 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
     let new_children = children;
 
     if (leaf.bold) {
-      new_children = <strong>{children}</strong>;
+      new_children = <strong>{new_children}</strong>;
     }
 
     if (leaf.underline) {
