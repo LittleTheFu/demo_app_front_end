@@ -10,7 +10,9 @@ import { ThumbUp, ThumbUpAltOutlined } from "@material-ui/icons";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345,
+    width: "100%",
+    margin: "auto",
+    padding:20,
   },
 });
 

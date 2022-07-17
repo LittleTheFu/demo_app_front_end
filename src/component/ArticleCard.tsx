@@ -19,7 +19,13 @@ import { CommonButton } from "./CommonButton";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 800,
+    maxWidth: "80%",
+    margin: "auto",
+  },
+  title: {
+    textAlign: "center",
+    width: "80%",
+    margin: "0 auto",
   },
 });
 
@@ -57,15 +63,9 @@ export const ArticleCard: React.FC<ArticleCardProps> = (
     <Card className={classes.root}>
       <CardActionArea onClick={props.textClick}>
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
+          <h1 className={classes.title}>
             {props.title}
-          </Typography>
-          <UserHead
-            userName={props.author}
-            avatar={props.authorIcon}
-            nameClick={props.authorClick}
-            avatarClick={props.authorClick}
-          ></UserHead>
+          </h1>
         </CardContent>
       </CardActionArea>
       <CardActions>
@@ -115,6 +115,13 @@ export const ArticleCard: React.FC<ArticleCardProps> = (
             IconComponent={BookmarkBorder}
           />
         )}
+         <UserHead
+          size={50}
+          userName={props.author}
+          avatar={props.authorIcon}
+          nameClick={props.authorClick}
+          avatarClick={props.authorClick}
+        ></UserHead>
       </CardActions>
     </Card>
   );

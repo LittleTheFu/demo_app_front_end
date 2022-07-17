@@ -20,6 +20,7 @@ import {
 } from "../common/service";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import {
+  Box,
   Button,
   Dialog,
   DialogActions,
@@ -48,6 +49,16 @@ import { CommentGroup } from "../component/CommentGroup";
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
+  },
+  tags: {
+    width: "80%",
+    margin: "auto",
+    pad: 40,
+  },
+  comments: {
+    width: "80%",
+    margin: "auto",
+    pad: 40,
   },
 });
 
@@ -300,13 +311,23 @@ export const ArticleDetail: React.FC = () => {
         />
       )}
 
+     
+
+      <RichEditor
+        readonly={editFlag ? false : true}
+        content={richContent}
+        onContentChange={(content) => {
+          setRichContent(content);
+        }}
+      />
+
+  <Box className={classes.tags}>
       <TagGroup
         tags={tags}
         TagClick={TagClick}
         TagDeleteClick={article.editable ? TagDeleteClick : undefined}
       />
 
-      <Divider />
       <TextField id="tag" onChange={(e): void => setNewTag(e.target.value)} />
       <Button
         type="submit"
@@ -318,17 +339,9 @@ export const ArticleDetail: React.FC = () => {
       >
         add tag
       </Button>
-      <Divider />
+    </Box>
 
-      <RichEditor
-        readonly={editFlag ? false : true}
-        content={richContent}
-        onContentChange={(content) => {
-          setRichContent(content);
-        }}
-      />
-      <Divider />
-
+    <Box className={classes.comments}>
       <FormControl variant="filled">
         <Select
           labelId="demo-simple-select-filled-label"
@@ -393,6 +406,7 @@ export const ArticleDetail: React.FC = () => {
           </Button>
         </DialogActions>
       </Dialog>
+      </Box>
     </div>
   );
 };

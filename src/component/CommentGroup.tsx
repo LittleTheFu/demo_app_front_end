@@ -1,3 +1,4 @@
+import { Box, makeStyles } from "@material-ui/core";
 import { Pagination } from "@material-ui/lab";
 import { ArticleComment } from "../common/service";
 import { CommentCard } from "./CommentCard";
@@ -13,6 +14,16 @@ interface CommentGroupProps {
   onPageChange: (event: React.ChangeEvent<unknown>, page: number) => void;
 }
 
+const useStyles = makeStyles({
+  root: {
+    width: "100%",
+    margin: "auto",
+  },
+  card: {
+    padding: 20,
+  }
+});
+
 export const CommentGroup: React.FC<CommentGroupProps> = (
   props: CommentGroupProps
 ) => {
@@ -26,8 +37,10 @@ export const CommentGroup: React.FC<CommentGroupProps> = (
     onPageChange,
   } = props;
 
+  const classes = useStyles();
+
   return (
-    <div>
+    <div className={classes.root}>
       <Pagination
         count={pages}
         page={pageNum}
@@ -37,6 +50,7 @@ export const CommentGroup: React.FC<CommentGroupProps> = (
 
       {comments.map((comment: ArticleComment, index: number) => {
         return (
+          <Box className={classes.card}>
           <CommentCard
             key={index}
             content={comment.articleCommentContent}
@@ -55,6 +69,7 @@ export const CommentGroup: React.FC<CommentGroupProps> = (
               unThumbClick(comment.id);
             }}
           />
+          </Box>
         );
       })}
     </div>
