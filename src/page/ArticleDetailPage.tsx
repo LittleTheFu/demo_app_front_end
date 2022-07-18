@@ -160,10 +160,12 @@ export const ArticleDetail: React.FC = () => {
 
   const AcceptClick = (title: string, content: string): void => {
     setReadOnlyFlag(true);
-    updateArticle(article.id, title, content, (data) => {
+    console.log(richContent);
+    const strContent = JSON.stringify(richContent);
+    updateArticle(article.id, title, strContent, (data) => {
       console.log(data);
-      console.log("accpet click : " + title + " " + content);
-      setArticle({ ...article, title: title, content: content });
+      console.log("accpet click : " + title + " " + strContent);
+      setArticle({ ...article, title: title, content: strContent});
     });
   };
 

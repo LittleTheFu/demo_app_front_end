@@ -181,7 +181,7 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
   useEffect(() => {
    setReadOnlyFlag(props.readonly);
    console.log("READONLY:" + props.readonly);
-  }, [props]);
+  }, [props.readonly]);
 
   // Define a React component renderer for our code blocks.
   const CodeElement = (props: {
