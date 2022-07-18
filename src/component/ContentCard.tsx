@@ -80,8 +80,6 @@ export const ContentCard: React.FC<ContentCardProps> = (
               IconComponent={Mail}
               clickAction={mailClick}
             />
-          </Grid>
-          <Grid item xs={12} className={classes.date}>
             <CommonButton
               IconComponent={Delete}
               clickAction={deleteClick}

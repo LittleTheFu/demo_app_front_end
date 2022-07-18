@@ -15,7 +15,7 @@ export const CommonButton: React.FC<CommonButtonProps> = (
   const { clickAction, visible, count } = props;
 
   return (
-    <Box component="div" display={visible ? "block" : "none"}>
+    <Box component="div" display={visible ? "inline" : "none"}>
       <IconButton
         onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
           e.stopPropagation();
