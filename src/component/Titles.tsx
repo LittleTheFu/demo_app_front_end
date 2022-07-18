@@ -1,3 +1,4 @@
+import { Box } from "@material-ui/core";
 import { Pagination } from "@material-ui/lab";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -67,6 +68,7 @@ export const Titles: React.FC<TitlesProps> = (props: TitlesProps) => {
       />
       {props.titles.map((a, index) => {
         return (
+          <Box px={2} py={1}>
           <TitleCard
             key={index}
             id={a.id}
@@ -77,6 +79,7 @@ export const Titles: React.FC<TitlesProps> = (props: TitlesProps) => {
               ArticleClick(a.id);
             }}
           />
+          </Box>
         );
       })}
     </div>
