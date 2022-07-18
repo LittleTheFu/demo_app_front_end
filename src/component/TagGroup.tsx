@@ -1,4 +1,5 @@
-import { Chip } from "@material-ui/core";
+import { Box, Chip } from "@material-ui/core";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 interface TagGroupProps {
   tags: string[];
@@ -6,32 +7,42 @@ interface TagGroupProps {
   TagDeleteClick?: (tag: string) => void;
 }
 
+const useStyles = makeStyles({
+    chip: {
+      padding: 4,
+      display: 'inline-flex',
+    },
+  });
+
 export const TagGroup: React.FC<TagGroupProps> = (props: TagGroupProps) => {
   const { tags, TagClick, TagDeleteClick } = props;
+  const classes = useStyles();
 
   return (
-    <div>
+      <Box sx={{ flexDirection: 'row-reverse' }}>
       {tags.map((tag, index) => {
         return (
-          <Chip
-            key={index}
-            label={tag}
-            clickable
-            color="primary"
-            variant="outlined"
-            onClick={() => {
-              TagClick(tag);
-            }}
-            onDelete={
-              TagDeleteClick
-                ? () => {
-                    TagDeleteClick(tag);
-                  }
-                : undefined
-            }
-          />
+          <Box className={classes.chip}>
+            <Chip
+              key={index}
+              label={tag}
+              clickable
+              color="primary"
+              variant="outlined"
+              onClick={() => {
+                TagClick(tag);
+              }}
+              onDelete={
+                TagDeleteClick
+                  ? () => {
+                      TagDeleteClick(tag);
+                    }
+                  : undefined
+              }
+            />
+            </Box>
         );
       })}
-    </div>
+      </Box>
   );
 };
