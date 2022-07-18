@@ -5,6 +5,7 @@ import Card from "@material-ui/core/Card";
 import { CommonButton } from "./CommonButton";
 import { UserHead } from "./UserHead";
 import { Delete, Mail } from "@material-ui/icons";
+import { Box } from "@material-ui/core";
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -57,11 +58,12 @@ export const ContentCard: React.FC<ContentCardProps> = (
   const { avatar, username, content, canBeDeleted, boldText } = props;
 
   return (
+    <Box px={1} py={2}>
     <Card className={classes.card}>
       <Grid container>
         <Grid item xs={3} md={2} lg={1}>
           <UserHead
-            size={80}
+            size={60}
             avatar={avatar}
             userName={username}
             nameClick={authorClick}
@@ -89,6 +91,7 @@ export const ContentCard: React.FC<ContentCardProps> = (
         </Grid>
       </Grid>
     </Card>
+    </Box>
   );
 };
 
