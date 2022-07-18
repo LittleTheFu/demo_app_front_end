@@ -76,7 +76,7 @@ export const ArticleDetail: React.FC = () => {
   const [article, setArticle] = useState<Article>(new Article());
   const [content, setContent] = useState("");
   const [comments, setComments] = useState<ArticleComment[]>([]);
-  const [editFlag, setEditFlag] = useState(false);
+  const [readOnlyFlag, setReadOnlyFlag] = useState(true);
   const [shareDialogOpen, setShareDialogOpen] = useState(false);
   const [newTag, setNewTag] = useState("");
   const [tags, setTags] = useState<string[]>([]);
@@ -154,12 +154,12 @@ export const ArticleDetail: React.FC = () => {
     savedTitle.current = article.title;
     savedContent.current = article.content;
 
-    setEditFlag(true);
+    setReadOnlyFlag(false);
     console.log("edit click");
   };
 
   const AcceptClick = (title: string, content: string): void => {
-    setEditFlag(false);
+    setReadOnlyFlag(true);
     updateArticle(article.id, title, content, (data) => {
       console.log(data);
       console.log("accpet click : " + title + " " + content);
@@ -168,7 +168,7 @@ export const ArticleDetail: React.FC = () => {
   };
 
   const CancelClick = (): void => {
-    setEditFlag(false);
+    setReadOnlyFlag(true);
     setArticle({ ...article, title: savedTitle.current, content: savedContent.current });
 
     const parsedObject = JSON.parse(savedContent.current);
@@ -293,56 +293,60 @@ export const ArticleDetail: React.FC = () => {
         </Typography>
       </Box>
 
-      {editFlag ? (
-        <EditCard
-          title={article.title}
-          content={article.content}
-          acceptClick={AcceptClick}
-          cancelClick={CancelClick}
-        />
-      ) : (
-        <ArticleCard
-          likeClick={() => {
-            LikeClick(article.id);
-          }}
-          unlikeClick={() => {
-            UnlikeClick(article.id);
-          }}
-          bookmarkClick={() => {
-            BookMarkClick(article.id);
-          }}
-          unbookmarkClick={() => {
-            UnBookMarkClick(article.id);
-          }}
-          authorClick={() => {
-            AuthorClick(article.authorId);
-          }}
-          deleteClick={() => {
-            DeleteClick(article.id);
-          }}
-          shareClick={() => {
-            ShareClick(article.id);
-          }}
-          editClick={EditClick}
-          id={article.id}
-          title={article.title}
-          content={article.content}
-          author={article.author}
-          authorIcon={article.authorIcon}
-          thumb={article.thumb}
-          thumbed={article.thumbState}
-          deletable={article.deletable}
-          editable={article.editable}
-          shareable={true}
-          bookmarded={article.bookmarked}
-        />
-      )}
+      {readOnlyFlag ?
+        (
+          <ArticleCard
+            likeClick={() => {
+              LikeClick(article.id);
+            }}
+            unlikeClick={() => {
+              UnlikeClick(article.id);
+            }}
+            bookmarkClick={() => {
+              BookMarkClick(article.id);
+            }}
+            unbookmarkClick={() => {
+              UnBookMarkClick(article.id);
+            }}
+            authorClick={() => {
+              AuthorClick(article.authorId);
+            }}
+            deleteClick={() => {
+              DeleteClick(article.id);
+            }}
+            shareClick={() => {
+              ShareClick(article.id);
+            }}
+            editClick={EditClick}
+            id={article.id}
+            title={article.title}
+            content={article.content}
+            author={article.author}
+            authorIcon={article.authorIcon}
+            thumb={article.thumb}
+            thumbed={article.thumbState}
+            deletable={article.deletable}
+            editable={article.editable}
+            shareable={true}
+            bookmarded={article.bookmarked}
+          />
+        ) :
+        (
+          <EditCard
+            title={article.title}
+            content={article.content}
+            acceptClick={AcceptClick}
+            cancelClick={CancelClick}
+          />
+        )}
 
       <RichEditor
-        readonly={editFlag ? false : true}
+        readonly={readOnlyFlag}
         content={richContent}
         onContentChange={(content) => {
           setRichContent(content);
+          console.log(content);
+          // console.log(editFlag);
         }}
       />
 

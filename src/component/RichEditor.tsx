@@ -161,6 +161,7 @@ const insertParagraph = (editor: BaseEditor & ReactEditor, text: string) => {
 
 export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
   const [returnUrl, setReturnUrl] = useState("");
+  const [readOnlyFlag, setReadOnlyFlag] = useState(props.readonly);
 
   const classes = useStyles({});
 
@@ -176,6 +177,11 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
     insertImage(editor, returnUrl);
     insertParagraph(editor, "");
   }, [returnUrl]);
+
+  useEffect(() => {
+   setReadOnlyFlag(props.readonly);
+   console.log("READONLY:" + props.readonly);
+  }, [props]);
 
   // Define a React component renderer for our code blocks.
   const CodeElement = (props: {
@@ -406,7 +412,7 @@ export const RichEditor: React.FC<EditCardProps> = (props: EditCardProps) => {
         </Box>
         <Box className={classes.content}>
           <Editable
-            readOnly={props.readonly}
+            readOnly={readOnlyFlag}
             renderElement={renderElement}
             renderLeaf={renderLeaf}
           />

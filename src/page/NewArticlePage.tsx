@@ -70,6 +70,7 @@ export const NewArticlePage: React.FC = () => {
         content={richContent}
         onContentChange={(content) => {
           setRichContent(content);
+          console.log(content);
         }}
       />
 
