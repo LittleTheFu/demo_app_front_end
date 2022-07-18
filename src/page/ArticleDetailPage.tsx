@@ -32,6 +32,7 @@ import {
   MenuItem,
   Select,
   TextField,
+  Typography,
 } from "@material-ui/core";
 import { EditCard } from "../component/EditCard";
 import { ArticleCard } from "../component/ArticleCard";
@@ -49,6 +50,11 @@ import { CommentGroup } from "../component/CommentGroup";
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
+  },
+  title: {
+    width: "80%",
+    margin: "auto",
+    pad: 40,
   },
   tags: {
     width: "80%",
@@ -266,6 +272,12 @@ export const ArticleDetail: React.FC = () => {
 
   return (
     <div>
+      <Box className={classes.title}>
+        <Typography align="center">
+          <h1>{article.title}</h1>
+        </Typography>
+      </Box>
+
       {editFlag ? (
         <EditCard
           title={article.title}
@@ -310,8 +322,6 @@ export const ArticleDetail: React.FC = () => {
           bookmarded={article.bookmarked}
         />
       )}
-
-
 
       <RichEditor
         readonly={editFlag ? false : true}

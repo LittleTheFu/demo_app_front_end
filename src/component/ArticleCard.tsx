@@ -61,13 +61,13 @@ export const ArticleCard: React.FC<ArticleCardProps> = (
 
   return (
     <Card className={classes.root}>
-      <CardActionArea onClick={props.textClick}>
+      {/* <CardActionArea onClick={props.textClick}>
         <CardContent>
           <h1 className={classes.title}>
             {props.title}
           </h1>
         </CardContent>
-      </CardActionArea>
+      </CardActionArea> */}
       <CardActions>
         {props.thumbed ? (
           <CommonButton
