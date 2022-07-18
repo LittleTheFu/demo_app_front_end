@@ -1,10 +1,28 @@
-import { Button, Divider, TextField } from "@material-ui/core";
+import { Box, Button, TextField } from "@material-ui/core";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Descendant } from "slate";
 import { createArticle, ICreateArticleResponseData } from "../common/service";
 import { getArticleUrl } from "../common/UrlHelper";
 import { RichEditor } from "../component/RichEditor";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    title: {
+      width: "100%",
+    },
+    box: {
+      width: "80%",
+      margin: "0 auto",
+      paddingTop: 20,
+      paddingBottom: 20,
+    },
+    button: {
+      width: "100%",
+    }
+  })
+);
 
 export const NewArticlePage: React.FC = () => {
   const [title, setTitle] = useState("");
@@ -21,6 +39,7 @@ export const NewArticlePage: React.FC = () => {
       ],
     },
   ]);
+  const classes = useStyles();
 
   const [textObjects] = useState("");
 
@@ -37,23 +56,14 @@ export const NewArticlePage: React.FC = () => {
 
   return (
     <div>
-      <TextField
-        multiline={true}
-        variant="outlined"
-        onChange={(e): void => setTitle(e.target.value)}
-      />
-      <Divider />
-
-      <Button
-        type="submit"
-        variant="contained"
-        color="primary"
-        onClick={handleSubmit}
-      >
-        post
-      </Button>
-
-      <Divider />
+      <Box className={classes.box}>
+        <TextField
+          className={classes.title}
+          multiline={true}
+          variant="outlined"
+          onChange={(e): void => setTitle(e.target.value)}
+        />
+      </Box>
 
       <RichEditor
         readonly={false}
@@ -62,6 +72,18 @@ export const NewArticlePage: React.FC = () => {
           setRichContent(content);
         }}
       />
+
+      <Box className={classes.box}>
+        <Button
+          className={classes.button}
+          type="submit"
+          variant="contained"
+          color="primary"
+          onClick={handleSubmit}
+        >
+          post
+        </Button>
+      </Box>
     </div>
   );
 };
