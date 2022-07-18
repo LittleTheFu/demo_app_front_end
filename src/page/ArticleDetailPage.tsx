@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   addArticleTag,
@@ -86,6 +86,11 @@ export const ArticleDetail: React.FC = () => {
   const [pageNum, setPageNum] = useState(0);
   const [pages, setPages] = useState(0);
 
+  // const [savedTitle, setSavedTitle] = useState("");
+  // const [savedContent, setSavedContent] = useState("");
+  const savedTitle = useRef("");
+  const savedContent = useRef("");
+
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
@@ -144,6 +149,11 @@ export const ArticleDetail: React.FC = () => {
   };
 
   const EditClick = (): void => {
+    // setSavedTitle(article.title);
+    // setSavedContent(article.content);
+    savedTitle.current = article.title;
+    savedContent.current = article.content;
+
     setEditFlag(true);
     console.log("edit click");
   };
@@ -159,6 +169,11 @@ export const ArticleDetail: React.FC = () => {
 
   const CancelClick = (): void => {
     setEditFlag(false);
+    setArticle({ ...article, title: savedTitle.current, content: savedContent.current });
+
+    const parsedObject = JSON.parse(savedContent.current);
+    setRichContent(parsedObject);
+
     console.log("cancel click");
   };
 
