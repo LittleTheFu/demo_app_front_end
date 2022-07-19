@@ -55,6 +55,7 @@ const useStyles = makeStyles({
     width: "80%",
     margin: "auto",
     pad: 40,
+    textAlign:"center"
   },
   tags: {
     width: "80%",
@@ -290,9 +291,7 @@ export const ArticleDetail: React.FC = () => {
   return (
     <div>
       <Box className={classes.title}>
-        <Typography align="center">
           <h1>{article.title}</h1>
-        </Typography>
       </Box>
 
       {readOnlyFlag ?
