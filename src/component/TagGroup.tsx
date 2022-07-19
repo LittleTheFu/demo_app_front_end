@@ -1,5 +1,5 @@
 import { Box, Chip } from "@material-ui/core";
-import { makeStyles, createStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 interface TagGroupProps {
   tags: string[];

@@ -27,12 +27,10 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Divider,
   FormControl,
   MenuItem,
   Select,
   TextField,
-  Typography,
 } from "@material-ui/core";
 import { EditCard } from "../component/EditCard";
 import { ArticleCard } from "../component/ArticleCard";
