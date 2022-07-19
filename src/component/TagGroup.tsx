@@ -22,9 +22,8 @@ export const TagGroup: React.FC<TagGroupProps> = (props: TagGroupProps) => {
       <Box sx={{ flexDirection: 'row-reverse' }}>
       {tags.map((tag, index) => {
         return (
-          <Box className={classes.chip}>
+          <Box className={classes.chip} key={index}>
             <Chip
-              key={index}
               label={tag}
               clickable
               color="primary"

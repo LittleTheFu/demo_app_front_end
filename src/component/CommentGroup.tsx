@@ -50,9 +50,8 @@ export const CommentGroup: React.FC<CommentGroupProps> = (
 
       {comments.map((comment: ArticleComment, index: number) => {
         return (
-          <Box className={classes.card}>
+          <Box className={classes.card} key={index}>
             <CommentCard
-              key={index}
               content={comment.articleCommentContent}
               author={comment.articleCommentUserName}
               authorIcon={comment.articleCommentUserIcon}
