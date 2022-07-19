@@ -58,12 +58,24 @@ const useStyles = makeStyles({
   tags: {
     width: "80%",
     margin: "auto",
-    pad: 40,
+    paddingTop: 20,
+    paddingBottom: 20,
   },
   comments: {
     width: "80%",
     margin: "auto",
-    pad: 40,
+  },
+  commentsBox: {
+    width: "80%",
+    margin: "auto",
+  },
+  commentTypingArea: {
+    width: "100%",
+    margin: "auto",
+  },
+  commentSubmitBUtton: {
+    width: "100%",
+    margin: "auto",
   },
 });
 
@@ -393,6 +405,7 @@ export const ArticleDetail: React.FC = () => {
         />
 
         <TextField
+          className={classes.commentTypingArea}
           multiline={true}
           id="standard-basic"
           label="comment"
@@ -401,6 +414,7 @@ export const ArticleDetail: React.FC = () => {
         />
 
         <Button
+          className={classes.commentSubmitBUtton}
           type="submit"
           variant="contained"
           color="primary"
